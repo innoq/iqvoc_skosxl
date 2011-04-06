@@ -1,0 +1,7 @@
+.DS_Store
+nbproject
+pkg/*
+*.gem
+.bundle
+
+config/database.yml

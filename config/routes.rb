@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  available_locales = /de|en/ # FIXME #{I18n.available_locales.map(&:to_s).join('|')}/
 
   scope ':lang', :lang => available_locales do
 

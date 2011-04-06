@@ -5,6 +5,8 @@ module Iqvoc
 
     class Engine < Rails::Engine
       
+      paths.lib.tasks  << "lib/engine_tasks"
+
       ActiveSupport.on_load(:after_iqvoc_config) do
         require(Rails.root.join('lib/iqvoc.rb'))
         require 'iqvoc/skosxl/ability'

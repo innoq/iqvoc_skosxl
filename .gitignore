@@ -5,3 +5,5 @@ pkg/*
 .bundle
 
 config/database.yml
+
+log

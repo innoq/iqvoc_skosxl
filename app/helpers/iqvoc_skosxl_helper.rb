@@ -4,5 +4,15 @@ module IqvocSkosxlHelper
     {
     }
   end
+
+  def render_label(label)
+    if label.new_record?
+      "-"
+    elsif label.is_a?(Label::SKOSXL::Base)
+      link_to(label.to_s, label_path(:lang => @active_language, :id => label))
+    else
+      label.to_s
+    end
+  end
   
 end

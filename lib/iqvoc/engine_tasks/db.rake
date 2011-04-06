@@ -1,20 +1,15 @@
 namespace :iqvoc_skosxl do
   namespace :db do
-    
-    desc "Do iQvoc SKOSXL specific migrations (task is idempotent)"
-    task :install_extensions => :environment do
-      require Iqvoc::SKOSXL::Engine.find_root_with_flag("db").join('db/migrations/add_skosxl_extensions.rb')
-      AddSKOSXLExtensions.up
-    end
 
-    desc "Undo iQvoc SKOSXL specific migrations (task is idempotent)"
-    task :uninstall_extenstions => :environment do
-      require Iqvoc::SKOSXL::Engine.find_root_with_flag("db").join('db/migrations/add_skosxl_extensions.rb')
-      AddSKOSXLExtensions.down
+    desc "Migrate the database through scripts in db/migrate and update db/schema.rb by invoking db:schema:dump. Target specific version with VERSION=x. Turn off output with VERBOSE=false."
+    task :migrate => :environment do
+      ActiveRecord::Migration.verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
+      ActiveRecord::Migrator.migrate(Iqvoc::SKOSXL::Engine.find_root_with_flag("db").join('db/migrate'), ENV["VERSION"] ? ENV["VERSION"].to_i : nil)
+      Rake::Task["db:schema:dump"].invoke if ActiveRecord::Base.schema_format == :ruby
     end
 
     desc "Load seeds (task is idempotent)"
-    task :seeds => :environment do
+    task :seed => :environment do
       Iqvoc::SKOSXL::Engine.load_seed
     end
 

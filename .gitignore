@@ -7,3 +7,5 @@ pkg/*
 config/database.yml
 
 log
+
+public/*/iqvoc

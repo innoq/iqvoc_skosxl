@@ -2,7 +2,10 @@ source "http://rubygems.org"
 
 gem "iqvoc", :path => '../iqvoc'
 
-gem 'cancan'
+# Hotfix for the problem of engine/plugin helpers not being mixed in.
+# https://rails.lighthouseapp.com/projects/8994/tickets/1905-apphelpers-within-plugin-not-being-mixed-in
+# http://github.com/drogus/rails_helpers_fix
+gem 'rails_helpers_fix'
 
 group :development do
   gem 'mongrel'

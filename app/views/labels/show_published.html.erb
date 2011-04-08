@@ -1,4 +1,4 @@
-render 'show_head'
+<%= render 'show_head' %>
 
 <% if can?(:read, @new_label_version) || can?(:branch, @label) %>
   <div class="editing_versioning_toolbar">

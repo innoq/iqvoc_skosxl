@@ -15,11 +15,11 @@
         <%= @label.language %>
         <%= f.hidden_field :language %>
       </li>
-      
+
       <%- if Iqvoc::XLLabel.has_additional_base_data -%>
         <%= render :partial => 'partials/label/additional_base_data', :locals => { :f => f } %>
       <%- end -%>
-      
+
       <li>
         <%= f.label :follow_up %>
         <%= f.text_field :follow_up, :class => "datepicker" %>
@@ -30,26 +30,26 @@
       </li>
     </ol>
   </fieldset>
-  
+
   <fieldset>
     <legend>Relations</legend>
     <ol>
-    <%- Iqvoc::XLLabel.relation_classes.each do |relation_class| -%>
+      <%- Iqvoc::XLLabel.relation_classes.each do |relation_class| -%>
         <%= render relation_class.edit_partial_name(@label), :label => @label, :klass => relation_class %>
-    <%- end -%>
+      <%- end -%>
     </ol>
   </fieldset>
-  
+
   <%- Iqvoc::XLLabel.additional_association_classes.keys.each do |association_class| -%>
-      <fieldset>
-        <legend><%= association_class.model_name.human(:count => 2) %></legend>
-        <ol>
-          <%= render association_class.edit_partial_name(@label), :label => @label, :klass => association_class, :f => f %>
-        </ol>
-      </fieldset>
+    <fieldset>
+      <legend><%= association_class.model_name.human(:count => 2) %></legend>
+      <ol>
+        <%= render association_class.edit_partial_name(@label), :label => @label, :klass => association_class, :f => f %>
+      </ol>
+    </fieldset>
   <%- end -%>
 
-  
+
   <% unless @label.new_record? %>
     <% Iqvoc::XLLabel.note_classes.each do |note_class| %>
       <%= render note_class.edit_partial_name(@label), :owner_klass => @label, :assoc_klass => note_class, :f => f %>

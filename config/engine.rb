@@ -4,7 +4,7 @@ module Iqvoc
   module SKOSXL
 
     class Engine < Rails::Engine
-      
+
       paths.lib.tasks  << "lib/engine_tasks"
 
       def self.load_seed

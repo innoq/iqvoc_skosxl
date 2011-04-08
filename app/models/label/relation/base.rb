@@ -1,5 +1,9 @@
 class Label::Relation::Base < ActiveRecord::Base
   
+  class_inheritable_accessor :rdf_namespace, :rdf_predicate
+  self.rdf_namespace = nil
+  self.rdf_predicate = nil
+
   set_table_name 'label_relations'
   
   belongs_to :domain, :class_name => "Label::Base"

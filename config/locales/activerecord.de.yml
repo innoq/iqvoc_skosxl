@@ -4,3 +4,5 @@ de:
       label:
         skosxl:
           base: XL Label
+        relation:
+          base: Label Relation

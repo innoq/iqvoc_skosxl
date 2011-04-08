@@ -5,12 +5,12 @@ Rails.application.routes.draw do
 
     resources :labels
 
-    match "concepts/versions/:origin/branch(.:format)"      => "concepts/versions#branch",    :as => "concept_versions_branch"
-    match "concepts/versions/:origin/merge(.:format)"       => "concepts/versions#merge",     :as => "concept_versions_merge"
-    match "concepts/versions/:origin/lock(.:format)"        => "concepts/versions#lock",      :as => "concept_versions_lock"
-    match "concepts/versions/:origin/unlock(.:format)"      => "concepts/versions#unlock",    :as => "concept_versions_unlock"
-    match "concepts/versions/:origin/to_review(.:format)"   => "concepts/versions#to_review", :as => "concept_versions_to_review"
-    match "concepts/versions/:origin/consistency_check(.:format)" => "concepts/versions#consistency_check", :as => "concept_versions_consistency_check"
+    match "labels/versions/:origin/branch(.:format)"      => "labels/versions#branch",    :as => "label_versions_branch"
+    match "labels/versions/:origin/merge(.:format)"       => "labels/versions#merge",     :as => "label_versions_merge"
+    match "labels/versions/:origin/lock(.:format)"        => "labels/versions#lock",      :as => "label_versions_lock"
+    match "labels/versions/:origin/unlock(.:format)"      => "labels/versions#unlock",    :as => "label_versions_unlock"
+    match "labels/versions/:origin/to_review(.:format)"   => "labels/versions#to_review", :as => "label_versions_to_review"
+    match "labels/versions/:origin/consistency_check(.:format)" => "labels/versions#consistency_check", :as => "label_versions_consistency_check"
 
   end
 

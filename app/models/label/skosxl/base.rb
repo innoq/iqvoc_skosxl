@@ -2,6 +2,10 @@ class Label::SKOSXL::Base < Label::Base
 
   include Iqvoc::Versioning
   
+  class_inheritable_accessor :rdf_namespace, :rdf_class
+  self.rdf_namespace = "skosxl"
+  self.rdf_class = "Label"
+
   # ********** Validations
 
   validate :two_versions_exist, :on => :create
@@ -109,6 +113,12 @@ class Label::SKOSXL::Base < Label::Base
   def initialize(params = {})
     super(params)
     @full_validation = false
+  end
+
+  def build_rdf_subject(document, controller, &block)
+    ns = IqRdf::Namespace.find_namespace_class(self.rdf_namespace.to_sym)
+    raise "Namespace '#{rdf_namespace}' is not defined in IqRdf document." unless ns
+    IqRdf.build_uri(self.origin, ns.build_uri(self.rdf_class), &block)
   end
 
   def concepts_for_labeling_class(labeling_class)

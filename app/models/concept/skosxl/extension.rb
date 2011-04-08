@@ -18,7 +18,7 @@ module Concept
 
               # Iterate over all labels to be added and create them
               Iqvoc::XLLabel.base_class.by_origin(new_origins).each do |l|
-                concept.send(labeling_class_name.to_relation_name).create!(:target => l)
+                concept.send(labeling_relation_name).create!(:target => l)
               end
             end
           end

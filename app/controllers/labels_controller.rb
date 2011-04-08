@@ -5,12 +5,8 @@ class LabelsController < ApplicationController
     authorize! :read, Iqvoc::XLLabel.base_class
     respond_to do |format|
       format.json do
-        scope = Label::Base.by_query_value("#{params[:query]}%")
+        scope = Iqvoc::XLLabel.base_class.by_query_value("#{params[:query]}%")
         if params[:language] # XXX: isn't this always the case; language is required, supplied via route!?
-          # TODO
-          # Label::Base should perhaps be replaced by the label_class used in the labeling
-          # (s. MyLabeling.label_class). But then the relation class must be passed
-          # to this action (max 2 lines of code :-) )
           scope = scope.by_language(params[:language])
         end
         @labels = scope.published.order("LOWER(value)").all

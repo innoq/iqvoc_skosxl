@@ -1,3 +1,6 @@
 de:
   activerecord:
     models:
+      label:
+        skosxl:
+          base: XL Label

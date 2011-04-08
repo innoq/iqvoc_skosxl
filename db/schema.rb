@@ -10,26 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110328124300) do
-
-  create_table "classifications", :force => true do |t|
-    t.integer  "owner_id"
-    t.integer  "target_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "classifications", ["owner_id", "target_id"], :name => "index_classifications_on_owner_id_and_target_id"
-
-  create_table "classifiers", :force => true do |t|
-    t.string   "title"
-    t.string   "description"
-    t.string   "notation"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "classifiers", ["notation"], :name => "index_classifiers_on_notation"
+ActiveRecord::Schema.define(:version => 20110408123644) do
 
   create_table "collection_members", :force => true do |t|
     t.integer "collection_id"
@@ -47,8 +28,7 @@ ActiveRecord::Schema.define(:version => 20110328124300) do
     t.datetime "updated_at"
   end
 
-  add_index "concept_relations", ["owner_id", "target_id"], :name => "index_semantic_relations_on_owner_id_and_target_id"
-  add_index "concept_relations", ["target_id"], :name => "index_semantic_relations_on_target_id"
+  add_index "concept_relations", ["owner_id", "target_id"], :name => "ix_concept_relations_fk"
 
   create_table "concepts", :force => true do |t|
     t.string   "type"
@@ -65,15 +45,8 @@ ActiveRecord::Schema.define(:version => 20110328124300) do
     t.datetime "updated_at"
   end
 
-  add_index "concepts", ["origin"], :name => "index_concepts_on_origin", :length => {"origin"=>255}
-  add_index "concepts", ["published_version_id"], :name => "index_concepts_on_published_version_id"
-
-  create_table "concepts_taxon_ranks", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "concept_id"
-    t.integer  "taxon_rank_id"
-  end
+  add_index "concepts", ["origin"], :name => "ix_concepts_on_origin", :length => {"origin"=>255}
+  add_index "concepts", ["published_version_id"], :name => "ix_concepts_publ_version_id"
 
   create_table "label_relations", :force => true do |t|
     t.string   "type"
@@ -94,15 +67,16 @@ ActiveRecord::Schema.define(:version => 20110328124300) do
     t.datetime "updated_at"
   end
 
-  add_index "labelings", ["owner_id", "target_id", "type"], :name => "index_labelings_on_owner_id_and_target_id_and_type"
-  add_index "labelings", ["owner_id", "target_id"], :name => "index_labelings_on_owner_id_and_target_id"
-  add_index "labelings", ["type"], :name => "index_labelings_on_type"
+  add_index "labelings", ["owner_id", "target_id", "type"], :name => "ix_labelings_fk_type"
+  add_index "labelings", ["type"], :name => "ix_labelings_on_type"
 
   create_table "labels", :force => true do |t|
     t.string   "type"
     t.string   "origin",               :limit => 4000
     t.string   "language"
     t.string   "value",                :limit => 1024
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "rev",                                  :default => 1
     t.integer  "published_version_id"
     t.date     "published_at"
@@ -111,14 +85,12 @@ ActiveRecord::Schema.define(:version => 20110328124300) do
     t.date     "follow_up"
     t.boolean  "to_review"
     t.date     "rdf_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
-  add_index "labels", ["language"], :name => "index_labels_on_owner_id_and_language"
-  add_index "labels", ["origin"], :name => "index_labels_on_origin", :length => {"origin"=>255}
-  add_index "labels", ["published_version_id"], :name => "index_labels_on_published_version_id"
-  add_index "labels", ["value"], :name => "index_labels_on_value", :length => {"value"=>255}
+  add_index "labels", ["language"], :name => "ix_labels_on_language"
+  add_index "labels", ["origin"], :name => "ix_labels_on_origin", :length => {"origin"=>255}
+  add_index "labels", ["published_version_id"], :name => "ix_labels_on_published_v"
+  add_index "labels", ["value"], :name => "ix_labels_on_value", :length => {"value"=>255}
 
   create_table "matches", :force => true do |t|
     t.integer  "concept_id"
@@ -128,9 +100,8 @@ ActiveRecord::Schema.define(:version => 20110328124300) do
     t.datetime "updated_at"
   end
 
-  add_index "matches", ["concept_id", "type"], :name => "index_matches_on_concept_id_and_type"
-  add_index "matches", ["concept_id"], :name => "index_matches_on_concept_id"
-  add_index "matches", ["type"], :name => "index_matches_on_type"
+  add_index "matches", ["concept_id", "type"], :name => "ix_matches_fk_type"
+  add_index "matches", ["type"], :name => "ix_matches_on_type"
 
   create_table "note_annotations", :force => true do |t|
     t.integer  "note_id"
@@ -140,7 +111,7 @@ ActiveRecord::Schema.define(:version => 20110328124300) do
     t.datetime "updated_at"
   end
 
-  add_index "note_annotations", ["note_id"], :name => "index_note_annotations_on_note_id"
+  add_index "note_annotations", ["note_id"], :name => "ix_note_annotations_fk"
 
   create_table "notes", :force => true do |t|
     t.string   "language",   :limit => 2
@@ -152,17 +123,9 @@ ActiveRecord::Schema.define(:version => 20110328124300) do
     t.string   "owner_type",                 :null => false
   end
 
-  add_index "notes", ["owner_id", "language"], :name => "index_notes_on_owner_id_and_language"
-  add_index "notes", ["owner_id", "owner_type", "type"], :name => "index_notes_on_owner_id_and_owner_type_and_type"
-  add_index "notes", ["type"], :name => "index_notes_on_type"
-
-  create_table "taxon_ranks", :force => true do |t|
-    t.string   "name"
-    t.integer  "rank"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "origin"
-  end
+  add_index "notes", ["language"], :name => "ix_notes_on_language"
+  add_index "notes", ["owner_id", "owner_type", "type"], :name => "ix_notes_fk_type"
+  add_index "notes", ["type"], :name => "ix_notes_on_type"
 
   create_table "users", :force => true do |t|
     t.string   "forename"

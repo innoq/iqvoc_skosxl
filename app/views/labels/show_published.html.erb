@@ -1,22 +1,6 @@
-<%- published_param = @label.published? ? nil : 0 %>
-<%= content_for :head do -%>
-  <link href="<%= rdf_url(@label.origin, :format => :ttl, :published => published_param, :lang => nil) %>" type="text/turtle" rel="alternate" title=""/>
-  <link href="<%= rdf_url(@label.origin, :format => :rdf, :published => published_param, :lang => nil) %>" type="application/rdf+xml" rel="alternate" title=""/>
-<% end -%>
+render 'show_head'
 
-<h2><%= @label.class.model_name.human %>:
-  <%= link_to(@label.origin, label_path(:lang => @active_language, :id => @label.origin)) %>
-  <%- if !@label.published? %>
-    (<%= t('txt.common.unpublished_version') %>)
-  <%- end -%>
-</h2>
-<div id="format_link_ttl">
-  <%= rdf_url(@label.origin, :format => nil, :published => published_param, :lang => nil) %>
-  (<%= link_to "Turtle", rdf_url(@label.origin, :format => :ttl, :published => published_param, :lang => nil) %>,
-  <%= link_to "RDF/XML", rdf_url(@label.origin, :format => :rdf, :published => published_param, :lang => nil) %>)
-</div>
-
- <% if can?(:read, @new_label_version) || can?(:branch, @label) %>
+<% if can?(:read, @new_label_version) || can?(:branch, @label) %>
   <div class="editing_versioning_toolbar">
     <% if @new_label_version.blank? && can?(:branch, @label) %>
       <%= button_to t("txt.views.versioning.versioning_mode"), label_versions_branch_path(:lang => @active_language, :origin => @label.origin) %>

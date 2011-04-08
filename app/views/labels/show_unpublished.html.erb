@@ -1,4 +1,4 @@
-<h2><%= t("txt.views.labels.versionview") %> <strong><%= @label.value %></strong></h2>
+<%= render 'show_head' %>
 
 <p class="flash_notice">
   <%= t("txt.views.versioning.current_revision") %> <%= @label.rev %><% if @label.locked? %> <%= t("txt.views.versioning.in_ongoing_editing_by") %> <%= @label.locking_user.name %><% end %>

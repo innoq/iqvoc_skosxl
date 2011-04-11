@@ -1,6 +1,9 @@
 module Iqvoc
 
   module XLLabel # This are the settings when using SKOSXL
+
+    Iqvoc.first_level_class_configuration_modules << self
+
     mattr_accessor :base_class_name,
       :note_class_names,
       :relation_class_names,

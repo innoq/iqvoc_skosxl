@@ -101,6 +101,14 @@ class Label::SKOSXL::Base < Label::Base
   #   'partials/labeling/skosxl/search_result'
   # end
 
+  def self.new_link_partial_name
+    "partials/label/skosxl/new_link_base"
+  end
+
+  def self.edit_link_partial_name
+    "partials/label/skosxl/edit_link_base"
+  end
+
   def self.from_rdf(str)
     h = Iqvoc::RdfHelper.split_literal(str)
     self.new(:value => h[:value], :language => h[:language])

@@ -2,6 +2,7 @@ Factory.define :xllabel, :class => Iqvoc::XLLabel.base_class do |l|
   l.origin 'Forest'
   l.language 'en'
   l.value 'Forest'
+  l.published_at 3.days.ago
 end
 
 Factory.define :xllabel_with_association, :parent => :xllabel do |l|

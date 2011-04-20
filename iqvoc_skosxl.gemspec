@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.add_dependency "iqvoc"
   s.add_dependency "bundler"
 
-  s.files = %w(LICENSE README.md Gemfile Gemfile.lock Rakefile iqvoc_skosxl.gemspec) + Dir.glob("{app,config,public,lib,test}/**/*")
+  s.files = %w(README.md Gemfile Gemfile.lock Rakefile iqvoc_skosxl.gemspec) + Dir.glob("{app,config,db,public,lib,test}/**/*")
   s.test_files = Dir.glob("{test}/**/*")
   s.executables = Dir.glob("{bin}/**/*")
   s.require_paths = ["lib"]

@@ -10,8 +10,8 @@ class AddLabelRelations < ActiveRecord::Migration
         t.datetime "updated_at"
       end
 
-      add_index "label_relations", ["domain_id", "range_id", "type"], :name => "index_label_relations_on_domain_id_and_range_id_and_type"
-      add_index "label_relations", ["type"], :name => "index_label_relations_on_type"
+      add_index "label_relations", ["domain_id", "range_id", "type"], :name => "ix_label_rel_dom_rng_type"
+      add_index "label_relations", ["type"], :name => "ix_label_relations_on_type"
     end
   end
 

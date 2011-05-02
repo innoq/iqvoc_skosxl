@@ -5,6 +5,7 @@ module Concept
       extend ActiveSupport::Concern
 
       included do
+        validate :valid_label_language
 
         after_save do |concept|
           # Labelings
@@ -23,6 +24,20 @@ module Concept
             end
           end
 
+        end
+
+        def valid_label_language
+          (@labelings_by_id || {}).each { |labeling_class_name, origin_mappings|
+            origin_mappings.each { |language, new_origins|
+              new_origins = new_origins.split(",")
+              Iqvoc::XLLabel.base_class.by_origin(new_origins).each do |label|
+                if label.language != language.to_s
+                  errors.add(:base,
+                      I18n.t("txt.controllers.versioned_concept.label_error") % label)
+                end
+              end
+            }
+          }
         end
 
       end

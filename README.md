@@ -13,7 +13,7 @@ Operate Iqvoc::SKOSXL like a common Iqvoc based Application.
     `rake iqvoc:assets:link` or `rake iqvoc:assets:copy`
 4. Populate Iqvoc seeds:
     `rake iqvoc:db:seed`
-4. Populate Iqvoc:SKOSXL seeds:
+5. Populate Iqvoc:SKOSXL seeds:
     `rake db:seed`
 
 ## Engine

@@ -9,7 +9,7 @@ module IqvocSkosxlHelper
     if label.new_record?
       "-"
     elsif label.is_a?(Label::SKOSXL::Base)
-      link_to(label.to_s, label_path(:lang => @active_language, :id => label))
+      link_to(label.to_s, label_path(:id => label))
     else
       label.to_s
     end

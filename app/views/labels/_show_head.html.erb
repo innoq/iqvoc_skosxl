@@ -5,7 +5,7 @@
 <% end -%>
 
 <h2><%= @label.class.model_name.human %>:
-  <%= link_to(@label.origin, label_path(:lang => @active_language, :id => @label.origin)) %>
+  <%= link_to(@label.origin, label_path(:id => @label.origin)) %>
   <%- if !@label.published? %>
     (<%= t('txt.common.unpublished_version') %>)
   <%- end -%>

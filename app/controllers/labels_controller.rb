@@ -55,7 +55,7 @@ class LabelsController < ApplicationController
       @label.origin = OriginMapping.merge(@label.value)
       if @label.save
         flash[:notice] = I18n.t("txt.controllers.versioned_label.success")
-        redirect_to label_path(:published => 0, :id => @label.origin, :lang => @active_language)
+        redirect_to label_path(:published => 0, :id => @label.origin)
       else
         flash.now[:error] = I18n.t("txt.controllers.versioned_label.error")
         render :new
@@ -93,7 +93,7 @@ class LabelsController < ApplicationController
         raise ActiveRecord::RecordNotFound unless @label
         if @label.update_attributes(params[:label])
           flash[:notice] = I18n.t("txt.controllers.versioned_label.update_success")
-          redirect_to label_path(:published => 0, :id => @label, :lang => @active_language)
+          redirect_to label_path(:published => 0, :id => @label)
         else
           flash.now[:error] = I18n.t("txt.controllers.versioned_label.update_error")
           render :action => :edit
@@ -109,10 +109,10 @@ class LabelsController < ApplicationController
 
     if @new_label.destroy
       flash[:notice] = I18n.t("txt.controllers.label_versions.delete")
-      redirect_to dashboard_path(:lang => @active_language)
+      redirect_to dashboard_path
     else
       flash[:notice] = I18n.t("txt.controllers.label_versions.delete_error")
-      redirect_to label_path(:published => 0, :id => @new_label, :lang => @active_language)
+      redirect_to label_path(:published => 0, :id => @new_label)
     end
   end
 end

@@ -6,7 +6,7 @@ class RdfController
     if @label = scope.by_origin(params[:id]).with_associations.last
       respond_to do |format|
         format.html {
-          redirect_to label_url(:id => @label.origin, :lang => I18n.locale, :published => params[:published])
+          redirect_to label_url(:id => @label.origin, :published => params[:published])
         }
         format.any {
           authorize! :read, @label

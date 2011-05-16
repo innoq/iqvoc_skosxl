@@ -7,7 +7,7 @@
   <% if @association_objects_in_editing_mode[:label_relations].present? %>
     <h4><%= t("txt.common.referenced_labels") %></h4>
     <%  @association_objects_in_editing_mode[:label_relations].each do |label_relation| %>
-      <%= label_relation.type.demodulize + ': ' + link_to(label_relation.range.value, label_path(:published => 0, :lang => @active_language, :id => label_relation.range)) + user_and_phone_number(t("txt.common.editor"), label_relation.range.locking_user.name, label_relation.range.locking_user.telephone_number) %><br />
+      <%= label_relation.type.demodulize + ': ' + link_to(label_relation.range.value, label_path(:published => 0, :id => label_relation.range)) + user_and_phone_number(t("txt.common.editor"), label_relation.range.locking_user.name, label_relation.range.locking_user.telephone_number) %><br />
     <% end %>
   <% end %>
 
@@ -17,6 +17,6 @@
 
 <%= content_for :sub_navigation do %>
   <ul>
-    <li><%= back_link label_path(:published => 0, :lang => @active_language, :id => @label), t('txt.views.navigation.back_to_preview') %></li>
+    <li><%= back_link label_path(:published => 0, :id => @label), t('txt.views.navigation.back_to_preview') %></li>
   </ul>
 <% end %>

@@ -21,18 +21,18 @@ class Labels::VersionsController < ApplicationController
           end
           if new_version.has_concept_or_label_relations?
             flash[:notice] = t("txt.controllers.versioning.published")
-            redirect_to label_path(:lang => @active_language, :id => new_version)
+            redirect_to label_path(:id => new_version)
           else
             flash[:error] = t("txt.controllers.versioning.published_with_warning")
-            redirect_to label_path(:lang => @active_language, :id => new_version)
+            redirect_to label_path(:id => new_version)
           end
         else
           flash[:error] = t("txt.controllers.versioning.merged_publishing_error")
-          redirect_to label_path(:published => 0, :id => new_version, :lang => @active_language)
+          redirect_to label_path(:published => 0, :id => new_version)
         end
       else
         flash[:error] = t("txt.controllers.versioning.merged_delete_error")
-        redirect_to label_path(:published => 0, :id => new_version, :lang => @active_language)
+        redirect_to label_path(:published => 0, :id => new_version)
       end
     end
   end
@@ -48,7 +48,7 @@ class Labels::VersionsController < ApplicationController
       new_version.save!
     end
     flash[:notice] = t("txt.controllers.versioning.branched")
-    redirect_to edit_label_path(:published => 0, :id => new_version, :lang => @active_language, :check_associations_in_editing_mode => true)
+    redirect_to edit_label_path(:published => 0, :id => new_version, :check_associations_in_editing_mode => true)
   end
 
   def lock
@@ -62,7 +62,7 @@ class Labels::VersionsController < ApplicationController
     new_version.save!
 
     flash[:notice] = t("txt.controllers.versioning.locked")
-    redirect_to edit_label_path(:published => 0, :id => new_version, :lang => @active_language)
+    redirect_to edit_label_path(:published => 0, :id => new_version)
   end
 
   def unlock
@@ -76,7 +76,7 @@ class Labels::VersionsController < ApplicationController
     new_version.save!
 
     flash[:notice] = t("txt.controllers.versioning.unlocked")
-    redirect_to label_path(:published => 0, :id => new_version, :lang => @active_language)
+    redirect_to label_path(:published => 0, :id => new_version)
   end
 
   def consistency_check
@@ -87,10 +87,10 @@ class Labels::VersionsController < ApplicationController
     
     if label.valid_with_full_validation?
       flash[:notice] = t("txt.controllers.versioning.consistency_check_success")
-      redirect_to label_path(:published => 0, :id => label, :lang => @active_language)
+      redirect_to label_path(:published => 0, :id => label)
     else
       flash[:error] = t("txt.controllers.versioning.consistency_check_error")
-      redirect_to edit_label_path(:published => 0, :id => label, :lang => @active_language)
+      redirect_to edit_label_path(:published => 0, :id => label)
     end
   end
 
@@ -103,7 +103,7 @@ class Labels::VersionsController < ApplicationController
     label.to_review!
     label.save!
     flash[:notice] = t("txt.controllers.versioning.to_review_success")
-    redirect_to label_path(:published => 0, :lang => @active_language, :id => label)
+    redirect_to label_path(:published => 0, :id => label)
   end
   
 end

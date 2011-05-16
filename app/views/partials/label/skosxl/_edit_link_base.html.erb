@@ -1,1 +1,1 @@
-<%= link_to truncate(item.to_s, :length => 45), (item.published? ? label_path(:lang => @active_language, :id => item.origin) : label_path(:published => 0, :lang => @active_language, :id => item.origin)) %>
+<%= link_to truncate(item.to_s, :length => 45), (item.published? ? label_path(:id => item.origin) : label_path(:published => 0, :id => item.origin)) %>

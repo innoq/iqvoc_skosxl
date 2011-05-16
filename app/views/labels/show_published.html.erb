@@ -5,7 +5,7 @@
     <% if @new_label_version.blank? && can?(:branch, @label) %>
       <%= button_to t("txt.views.versioning.versioning_mode"), label_versions_branch_path(:origin => @label.origin) %>
     <% elsif can?(:read, @new_label_version) %>
-      <%= link_to t("txt.views.versioning.preview_new_version"), label_path(:published => 0, :id => @new_label_version %>
+      <%= link_to t("txt.views.versioning.preview_new_version"), label_path(:published => 0, :id => @new_label_version) %>
     <% end %>
   </div>
 <% end %>

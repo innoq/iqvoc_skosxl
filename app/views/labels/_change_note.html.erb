@@ -8,32 +8,34 @@
         <% if note == change_notes.last %>
         <%= note_form.label :value, t("txt.common.umt_change_note", :count => 1) %>
         <%= note_form.text_area :value, :rows => 5, :cols => 40 %>
-        
+
         <br />
-        
+
         <label><%= t("txt.common.note_annotation", :count => 2) %></label>
-        <textarea disabled="true" rows="3" cols="40"><%= note.annotations.map {|na| "#{na.identifier} #{na.value}"}.join("\n") %></textarea>
-        
+        <textarea disabled="true" rows="3" cols="40">
+          <%= note.annotations.map { |na| "#{na.identifier} #{na.value}" }.join("\n") %>
+        </textarea>
+
         <br />
-        
+
         <%= note_form.label :language, t("txt.common.language") %>
         <%= note_form.select :language, options_for_language_select(note.new_record? ? @label.language : note.language) %>
-        
+
         <br />
         <% else %>
-        
+
         <label><%= t("txt.common.value") %></label>
         <span><%= note.value %></span>
         <br/>
-        
+
         <% note.annotations.each do |na| %>
         <label><%= na.identifier %></label>
         <span><%= na.value %></span>
         <br/>
         <% end %>
-        
+
         <% end %>
-        
+
         <%#= note_form.check_box :"_destroy" %>
         <%#= note_form.label :"_destroy", t("txt.views.labels.edit.delete") %>
       <% end %>

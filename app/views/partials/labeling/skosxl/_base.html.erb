@@ -2,16 +2,30 @@
   <%- if defined?(concept) -%>
     <h4><%= klass.model_name.human(:count => 2) %> (<%= lang %>)</h4>
     <div class="relation-body">
-      <%= raw concept.labels_for_labeling_class_and_language(klass, lang.to_s).map { |label|
-        link_to(label.value, label_path(:id => label))
-      }.join(', ') %> <!-- TODO: use UL!? -->
+      <%- items = concept.labels_for_labeling_class_and_language(klass, lang.to_s) -%>
+      <% if items.count > 0 %>
+        <ul>
+        <% items.each { |label| %>
+          <li><%= link_to label.value, label_path(:id => label) %></li>
+        <% } %>
+        </ul>
+      <% else %>
+        <p class="term-unavailable">-</p>
+      <% end %>
     </div>
   <%- elsif defined?(label) -%>
     <h4><%= klass.model_name.human %> <%= t("txt.common.of") %></h4>
     <div class="relation">
-      <%= raw label.concepts_for_labeling_class(klass).map { |c|
-        link_to(c.origin, concept_path(:id => c))
-      }.join(', ') %> <!-- TODO: use UL!? -->
+      <%- items = label.concepts_for_labeling_class(klass) -%>
+      <% if items.count > 0 %>
+        <ul>
+        <% items.each { |c| %>
+          <li><%= link_to c.origin, concept_path(:id => c) %></li>
+        <% } %>
+        </ul>
+      <% else %>
+        <p class="term-unavailable">-</p>
+      <% end %>
     </div>
   <%- end -%>
 </div>

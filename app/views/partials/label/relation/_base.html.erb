@@ -3,9 +3,11 @@
   <div class="relation-body">
     <% related_labels = label.related_labels_for_relation_class(klass) %>
     <% if related_labels.count > 0 %>
-      <%= raw related_labels.map { |label|
-        link_to label.value, label_path(:id => label)
-      }.join(', ') %> <!-- TODO: use UL!? -->
+      <ul>
+      <% related_labels.each { |label| %>
+        <li><%= link_to label.value, label_path(:id => label) %></li>
+      <% } %>
+      </ul>
     <% else %>
       <p class="term-unavailable">-</p>
     <% end %>

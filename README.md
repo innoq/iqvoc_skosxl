@@ -27,7 +27,7 @@ Operate Iqvoc::SKOSXL and Iqvoc as Engines running in a custom App.
     `rake db:migrate`
 4. Link or copy iqvoc assets:
     `rake iqvoc:assets:link` or `rake iqvoc:assets:copy` 
-5. Iqvoc::SKOSXL doesn't hav any assets yet. So you can skip this for Iqvoc::SKOSXL.
+5. Iqvoc::SKOSXL doesn't have any assets yet. So you can skip this for Iqvoc::SKOSXL.
 6. Populate Iqvoc seeds:
     `rake iqvoc:db:seed`
 7. Populate Iqvoc:SKOSXL seeds:

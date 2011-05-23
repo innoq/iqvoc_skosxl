@@ -62,9 +62,9 @@ class Label::SKOSXL::Base < Label::Base
     end
 
     define_method("inline_#{relation_class_name.to_relation_name}=".to_sym) do |value|
-      # write to instance variable and write it on after_safe
+      # write to instance variable and write it on after_save
       (@inline_assigned_relations ||= {})[relation_class_name] = value.
-          split(/\r\n|,/).map(&:strip).reject(&:blank?).uniq # XXX: use Iqvoc::InlineDataHelper?
+          split(/\r\n|, */).map(&:strip).reject(&:blank?).uniq # XXX: use Iqvoc::InlineDataHelper?
     end
   end
 

@@ -1,5 +1,7 @@
 source "http://rubygems.org"
 
+gem 'rake', '~> 0.8.7'
+
 gem 'iqvoc', :path => '../iqvoc'
 
 # Hotfix for the problem of engine/plugin helpers not being mixed in.
@@ -13,8 +15,7 @@ end
 
 group :development, :test do
   platforms :ruby do
-    gem 'mysql' # AR Bug
-    gem 'mysql2'
+    gem 'mysql2', '0.2.7'
   end
   platforms :jruby do
     gem 'activerecord-jdbcmysql-adapter'

@@ -5,19 +5,31 @@
 </p>
 
 <div class="editing_versioning_toolbar ui-corner-all ui-widget ui-widget-content">
-  <%= button_to t("txt.views.versioning.publishing"), label_versions_merge_path(:origin => @label.origin) %>
-  <%= button_to t("txt.views.versioning.consistency_check"), label_versions_consistency_check_path(:origin => @label.origin), :method => :get %>
 
-  <% unless @label.in_review? %>
+  <% if (not @label.locked?) || @label.locked_by == @current_user.id %>
+  <%= button_to t("txt.views.versioning.publishing"),
+          label_versions_merge_path(:origin => @label.origin) %>
+  <% end %>
+  <%= button_to t("txt.views.versioning.consistency_check"), 
+          label_versions_consistency_check_path(:origin => @label.origin), :method => :get %>
+
+  <% if (not @label.in_review?) && @label.locked_by == @current_user.id %>
     <%= button_to t("txt.common.to_review"), label_versions_to_review_path(:origin => @label.origin) %>
   <% end %>
 
   <% unless @label.locked? %>
-    <%= button_to t("txt.views.versioning.to_edit_mode"), label_versions_lock_path(:origin => @label.origin) %>
-    <%= button_to t("txt.views.versioning.delete"), label_path(:published => 0, :id => @label.origin), :method => :delete, :confirm => I18n.t("txt.views.versioning.delete_confirm") %>
+    <%= button_to t("txt.views.versioning.to_edit_mode"),
+            label_versions_lock_path(:origin => @label.origin) %>
+    <%= button_to t("txt.views.versioning.delete"),
+            label_path(:published => 0, :id => @label.origin),
+            :method => :delete,
+            :confirm => I18n.t("txt.views.versioning.delete_confirm") %>
   <% else %>
-    <%= button_to t("txt.views.versioning.unlock"), label_versions_unlock_path(:origin => @label.origin) if can?(:unlock, @label) %>
-    <%= link_to t("txt.views.versioning.edit_mode"), edit_label_path(:published => 0, :id => @label.origin) if can?(:update, @label) %>
+    <%= button_to t("txt.views.versioning.unlock"),
+            label_versions_unlock_path(:origin => @label.origin) if can?(:unlock, @label) %>
+    <%= link_to t("txt.views.versioning.edit_mode"),
+            edit_label_path(:published => 0, :id => @label.origin),
+            :class => "button" if can?(:update, @label) %>
   <% end %>
 </div>
 

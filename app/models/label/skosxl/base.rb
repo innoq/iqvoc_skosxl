@@ -57,12 +57,14 @@ class Label::SKOSXL::Base < Label::Base
       
     # Serialized setters and getters (\r\n or , separated)
     define_method("inline_#{relation_class_name.to_relation_name}".to_sym) do
-      (@inline_assigned_relations && @inline_assigned_relations[relation_class_name]) || self.send(relation_class_name.to_relation_name).map{|r| r.range.origin}.uniq
+      (@inline_assigned_relations && @inline_assigned_relations[relation_class_name]) ||
+          self.send(relation_class_name.to_relation_name).map { |r| r.range.origin }.uniq
     end
 
     define_method("inline_#{relation_class_name.to_relation_name}=".to_sym) do |value|
       # write to instance variable and write it on after_safe
-      (@inline_assigned_relations ||= {})[relation_class_name] = value.split(/\r\n|,/).map(&:strip).reject(&:blank?).uniq
+      (@inline_assigned_relations ||= {})[relation_class_name] = value.
+          split(/\r\n|,/).map(&:strip).reject(&:blank?).uniq # XXX: use Iqvoc::InlineDataHelper?
     end
   end
 

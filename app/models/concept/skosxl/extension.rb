@@ -15,7 +15,8 @@ module Concept
 
             # (Re)create labelings reflecting a widget's parameters
             origin_mappings.each do |language, new_origins|
-              new_origins = new_origins.split(/[,\n]/).map(&:squish)
+              new_origins = new_origins.
+                  split(Iqvoc::InlineDataHelper::Splitter).map(&:squish)
 
               # Iterate over all labels to be added and create them
               Iqvoc::XLLabel.base_class.by_origin(new_origins).each do |l|
@@ -29,7 +30,7 @@ module Concept
         def valid_label_language
           (@labelings_by_id || {}).each { |labeling_class_name, origin_mappings|
             origin_mappings.each { |language, new_origins|
-              new_origins = new_origins.split(",")
+              new_origins = new_origins.split(Iqvoc::InlineDataHelper::Splitter)
               Iqvoc::XLLabel.base_class.by_origin(new_origins).each do |label|
                 if label.language != language.to_s
                   errors.add(:base,
@@ -50,11 +51,12 @@ module Concept
 
         def labelings_by_id(relation_name, language)
           (@labelings_by_id && @labelings_by_id[relation_name] && @labelings_by_id[relation_name][language]) ||
-            self.send(relation_name).by_label_language(language).map{ |l| l.target.origin }.join(",")
+            self.send(relation_name).by_label_language(language).
+                map { |l| l.target.origin }.join(Iqvoc::InlineDataHelper::Joiner)
         end
 
       end
-      
+
     end
   end
 end

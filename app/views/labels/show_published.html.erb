@@ -1,7 +1,7 @@
 <%= render 'show_head' %>
 
 <% if can?(:read, @new_label_version) || can?(:branch, @label) %>
-  <div class="editing_versioning_toolbar">
+  <div class="editing_versioning_toolbar ui-corner-all ui-widget ui-widget-content">
     <% if @new_label_version.blank? && can?(:branch, @label) %>
       <%= button_to t("txt.views.versioning.versioning_mode"), label_versions_branch_path(:origin => @label.origin) %>
     <% elsif can?(:read, @new_label_version) %>

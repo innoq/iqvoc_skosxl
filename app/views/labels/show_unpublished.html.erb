@@ -4,7 +4,7 @@
   <%= t("txt.views.versioning.current_revision") %> <%= @label.rev %><% if @label.locked? %> <%= t("txt.views.versioning.in_ongoing_editing_by") %> <%= @label.locking_user.name %><% end %>
 </p>
 
-<div class="editing_versioning_toolbar">
+<div class="editing_versioning_toolbar ui-corner-all ui-widget ui-widget-content">
   <%= button_to t("txt.views.versioning.publishing"), label_versions_merge_path(:origin => @label.origin) %>
   <%= button_to t("txt.views.versioning.consistency_check"), label_versions_consistency_check_path(:origin => @label.origin), :method => :get %>
 

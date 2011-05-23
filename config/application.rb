@@ -10,7 +10,7 @@ module Iqvoc::SKOSXL
   class Application < Rails::Application
 
     # This has to be here because iqvoc_skosxl.rb needs to know if it runs as app or as engine
-    require 'lib/iqvoc_skosxl'
+    require 'iqvoc_skosxl'
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

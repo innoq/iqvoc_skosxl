@@ -8,8 +8,8 @@ class Labels::VersionsController < ApplicationController
  
     ActiveRecord::Base.transaction do
       if current_label.blank? || current_label.destroy
-        new_version.publish!
-        new_version.unlock!
+        new_version.publish
+        new_version.unlock
         if new_version.valid_with_full_validation?
           new_version.save
           begin
@@ -58,7 +58,7 @@ class Labels::VersionsController < ApplicationController
 
     authorize! :lock, new_version
 
-    new_version.lock_by_user!(current_user.id)
+    new_version.lock_by_user(current_user.id)
     new_version.save!
 
     flash[:notice] = t("txt.controllers.versioning.locked")
@@ -72,7 +72,7 @@ class Labels::VersionsController < ApplicationController
 
     authorize! :unlock, new_version
 
-    new_version.unlock!
+    new_version.unlock
     new_version.save!
 
     flash[:notice] = t("txt.controllers.versioning.unlocked")
@@ -100,7 +100,7 @@ class Labels::VersionsController < ApplicationController
     
     authorize! :send_to_review, label
     
-    label.to_review!
+    label.to_review
     label.save!
     flash[:notice] = t("txt.controllers.versioning.to_review_success")
     redirect_to label_path(:published => 0, :id => label)

@@ -1,5 +1,5 @@
-# Iqvoc::SkosXL
-This is the iqvoc SkosXL extension. Use this in your Gemfile to add SkosXL features to iqvoc.
+# Iqvoc::SKOSXL
+This is the iQvoc SKOS-XL extension. Use this in your Gemfile to add SKOS-XL features to iQvoc.
 
 Iqvoc::SKOSXL may run in two different modes: Standalone as Application and embedded into another Application as Engine.
 

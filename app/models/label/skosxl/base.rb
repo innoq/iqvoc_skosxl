@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 class Label::SKOSXL::Base < Label::Base
 
   include Iqvoc::Versioning
@@ -9,6 +11,7 @@ class Label::SKOSXL::Base < Label::Base
   # ********** Validations
 
   validate :two_versions_exist, :on => :create
+  validate :origin_has_to_be_escaped
 
   # ********** Hooks
   
@@ -187,6 +190,11 @@ class Label::SKOSXL::Base < Label::Base
     valid?
   end
 
+  def invalid_with_full_validation?
+    @full_validation = true
+    invalid?
+  end
+
   # Responsible for displaying a warning message about
   # associated objects which are currently edited y another user.
   def associated_objects_in_editing_mode
@@ -196,9 +204,19 @@ class Label::SKOSXL::Base < Label::Base
   end
   
   protected
+  
+  # Validations
+
+  def origin_has_to_be_escaped
+    if origin != OriginMapping.merge(origin)
+      errors.add :origin, I18n.t("txt.models.label.origin_invalid")
+    end
+  end
 
   def two_versions_exist
-    errors.add(:base, I18n.t("txt.models.label.version_error")) if Label::SKOSXL::Base.by_origin(origin).count >= 2
+    if Label::SKOSXL::Base.by_origin(origin).count >= 2
+      errors.add :base, I18n.t("txt.models.label.version_error")
+    end
   end
 
 end

@@ -1,1 +1,5 @@
 de:
+  txt:
+    models:
+      label:
+        origin_invalid: "Origin enthält ungültige Zeichen."

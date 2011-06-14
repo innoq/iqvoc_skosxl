@@ -5,7 +5,7 @@
           concept.labelings_by_id(klass.name.to_relation_name, language),
           :id => "#{klass.name.to_relation_name}_#{language}",
           :class => "entity_select",
-          :"data-query-url" => labels_path(:format => :json),
+          :"data-query-url" => labels_path(:format => :json, :language => language),
           :"data-entity-uri" => label_path("{id}"),
           :"data-entities" => Iqvoc::XLLabel.base_class.editor_selectable.
               by_language(language).by_origin(concept.labelings_by_id(

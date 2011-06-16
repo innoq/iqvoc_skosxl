@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110408123644) do
+ActiveRecord::Schema.define(:version => 20110615134040) do
 
   create_table "collection_members", :force => true do |t|
     t.integer "collection_id"
@@ -105,17 +105,18 @@ ActiveRecord::Schema.define(:version => 20110408123644) do
 
   create_table "note_annotations", :force => true do |t|
     t.integer  "note_id"
-    t.string   "identifier", :limit => 50
+    t.string   "predicate",  :limit => 50
     t.string   "value",      :limit => 1024
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "namespace",  :limit => 50
   end
 
   add_index "note_annotations", ["note_id"], :name => "ix_note_annotations_fk"
 
   create_table "notes", :force => true do |t|
     t.string   "language",   :limit => 2
-    t.string   "value",      :limit => 1024
+    t.string   "value",      :limit => 4000
     t.string   "type",       :limit => 50
     t.datetime "created_at"
     t.datetime "updated_at"

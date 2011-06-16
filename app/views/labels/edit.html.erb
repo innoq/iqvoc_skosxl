@@ -17,6 +17,6 @@
 
 <%= content_for :sub_navigation do %>
   <ul>
-    <li><%= back_link label_path(:published => 0, :id => @label), t('txt.views.navigation.back_to_preview') %></li>
+    <li><%= link_to t('txt.views.navigation.back_to_preview'), label_path(:published => 0, :id => @label), :class => 'back' %></li>
   </ul>
 <% end %>

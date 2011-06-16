@@ -13,8 +13,8 @@ class DashboardTest < ActionDispatch::IntegrationTest
     login('administrator')
 
     visit dashboard_path(:lang => 'de', :format => 'html')
-    assert page.has_link?(@label.to_s), "Couldn't find Label link '#{@label.to_s}' in dashboards concepts + labels list"
-    click_link_or_button(@label.to_s)
+    assert page.has_link?(@label.value.to_s), "Couldn't find Label link '#{@label.value.to_s}' in dashboards concepts + labels list"
+    click_link_or_button(@label.value.to_s)
     assert_equal label_path(@label, :lang => 'de', :format => 'html'), current_path
   end
 

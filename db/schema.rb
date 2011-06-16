@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110525103100) do
+ActiveRecord::Schema.define(:version => 20110408123644) do
 
   create_table "collection_members", :force => true do |t|
     t.integer "collection_id"
@@ -56,8 +56,8 @@ ActiveRecord::Schema.define(:version => 20110525103100) do
     t.datetime "updated_at"
   end
 
-  add_index "label_relations", ["domain_id", "range_id", "type"], :name => "ix_label_rel_dom_rng_type"
-  add_index "label_relations", ["type"], :name => "ix_label_relations_on_type"
+  add_index "label_relations", ["domain_id", "range_id", "type"], :name => "index_label_relations_on_domain_id_and_range_id_and_type"
+  add_index "label_relations", ["type"], :name => "index_label_relations_on_type"
 
   create_table "labelings", :force => true do |t|
     t.string   "type"
@@ -77,9 +77,9 @@ ActiveRecord::Schema.define(:version => 20110525103100) do
     t.string   "value",                :limit => 1024
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.date     "published_at"
     t.integer  "rev",                                  :default => 1
     t.integer  "published_version_id"
+    t.date     "published_at"
     t.integer  "locked_by"
     t.date     "expired_at"
     t.date     "follow_up"
@@ -105,18 +105,17 @@ ActiveRecord::Schema.define(:version => 20110525103100) do
 
   create_table "note_annotations", :force => true do |t|
     t.integer  "note_id"
-    t.string   "predicate",  :limit => 50
+    t.string   "identifier", :limit => 50
     t.string   "value",      :limit => 1024
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "namespace",  :limit => 50
   end
 
   add_index "note_annotations", ["note_id"], :name => "ix_note_annotations_fk"
 
   create_table "notes", :force => true do |t|
     t.string   "language",   :limit => 2
-    t.string   "value",      :limit => 4000
+    t.string   "value",      :limit => 1024
     t.string   "type",       :limit => 50
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -6,7 +6,7 @@ class LabelsController < ApplicationController
     respond_to do |format|
       format.json do
         scope = Iqvoc::XLLabel.base_class.by_query_value("#{params[:query]}%")
-        if params[:language] # XXX: isn't this always the case; language is required, supplied via route!?
+        if params[:language] # NB: this is not the same as :lang, which is supplied via route
           scope = scope.by_language(params[:language])
         end
         @labels = scope.published.order("LOWER(value)").all

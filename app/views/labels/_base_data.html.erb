@@ -1,6 +1,6 @@
 <h3><%= Label::Base.model_name.human %></h3>
 
-<p class="flash_error" style="display:none;" data-msg="<%= I18n.t("txt.views.labels.label_already_exists") %>"></p>
+<p class="flash_error"></p>
 
 <%= form_for @label, :as => 'label', :url => @label.new_record? ? labels_path : label_path(:id => @label, :published => 0), :html => {:class => "form"} do |f| %>
   <fieldset id="label_base_data">

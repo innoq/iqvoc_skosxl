@@ -1,4 +1,4 @@
-<li>
+<%= content_tag("li", { :class => "translation", :lang => language || nil }, true) do %>
   <%= label_tag(klass.name.to_relation_name,
           klass.model_name.human(:count => 2) + " (#{language})") %>
   <%= text_field_tag "concept[labelings_by_id][#{klass.name.to_relation_name}][#{language}]",
@@ -12,4 +12,4 @@
                   klass.name.to_relation_name, language).
                   split(Iqvoc::InlineDataHelper::Splitter)).
               map { |l| label_widget_data(l) }.to_json %>
-</li>
+<%- end -%>

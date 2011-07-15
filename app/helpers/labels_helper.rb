@@ -32,7 +32,7 @@ module LabelsHelper
 =end
     end
   end
-  
+
   def render_label_association(hash, label, association_class, further_options = {})
     return unless association_class.partial_name(label)
     ((hash[association_class.view_section(label)] ||= {})[association_class.view_section_sort_key(label)] ||= "") <<

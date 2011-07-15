@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class LabelTest < ActiveSupport::TestCase
-  
+
   def setup
     @current_label = Factory.create(:xllabel_with_association)
     @user = Factory.create(:user)
@@ -15,16 +15,16 @@ class LabelTest < ActiveSupport::TestCase
     assert first_new_label.save
     assert_equal second_new_label.save, false
   end
-  
+
   def test_should_validate_origin_for_escaping
     label = Factory.build(:xllabel)
     assert label.valid_with_full_validation?
-    
+
     label.origin = "FoÖ/Bär"
     assert label.invalid_with_full_validation?
-    
+
     label.origin = OriginMapping.merge("FoÖ/Bär")
     assert label.valid_with_full_validation?
   end
-  
+
 end

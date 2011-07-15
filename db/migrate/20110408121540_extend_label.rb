@@ -33,5 +33,5 @@ class ExtendLabel < ActiveRecord::Migration
       end
     end
   end
-  
+
 end

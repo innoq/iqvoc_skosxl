@@ -5,7 +5,7 @@ class Labels::VersionsController < ApplicationController
     new_version = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last
     raise ActiveRecord::RecordNotFound.new("Couldn't find unpublished label with origin '#{params[:origin]}'") unless new_version
     authorize! :merge, new_version
- 
+
     ActiveRecord::Base.transaction do
       if current_label.blank? || current_label.destroy
         new_version.publish
@@ -82,9 +82,9 @@ class Labels::VersionsController < ApplicationController
   def consistency_check
     label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last
     raise ActiveRecord::RecordNotFound unless label
-    
+
     authorize! :check_consistency, label
-    
+
     if label.valid_with_full_validation?
       flash[:notice] = t("txt.controllers.versioning.consistency_check_success")
       redirect_to label_path(:published => 0, :id => label)
@@ -97,13 +97,13 @@ class Labels::VersionsController < ApplicationController
   def to_review
     label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last
     raise ActiveRecord::RecordNotFound unless label
-    
+
     authorize! :send_to_review, label
-    
+
     label.to_review
     label.save!
     flash[:notice] = t("txt.controllers.versioning.to_review_success")
     redirect_to label_path(:published => 0, :id => label)
   end
-  
+
 end

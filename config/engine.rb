@@ -13,6 +13,6 @@ module Iqvoc
       end
 
     end
-    
+
   end
 end

@@ -3,7 +3,7 @@
 class Label::SKOSXL::Base < Label::Base
 
   include Iqvoc::Versioning
-  
+
   class_inheritable_accessor :rdf_namespace, :rdf_class
   self.rdf_namespace = "skosxl"
   self.rdf_class = "Label"
@@ -14,13 +14,13 @@ class Label::SKOSXL::Base < Label::Base
   validate :origin_has_to_be_escaped
 
   # ********** Hooks
-  
+
   after_save do |label|
     # Handle save or destruction of inline relations for use with widgets
     (@inline_assigned_relations ||= {}).each do |relation_class_name, origins|
       # Remove all associated labelings of the given type
       label.send(relation_class_name.to_relation_name).destroy_all
-      
+
       # Recreate relations reflecting the widget's parameters
       Iqvoc::XLLabel.base_class.by_origin(origins).each do |l|
         label.send(relation_class_name.to_relation_name).create(:range => l)
@@ -44,20 +44,20 @@ class Label::SKOSXL::Base < Label::Base
   has_many :notes, :as => :owner, :class_name => 'Note::Base', :dependent => :destroy
   has_many :annotations, :through => :notes, :source => :annotations
   include_to_deep_cloning(:notes => :annotations)
-  
+
   # ************** "Dynamic"/configureable relations
 
   Iqvoc::XLLabel.note_class_names.each do |note_class_name|
     has_many note_class_name.to_relation_name, :as => :owner, :class_name => note_class_name, :dependent => :destroy
     @nested_relations << note_class_name.to_relation_name
   end
-  
+
   Iqvoc::XLLabel.relation_class_names.each do |relation_class_name|
     has_many relation_class_name.to_relation_name,
       :foreign_key => 'domain_id',
       :class_name  => relation_class_name,
       :dependent   => :destroy
-      
+
     # Serialized setters and getters (\r\n or , separated)
     define_method("inline_#{relation_class_name.to_relation_name}".to_sym) do
       (@inline_assigned_relations && @inline_assigned_relations[relation_class_name]) ||
@@ -78,7 +78,7 @@ class Label::SKOSXL::Base < Label::Base
   end
 
   # ********** Relation Stuff
-  
+
   @nested_relations.each do |relation|
     accepts_nested_attributes_for relation, :allow_destroy => true, :reject_if => Proc.new {|attrs| attrs[:value].blank? }
   end
@@ -95,18 +95,18 @@ class Label::SKOSXL::Base < Label::Base
     unpublished_or_follow_up.
       includes(:locking_user)
   }
-  
+
   # ********** Methods
-  
+
   # def self.single_query(params = {})
   #   query_str = build_query_string(params)
-  #   
+  #
   #   by_query_value(query_str).
   #   by_language(params[:languages].to_a).
   #   published.
   #   order("LOWER(#{Label::Base.table_name}.value)")
   # end
-  
+
   # def self.search_result_partial_name
   #   'partials/labeling/skosxl/search_result'
   # end
@@ -123,7 +123,7 @@ class Label::SKOSXL::Base < Label::Base
     h = Iqvoc::RdfHelper.split_literal(str)
     self.new(:value => h[:value], :language => h[:language])
   end
-  
+
   def self.from_rdf!(str)
     self.from_rdf(str).save!
   end
@@ -160,16 +160,16 @@ class Label::SKOSXL::Base < Label::Base
     self.language = h[:language]
     self
   end
-  
+
   def from_rdf!(str)
     from_rdf(str)
     save(:validate => false)
   end
-  
+
   def to_param
     origin
   end
-  
+
   def has_concept_or_label_relations?
     # Check if one of the additional association methods return elements
     Iqvoc::XLLabel.additional_association_classes.each do |association_class, foreign_key|
@@ -181,7 +181,7 @@ class Label::SKOSXL::Base < Label::Base
     @full_validation = true
     save!
   end
-  
+
   # FIXME: should not @full_validation be set back to the value it had before??? This method changes the state!
   def valid_with_full_validation?
     @full_validation = true
@@ -200,9 +200,9 @@ class Label::SKOSXL::Base < Label::Base
       :label_relations => Label::Relation::Base.by_domain(id).range_in_edit_mode
     }
   end
-  
+
   protected
-  
+
   # Validations
 
   def origin_has_to_be_escaped

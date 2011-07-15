@@ -14,5 +14,5 @@ module IqvocSkosxlHelper
       label.to_s
     end
   end
-  
+
 end

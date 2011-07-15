@@ -31,6 +31,6 @@ test:
 production:
   encoding: utf8
   username: iqvoc_skosxl
-  password: 
+  password:
   database: iqvoc_skosxl
   adapter: oracle_enhanced

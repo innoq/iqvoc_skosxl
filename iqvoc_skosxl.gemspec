@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://innoq.com"
   s.summary     = "iQvoc skosxl extension"
   s.description = ""
-  
+
   s.add_dependency "iqvoc"
   s.add_dependency "bundler"
 

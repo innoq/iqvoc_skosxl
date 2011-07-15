@@ -1,10 +1,13 @@
 # Iqvoc::SKOSXL
+
 This is the iQvoc SKOS-XL extension. Use this in your Gemfile to add SKOS-XL features to iQvoc.
 
 Iqvoc::SKOSXL may run in two different modes: Standalone as Application and embedded into another Application as Engine.
 
 ## Standalone Application
-Operate Iqvoc::SKOSXL like a common Iqvoc based Application.
+
+Operate Iqvoc::SKOSXL like a common iQvoc-based Application.
+
 1. Run Iqvoc database migrations:
     `rake iqvoc:db:migrate`
 2. Run Iqvoc::SKOSXL migrations:
@@ -17,7 +20,9 @@ Operate Iqvoc::SKOSXL like a common Iqvoc based Application.
     `rake db:seed`
 
 ## Engine
+
 Operate Iqvoc::SKOSXL and Iqvoc as Engines running in a custom App.
+
 1. Add iqvoc_skosxl to your Gemfile (beneath iqvoc)
 2. Run Iqvoc migrations:
     `rake iqvoc:db:migrate`

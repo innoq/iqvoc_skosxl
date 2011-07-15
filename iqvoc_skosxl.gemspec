@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Robert Glaser", "Till Schulte-Coerne", "Frederik Dohr"]
   s.email       = ["till.schulte-coerne@innoq.com"]
   s.homepage    = "http://innoq.com"
-  s.summary     = "iQvoc skosxl extension"
+  s.summary     = "iQvoc SKOS-XL extension"
   s.description = ""
 
   s.add_dependency "iqvoc"

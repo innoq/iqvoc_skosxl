@@ -2,7 +2,7 @@ require 'fileutils'
 
 module Iqvoc
   def SKOSXL.for_static_folders
-    engine_public_dir = Iqvoc::Engine.find_root_with_flag("public").join('public')
+    engine_public_dir = Iqvoc::Engine.find_root_with_flag("public").join("public")
     app_public_dir = Rails.public_path
 
     if File.directory?(app_public_dir)
@@ -25,7 +25,7 @@ namespace :iqvoc_skosxl do
     desc "Create symlinks to public stylesheets, javascripts, fonts and images folders in engine"
     task :link do
       Iqvoc::SKOSXL.for_static_folders do |source_common_dir, target_common_dir|
-        File.unlink(target_common_dir) if File.symlink?(target_common_dir) && ENV['force'] == "true"
+        File.unlink(target_common_dir) if File.symlink?(target_common_dir) && ENV["force"] == "true"
         if !File.exists?(target_common_dir)
           puts "Linking #{source_common_dir} -> #{target_common_dir}"
           File.symlink(source_common_dir, target_common_dir)

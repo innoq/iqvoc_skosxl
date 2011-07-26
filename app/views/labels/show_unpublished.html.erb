@@ -34,9 +34,3 @@
 </div>
 
 <%= render 'layouts/sections', :sections => Iqvoc::XLLabel.view_sections, :data => label_view_data(@label) %>
-
-<%= content_for :sub_navigation do %>
-  <ul>
-    <li><%= link_to t('txt.views.navigation.back_to_preview'), label_path(:id => @label), :class => 'back' %></li>
-  </ul>
-<% end %>

@@ -3,14 +3,22 @@ class LabelsController < ApplicationController
 
   def index
     authorize! :read, Iqvoc::XLLabel.base_class
-    respond_to do |format|
-      format.json do
-        scope = Iqvoc::XLLabel.base_class.by_query_value("#{params[:query]}%")
-        if params[:language] # NB: this is not the same as :lang, which is supplied via route
-          scope = scope.by_language(params[:language])
-        end
-        @labels = scope.published.order("LOWER(value)").all
 
+    scope = Iqvoc::XLLabel.base_class.by_query_value("#{params[:query]}%")
+    if params[:language] # NB: this is not the same as :lang, which is supplied via route
+      scope = scope.by_language(params[:language])
+    end
+    @labels = scope.published.order("LOWER(value)").all
+
+    respond_to do |format|
+      format.html do
+        redirect_to :action => "index", :format => "txt"
+      end
+      format.text do
+        render :content_type => "text/plain",
+            :text => @labels.map { |label| "#{label.origin}: #{label.value}" }.join("\n")
+      end
+      format.json do
         response = []
         @labels.each { |label| response << label_widget_data(label) }
 

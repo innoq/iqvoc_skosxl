@@ -1,7 +1,5 @@
 source "http://rubygems.org"
 
-gem 'rake', '~> 0.8.7'
-
 gem 'iqvoc', :path => '../iqvoc'
 
 # Hotfix for the problem of engine/plugin helpers not being mixed in.

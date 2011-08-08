@@ -26,7 +26,9 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *defaults
-  database: iqvoc_skosxl_test
+  adapter: sqlite3
+  database: ":memory:"
+  verbosity: silent
 
 production:
   encoding: utf8

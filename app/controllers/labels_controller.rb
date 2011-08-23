@@ -85,7 +85,11 @@ class LabelsController < ApplicationController
 
     # @pref_labelings = PrefLabeling.by_label(@label).all(:include => {:owner => :pref_labels}).sort
     # @alt_labelings = AltLabeling.by_label(@label).all(:include => {:owner => :pref_labels}).sort
-
+    
+    if params[:full_consistency_check]
+      @label.valid_with_full_validation?
+    end
+    
     Iqvoc::XLLabel.note_class_names.each do |note_class_name|
       @label.send(note_class_name.to_relation_name).build if @label.send(note_class_name.to_relation_name).empty?
     end

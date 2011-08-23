@@ -90,7 +90,7 @@ class Labels::VersionsController < ApplicationController
       redirect_to label_path(:published => 0, :id => label)
     else
       flash[:error] = t("txt.controllers.versioning.consistency_check_error")
-      redirect_to edit_label_path(:published => 0, :id => label)
+      redirect_to edit_label_path(:published => 0, :id => label, :full_consistency_check => 1)
     end
   end
 

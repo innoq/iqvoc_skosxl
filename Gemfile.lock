@@ -1,14 +1,14 @@
 PATH
   remote: ../iqvoc
   specs:
-    iqvoc (3.2.1)
+    iqvoc (3.2.3)
       authlogic
       bundler
       cancan
       iq_rdf (~> 0.0.14)
       json
       kaminari
-      rails (= 3.0.9)
+      rails (~> 3.0.9)
 
 GEM
   remote: http://rubygems.org/
@@ -68,7 +68,7 @@ GEM
     iq_rdf (0.0.15)
       builder
       bundler
-    json (1.5.3)
+    json (1.5.4)
     json_pure (1.5.3)
     kaminari (0.12.4)
       rails (>= 3.0.0)

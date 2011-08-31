@@ -20,7 +20,7 @@ module ActionController
     end
 
     def user(role = nil)
-      @user ||= Factory.create(:user, :role => (role || User.default_role))
+      @user ||= FactoryGirl.create(:user, :role => (role || User.default_role))
     end
 
   end

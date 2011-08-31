@@ -5,8 +5,8 @@ require 'test_helper'
 class LabelTest < ActiveSupport::TestCase
 
   def setup
-    @current_label = Factory.create(:xllabel_with_association)
-    @user = Factory.create(:user)
+    @current_label = FactoryGirl.create(:xllabel_with_association)
+    @user = FactoryGirl.create(:user)
   end
 
   def test_should_not_create_more_than_two_versions_of_a_label
@@ -17,7 +17,7 @@ class LabelTest < ActiveSupport::TestCase
   end
 
   def test_should_validate_origin_for_escaping
-    label = Factory.build(:xllabel)
+    label = FactoryGirl.build(:xllabel)
     assert label.valid_with_full_validation?
 
     label.origin = "FoÖ/Bär"

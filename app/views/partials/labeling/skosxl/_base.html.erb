@@ -11,7 +11,7 @@
     <h4><%= klass.model_name.human %> <%= t("txt.common.of") %></h4>
     <div class="relation">
       <%= item_listing(label.concepts_for_labeling_class(klass)) do |c|
-        link_to c.origin, concept_path(:id => c)
+        link_to c.to_s, concept_path(:id => c)
       end
     %>
     </div>

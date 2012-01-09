@@ -25,7 +25,7 @@ class ConceptLabelLanguageTest < ActionDispatch::IntegrationTest
       "English" => "en",
       "Deutsch" => "de"
     }.each { |name, lang|
-      @labels[name] = Factory.create(:xllabel, :origin => "_#{name}",
+      @labels[name] = FactoryGirl.create(:xllabel, :origin => "_#{name}",
           :language => lang, :value => name, :published_at => Time.now)
     }
   end

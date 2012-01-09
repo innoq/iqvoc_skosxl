@@ -1,5 +1,6 @@
 source "http://rubygems.org"
 
+gem 'rails', '3.1.3'
 gem 'iqvoc', :path => '../iqvoc'
 
 # Hotfix for the problem of engine/plugin helpers not being mixed in.
@@ -13,7 +14,7 @@ end
 
 group :development, :test do
   platforms :ruby do
-    gem 'mysql2', '0.2.7'
+    gem 'mysql2'
   end
   platforms :jruby do
     gem 'activerecord-jdbcmysql-adapter'
@@ -22,9 +23,9 @@ end
 
 group :test do
   gem 'memory_test_fix'
-  gem 'nokogiri', '1.4.3.1'
+  gem 'nokogiri', '~> 1.5.0'
   gem 'capybara'
-  gem 'database_cleaner', '0.6.0.rc.3'
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
 end
 

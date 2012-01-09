@@ -60,6 +60,8 @@ GEM
       ffi (~> 1.0.6)
     database_cleaner (0.7.0)
     erubis (2.7.0)
+    execjs (1.2.13)
+      multi_json (~> 1.0)
     factory_girl (2.3.2)
       activesupport
     factory_girl_rails (1.4.0)
@@ -133,6 +135,9 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.31)
+    uglifier (1.2.1)
+      execjs (>= 0.3.0)
+      multi_json (>= 1.0.2)
     xpath (0.1.4)
       nokogiri (~> 1.3)
 
@@ -153,3 +158,4 @@ DEPENDENCIES
   rails (= 3.1.3)
   rails_helpers_fix
   sqlite3
+  uglifier

@@ -12,6 +12,10 @@ group :development do
   gem 'awesome_print'
 end
 
+group :assets do
+  gem 'uglifier'
+end
+
 group :development, :test do
   platforms :ruby do
     gem 'mysql2'

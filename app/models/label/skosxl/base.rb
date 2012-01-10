@@ -14,6 +14,10 @@ class Label::SKOSXL::Base < Label::Base
   validate :origin_has_to_be_escaped
 
   # ********** Hooks
+  
+  after_initialize do
+    @full_validation = false
+  end
 
   after_save do |label|
     # Handle save or destruction of inline relations for use with widgets
@@ -126,11 +130,6 @@ class Label::SKOSXL::Base < Label::Base
 
   def self.from_rdf!(str)
     self.from_rdf(str).save!
-  end
-
-  def initialize(params = {})
-    super(params)
-    @full_validation = false
   end
 
   def build_rdf_subject(document, controller, &block)

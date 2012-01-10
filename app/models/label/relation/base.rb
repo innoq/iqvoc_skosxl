@@ -1,6 +1,6 @@
 class Label::Relation::Base < ActiveRecord::Base
 
-  class_inheritable_accessor :rdf_namespace, :rdf_predicate
+  class_attribute :rdf_namespace, :rdf_predicate
   self.rdf_namespace = nil
   self.rdf_predicate = nil
 

@@ -1,19 +1,18 @@
-en:
+de:
   activerecord:
     models:
-      label:
-        skosxl:
-          base: XL Label
-        relation:
-          base: Label relation
-      labeling:
-        skosxl:
-          base:
-            one: Label
-            other: Labels
-          pref_label:
-            one: Preferred label
-            other: Preferred labels
-          alt_label:
-            one: Alternative label
-            other: Alternative labels
+      label/skosxl/base: 
+        one: XL Label
+        other: XL Labels
+      label/skosxl/relation/base: 
+        one: Label Relation
+        other: Label Relations
+      labeling/skosxl/base:
+        one: Label
+        other: Labels
+      labeling/skosxl/pref_label:
+        one: Preferred Label
+        other: Preferred Labels
+      labeling/skosxl/alt_label:
+        one: Alternative Label
+        other: Alternative Labels

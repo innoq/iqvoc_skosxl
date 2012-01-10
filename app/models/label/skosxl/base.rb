@@ -4,7 +4,7 @@ class Label::SKOSXL::Base < Label::Base
 
   include Iqvoc::Versioning
 
-  class_inheritable_accessor :rdf_namespace, :rdf_class
+  class_attribute :rdf_namespace, :rdf_class
   self.rdf_namespace = "skosxl"
   self.rdf_class = "Label"
 

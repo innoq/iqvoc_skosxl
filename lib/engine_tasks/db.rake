@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 namespace :iqvoc_skosxl do
   namespace :db do
 
@@ -15,4 +17,3 @@ namespace :iqvoc_skosxl do
 
   end
 end
-

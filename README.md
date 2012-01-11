@@ -12,11 +12,9 @@ Operate Iqvoc::SKOSXL like a common iQvoc-based Application.
     `rake iqvoc:db:migrate`
 2. Run Iqvoc::SKOSXL migrations:
     `rake db:migrate`
-3. Link or copy iqvoc assets:
-    `rake iqvoc:assets:link` or `rake iqvoc:assets:copy`
-4. Populate Iqvoc seeds:
+3. Populate Iqvoc seeds:
     `rake iqvoc:db:seed`
-5. Populate Iqvoc:SKOSXL seeds:
+4. Populate Iqvoc:SKOSXL seeds:
     `rake db:seed`
 
 ## Engine
@@ -30,12 +28,9 @@ Operate Iqvoc::SKOSXL and Iqvoc as Engines running in a custom App.
     `rake iqvoc_skosxl:db:migrate`
 4. Run your own migrations:
     `rake db:migrate`
-5. Link or copy iqvoc assets:
-    `rake iqvoc:assets:link` or `rake iqvoc:assets:copy`
-6. Iqvoc::SKOSXL doesn't have any assets yet. So you can skip this for Iqvoc::SKOSXL.
-7. Populate Iqvoc seeds:
+5. Populate Iqvoc seeds:
     `rake iqvoc:db:seed`
-8. Populate Iqvoc:SKOSXL seeds:
+6. Populate Iqvoc:SKOSXL seeds:
     `rake iqvoc_skosxl:db:seed`
-9. Populate your applications seeds:
+7. Populate your applications seeds:
     `rake db:seed`

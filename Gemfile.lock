@@ -1,16 +1,3 @@
-PATH
-  remote: ../iqvoc
-  specs:
-    iqvoc (3.2.5)
-      authlogic
-      bundler
-      cancan
-      iq_rdf (~> 0.0.14)
-      json
-      kaminari
-      rails (~> 3.1.3)
-      rails_autolink
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -70,9 +57,18 @@ GEM
     ffi (1.0.11)
     hike (1.2.1)
     i18n (0.6.0)
-    iq_rdf (0.0.15)
+    iq_rdf (0.1.0)
       builder
       bundler
+    iqvoc (3.3.2)
+      authlogic
+      bundler
+      cancan
+      iq_rdf (~> 0.1.0)
+      json
+      kaminari
+      rails (~> 3.1.3)
+      rails_autolink
     json (1.6.4)
     kaminari (0.13.0)
       actionpack (>= 3.0.0)
@@ -82,7 +78,6 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    memory_test_fix (0.2.0)
     mime-types (1.17.2)
     multi_json (1.0.4)
     mysql2 (0.3.11)
@@ -107,7 +102,6 @@ GEM
       railties (= 3.1.3)
     rails_autolink (1.0.4)
       rails (>= 3.1.0)
-    rails_helpers_fix (0.1.1)
     railties (3.1.3)
       actionpack (= 3.1.3)
       activesupport (= 3.1.3)
@@ -146,16 +140,15 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-jdbcmysql-adapter
+  activerecord-jdbcsqlite-adapter
   activerecord-oracle_enhanced-adapter
   awesome_print
   capybara
   database_cleaner
   factory_girl_rails
-  iqvoc!
-  memory_test_fix
+  iqvoc (~> 3.3.2)
   mysql2
   nokogiri (~> 1.5.0)
   rails (= 3.1.3)
-  rails_helpers_fix
   sqlite3
   uglifier

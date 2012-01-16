@@ -12,6 +12,8 @@ Operate Iqvoc::SKOSXL like a common iQvoc-based Application.
     `rake iqvoc:db:migrate_all`
 2. Populate iQvoc seeds:
     `rake iqvoc:db:seed_all`
+3. Generate secret token:
+    `rake iqvoc:setup:generate_secret_token`
 
 ## Engine
 

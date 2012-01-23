@@ -5,12 +5,14 @@ module IqvocSKOSXL
   ActiveSupport.on_load(:after_iqvoc_config) do
     require 'iqvoc'
 
-    prefix = "languages.further_labelings."
-    Iqvoc.config.deregister_setting("#{prefix}Labeling::SKOS::AltLabel") # iQvoc core default
-    Iqvoc.config.register_settings({
-      "title" => "iQvoc SKOS-XL",
-      "#{prefix}Labeling::SKOSXL::AltLabel" => ["en", "de"]
-    })
+    Iqvoc.config do |cfg|
+      prefix = "languages.further_labelings."
+      cfg.deregister_setting("#{prefix}Labeling::SKOS::AltLabel") # iQvoc core default
+      cfg.register_settings({
+        "title" => "iQvoc SKOS-XL",
+        "#{prefix}Labeling::SKOSXL::AltLabel" => ["en", "de"]
+      })
+    end
 
     Iqvoc.rdf_namespaces[:skosxl] = "http://www.w3.org/2008/05/skos-xl#" unless Iqvoc.rdf_namespaces[:skosxl]
 

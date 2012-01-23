@@ -1,6 +1,6 @@
 module Iqvoc
 
-  module XLLabel # This are the settings when using SKOSXL
+  module XLLabel # These are the settings when using SKOS-XL
 
     Iqvoc.first_level_class_configuration_modules << self
 
@@ -12,7 +12,7 @@ module Iqvoc
       :has_additional_base_data,
       :searchable_class_names
 
-    self.base_class_name                  = 'Label::SKOSXL::Base'
+    self.base_class_name = 'Label::SKOSXL::Base'
 
     self.relation_class_names = ['Label::Relation::SKOSXL::Base']
 

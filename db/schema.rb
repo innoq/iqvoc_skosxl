@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110615134040) do
+ActiveRecord::Schema.define(:version => 20120119000000) do
 
   create_table "collection_members", :force => true do |t|
     t.integer "collection_id"
@@ -47,6 +48,11 @@ ActiveRecord::Schema.define(:version => 20110615134040) do
 
   add_index "concepts", ["origin"], :name => "ix_concepts_on_origin", :length => {"origin"=>255}
   add_index "concepts", ["published_version_id"], :name => "ix_concepts_publ_version_id"
+
+  create_table "configuration_settings", :force => true do |t|
+    t.string "key"
+    t.string "value"
+  end
 
   create_table "label_relations", :force => true do |t|
     t.string   "type"

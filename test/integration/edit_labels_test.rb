@@ -1,4 +1,3 @@
-$: << File.join(File.dirname(__FILE__), '..')
 require 'test_helper'
 require 'integration_test_helper'
 

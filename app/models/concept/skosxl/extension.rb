@@ -43,18 +43,14 @@ module Concept
 
       end
 
-      module InstanceMethods
+      def labelings_by_id=(hash)
+        @labelings_by_id = hash
+      end
 
-        def labelings_by_id=(hash)
-          @labelings_by_id = hash
-        end
-
-        def labelings_by_id(relation_name, language)
-          (@labelings_by_id && @labelings_by_id[relation_name] && @labelings_by_id[relation_name][language]) ||
-            self.send(relation_name).by_label_language(language).
-                map { |l| l.target.origin }.join(Iqvoc::InlineDataHelper::Joiner)
-        end
-
+      def labelings_by_id(relation_name, language)
+        (@labelings_by_id && @labelings_by_id[relation_name] && @labelings_by_id[relation_name][language]) ||
+          self.send(relation_name).by_label_language(language).
+              map { |l| l.target.origin }.join(Iqvoc::InlineDataHelper::Joiner)
       end
 
     end

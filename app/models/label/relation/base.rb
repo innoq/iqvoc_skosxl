@@ -4,7 +4,7 @@ class Label::Relation::Base < ActiveRecord::Base
   self.rdf_namespace = nil
   self.rdf_predicate = nil
 
-  set_table_name 'label_relations'
+  self.table_name ='label_relations'
 
   belongs_to :domain, :class_name => "Label::Base"
   belongs_to :range,  :class_name => "Label::Base"

@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
-gem 'rails', '3.1.3'
-gem 'iqvoc', '~> 3.3.2' #, :path => '../iqvoc'
+gem 'rails', '3.2.1'
+gem 'iqvoc', '~> 3.4.0' #, :path => '../iqvoc'
 
 group :development do
   gem 'awesome_print'

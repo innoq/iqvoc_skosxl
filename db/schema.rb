@@ -62,8 +62,8 @@ ActiveRecord::Schema.define(:version => 20120119000000) do
     t.datetime "updated_at"
   end
 
-  add_index "label_relations", ["domain_id", "range_id", "type"], :name => "index_label_relations_on_domain_id_and_range_id_and_type"
-  add_index "label_relations", ["type"], :name => "index_label_relations_on_type"
+  add_index "label_relations", ["domain_id", "range_id", "type"], :name => "ix_label_rel_dom_rng_type"
+  add_index "label_relations", ["type"], :name => "ix_label_relations_on_type"
 
   create_table "labelings", :force => true do |t|
     t.string   "type"
@@ -83,9 +83,9 @@ ActiveRecord::Schema.define(:version => 20120119000000) do
     t.string   "value",                :limit => 1024
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "published_at"
     t.integer  "rev",                                  :default => 1
     t.integer  "published_version_id"
-    t.date     "published_at"
     t.integer  "locked_by"
     t.date     "expired_at"
     t.date     "follow_up"

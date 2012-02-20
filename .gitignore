@@ -3,7 +3,6 @@ nbproject
 pkg/*
 *.gem
 .bundle
-Gemfile.dev.lock
 
 config/database.yml
 config/initializers/secret_token.rb

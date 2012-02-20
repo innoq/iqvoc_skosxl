@@ -89,16 +89,17 @@ class Label::SKOSXL::Base < Label::Base
 
   # ********** Scopes
 
-  scope :by_origin, lambda { |origin|
+  def self.by_origin(origin)
     where(:origin => origin)
-  }
+  end
 
-  scope :with_associations, lambda { includes(:labelings => :owner) }
-
-  scope :for_dashboard, lambda {
-    unpublished_or_follow_up.
-      includes(:locking_user)
-  }
+  def self.with_associations
+    includes(:labelings => :owner)
+  end
+  
+  def self.for_dashboard
+    unpublished_or_follow_up.includes(:locking_user)
+  end
 
   # ********** Methods
 

@@ -9,27 +9,28 @@ class Label::Relation::Base < ActiveRecord::Base
   belongs_to :domain, :class_name => "Label::Base"
   belongs_to :range,  :class_name => "Label::Base"
 
-  scope :by_domain, lambda { |domain|
+  def self.by_domain(domain)
     where(:domain_id => domain)
-  }
-
-  scope :by_range, lambda { |range|
+  end
+  
+  def self.by_range(range)
     where(:range_id => range)
-  }
-
-  scope :by_range_origin, lambda { |origin|
+  end
+  
+  def self.by_range_origin(origin)
     includes(:range).merge(Label::Base.by_origin(origin))
-  }
+  end
+  
+  def self.range_editor_selectable
+    # includes(:range) & Iqvoc::XLLabel.base_class.editor_selectable 
+    # Doesn't work correctly (kills label_relations.type condition :-( )
+    includes(:range).
+    where("labels.published_at IS NOT NULL OR (labels.published_at IS NULL AND labels.published_version_id IS NULL) ")
+  end
 
-  scope :range_editor_selectable, lambda {
-   # includes(:range) & Iqvoc::XLLabel.base_class.editor_selectable # Doesn't work correctly (kills label_relations.type condition :-( )
-   includes(:range).where("labels.published_at IS NOT NULL OR (labels.published_at IS NULL AND labels.published_version_id IS NULL) ")
-  }
-
-  scope :range_in_edit_mode, lambda {
+  def self.range_in_edit_mode
     joins(:range).merge(Iqvoc::XLLabel.base_class.in_edit_mode)
-  }
-
+  end
 
   def self.view_section(obj)
     "relations"

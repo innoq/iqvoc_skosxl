@@ -9,16 +9,22 @@
 
 source "http://rubygems.org"
 
+# avoid modifying default Gemfile.lock in development mode
+ENV["BUNDLE_GEMFILE"] ||= "Gemfile.dev" if ENV["IQVOC_EDGE"]
+
 def iqvoc_gem(name, version, sources)
-  edge = ENV["IQVOC_EDGE"]
-  options = {}
-  if edge == "local"
-    options[:path] = sources[:path]
-  elsif edge == "remote"
-    options[:git] = sources[:git]
-  else
-    options = nil
+  if edge = ENV["IQVOC_EDGE"]
+    options = {}
+    case edge
+    when "local"
+      options[:path] = sources[:path]
+    when "remote"
+      options[:git] = sources[:git]
+    else
+      raise ArgumentError, "invalid source `#{edge}` for #{name}"
+    end
   end
+
   gem name, version, options
 end
 

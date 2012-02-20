@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
 gem 'rails', '3.2.1'
-gem 'iqvoc', '~> 3.5.1'
+gem 'iqvoc', '~> 3.5.5'
 
 group :development do
   gem 'awesome_print'
@@ -17,7 +17,7 @@ group :development, :test do
     gem 'sqlite3'
   end
   platforms :jruby do
-    gem 'activerecord-jdbcsqlite-adapter'
+    gem 'activerecord-jdbcsqlite3-adapter'
     gem 'activerecord-jdbcmysql-adapter'
   end
 end

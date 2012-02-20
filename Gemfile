@@ -1,7 +1,31 @@
+# Environment Variables:
+#
+# IQVOC_EDGE
+#   determines whether development versions of iQvoc dependencies are used
+#   if "local", `:path` is used when resolving gem source
+#   if "remote", `:git` is used when resolving gem source
+#
+# based on https://gist.github.com/1857044
+
 source "http://rubygems.org"
 
+def iqvoc_gem(name, version, sources)
+  edge = ENV["IQVOC_EDGE"]
+  options = {}
+  if edge == "local"
+    options[:path] = sources[:path]
+  elsif edge == "remote"
+    options[:git] = sources[:git]
+  else
+    options = nil
+  end
+  gem name, version, options
+end
+
 gem 'rails', '3.2.1'
-gem 'iqvoc', '~> 3.5.1' #, :path => '../iqvoc'
+iqvoc_gem 'iqvoc', '~> 3.5.1',
+    :path => '../iqvoc',
+    :git => 'git://github.com/innoq/iqvoc.git'
 
 group :development do
   gem 'awesome_print'

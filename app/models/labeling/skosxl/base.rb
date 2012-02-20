@@ -1,20 +1,20 @@
 class Labeling::SKOSXL::Base < Labeling::Base
 
-  scope :target_in_edit_mode, lambda {
+  def self.target_in_edit_mode
     includes(:target).merge(Iqvoc::XLLabel.base_class.in_edit_mode)
-  }
+  end
 
-  scope :by_label_origin, lambda { |origin|
+  def self.by_label_origin(origin)
     includes(:target).merge(self.label_class.by_origin(origin))
-  }
-
-  scope :by_label_language, lambda { |language|
+  end
+  
+  def self.by_label_language(language)
     includes(:target).merge(self.label_class.by_language(language))
-  }
-
-  scope :label_editor_selectable, lambda { # Lambda because self.label_class is currently not known + we don't want to call it at load time!
+  end
+  
+  def self.label_editor_selectable
     includes(:target).merge(self.label_class.editor_selectable)
-  }
+  end
 
   def self.create_for(o, t)
     find_or_create_by_owner_id_and_target_id(o.id, t.id)
@@ -66,6 +66,10 @@ class Labeling::SKOSXL::Base < Labeling::Base
   def self.edit_partial_name(obj)
     "partials/labeling/skosxl/edit_base"
   end
+  
+  # def by_label_language(language)
+  #   includes(:target).merge(self.label_class.by_language(language))
+  # end
 
   def build_search_result_rdf(document, result)
     result.Sdc::link(IqRdf.build_uri(owner.origin))

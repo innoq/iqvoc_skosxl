@@ -1,6 +1,7 @@
 <%- if can?(:create, Iqvoc::XLLabel.base_class) -%>
   <%= t("txt.views.labels.new") %>
-  (<%- Iqvoc::Concept::labeling_class_names.values.flatten.uniq.each do |language| -%>
+  <% Rails.logger.ap Iqvoc::Concept::labeling_class_names %>
+  (<%- Iqvoc::Concept::labeling_class_names.values.flatten.map(&:to_s).uniq.each do |language| -%>
     <%= link_to language.to_s,
             new_label_path(:published => 0, :language => language) %>
   <%- end -%>)

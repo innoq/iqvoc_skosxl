@@ -1,7 +1,6 @@
 FactoryGirl.define do
 
   factory :xllabel, :class => Iqvoc::XLLabel.base_class do |l|
-    l.origin 'Forest'
     l.language 'en'
     l.value 'Forest'
     l.published_at 3.days.ago

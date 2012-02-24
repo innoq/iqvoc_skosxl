@@ -4,19 +4,30 @@ require 'test_helper'
 
 class LabelTest < ActiveSupport::TestCase
 
-  def setup
+  setup do
     @current_label = FactoryGirl.create(:xllabel_with_association)
     @user = FactoryGirl.create(:user)
   end
 
-  def test_should_not_create_more_than_two_versions_of_a_label
+  test "should not create two similar labels" do
     first_new_label = Label::SKOSXL::Base.new(@current_label.attributes)
     second_new_label = Label::SKOSXL::Base.new(@current_label.attributes)
     assert first_new_label.save
-    assert_equal second_new_label.save, false
+    assert_equal false, second_new_label.save
+  end
+  
+  test "language interpolation for label origin" do
+    assert_equal "Forest-en", @current_label.origin
+  end
+  
+  test "should create two labels with equal values but different languages" do
+    l1 = FactoryGirl.create(:xllabel, :language => "de")
+    l2 = FactoryGirl.build(:xllabel, :language => "en")
+    assert_equal true, l2.save
+    assert_equal "Forest-en", l2.origin
   end
 
-  def test_should_validate_origin_for_escaping
+  test "should validate origin for escaping" do
     label = FactoryGirl.build(:xllabel)
     assert label.valid_with_full_validation?
 

@@ -7,6 +7,8 @@ class Label::SKOSXL::Base < Label::Base
   class_attribute :rdf_namespace, :rdf_class
   self.rdf_namespace = "skosxl"
   self.rdf_class = "Label"
+  
+  attr_protected :origin
 
   # ********** Validations
 
@@ -17,6 +19,10 @@ class Label::SKOSXL::Base < Label::Base
   
   after_initialize do
     @full_validation = false
+  end
+  
+  before_validation do |label|
+    label.origin = Iqvoc::Origin.new("#{value}-#{language}").to_s if label.origin.blank?
   end
 
   after_save do |label|

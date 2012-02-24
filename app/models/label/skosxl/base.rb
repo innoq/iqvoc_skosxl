@@ -206,7 +206,7 @@ class Label::SKOSXL::Base < Label::Base
   # Validations
 
   def origin_has_to_be_escaped
-    if origin != OriginMapping.merge(origin)
+    if origin != Iqvoc::Origin.new(origin).to_s
       errors.add :origin, I18n.t("txt.models.label.origin_invalid")
     end
   end

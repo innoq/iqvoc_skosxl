@@ -59,7 +59,7 @@ class LabelsController < ApplicationController
   def create
     authorize! :create, Iqvoc::XLLabel.base_class
     @label = Iqvoc::XLLabel.base_class.new(params[:label])
-    @label.origin = OriginMapping.merge(@label.value)
+    @label.origin = Iqvoc::Origin.new(@label.value).to_s
     if @label.valid?
       if @label.save
         flash[:notice] = I18n.t("txt.controllers.versioned_label.success")

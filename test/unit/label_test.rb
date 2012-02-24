@@ -23,7 +23,7 @@ class LabelTest < ActiveSupport::TestCase
     label.origin = "FoÖ/Bär"
     assert label.invalid_with_full_validation?
 
-    label.origin = OriginMapping.merge("FoÖ/Bär")
+    label.origin = Iqvoc::Origin.new("FoÖ/Bär").to_s
     assert label.valid_with_full_validation?
   end
 

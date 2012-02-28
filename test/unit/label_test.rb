@@ -15,11 +15,11 @@ class LabelTest < ActiveSupport::TestCase
     assert first_new_label.save
     assert_equal false, second_new_label.save
   end
-  
+
   test "language interpolation for label origin" do
     assert_equal "Forest-en", @current_label.origin
   end
-  
+
   test "should create two labels with equal values but different languages" do
     l1 = FactoryGirl.create(:xllabel, :language => "de")
     l2 = FactoryGirl.build(:xllabel, :language => "en")

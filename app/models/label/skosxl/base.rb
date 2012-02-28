@@ -7,7 +7,7 @@ class Label::SKOSXL::Base < Label::Base
   class_attribute :rdf_namespace, :rdf_class
   self.rdf_namespace = "skosxl"
   self.rdf_class = "Label"
-  
+
   attr_protected :origin
 
   # ********** Validations
@@ -16,11 +16,11 @@ class Label::SKOSXL::Base < Label::Base
   validate :origin_has_to_be_escaped
 
   # ********** Hooks
-  
+
   after_initialize do
     @full_validation = false
   end
-  
+
   before_validation do |label|
     label.origin = Iqvoc::Origin.new("#{value}-#{language}").to_s if label.origin.blank?
   end
@@ -102,7 +102,7 @@ class Label::SKOSXL::Base < Label::Base
   def self.with_associations
     includes(:labelings => :owner)
   end
-  
+
   def self.for_dashboard
     unpublished_or_follow_up.includes(:locking_user)
   end

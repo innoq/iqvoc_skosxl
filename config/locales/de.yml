@@ -2,4 +2,4 @@ de:
   txt:
     models:
       label:
-        origin_invalid: "enthält ungültige Zeichen."
+        origin_invalid: enthält ungültige Zeichen.

@@ -12,17 +12,17 @@ class Label::Relation::Base < ActiveRecord::Base
   def self.by_domain(domain)
     where(:domain_id => domain)
   end
-  
+
   def self.by_range(range)
     where(:range_id => range)
   end
-  
+
   def self.by_range_origin(origin)
     includes(:range).merge(Label::Base.by_origin(origin))
   end
-  
+
   def self.range_editor_selectable
-    # includes(:range) & Iqvoc::XLLabel.base_class.editor_selectable 
+    # includes(:range) & Iqvoc::XLLabel.base_class.editor_selectable
     # Doesn't work correctly (kills label_relations.type condition :-( )
     includes(:range).
     where("labels.published_at IS NOT NULL OR (labels.published_at IS NULL AND labels.published_version_id IS NULL) ")

@@ -36,7 +36,7 @@ module Concept
           self.send(relation_name).by_label_language(language).
               map { |l| l.target.origin }.join(Iqvoc::InlineDataHelper::Joiner)
       end
-      
+
       def valid_label_language
         (@labelings_by_id || {}).each { |labeling_class_name, origin_mappings|
           origin_mappings.each { |language, new_origins|

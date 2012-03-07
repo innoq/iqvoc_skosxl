@@ -2,4 +2,4 @@ en:
   txt:
     models:
       label:
-        origin_invalid: "Origin contains invalid characters."
+        origin_invalid: Origin contains invalid characters.

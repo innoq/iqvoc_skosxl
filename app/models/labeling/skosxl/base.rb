@@ -7,11 +7,11 @@ class Labeling::SKOSXL::Base < Labeling::Base
   def self.by_label_origin(origin)
     includes(:target).merge(self.label_class.by_origin(origin))
   end
-  
+
   def self.by_label_language(language)
     includes(:target).merge(self.label_class.by_language(language))
   end
-  
+
   def self.label_editor_selectable
     includes(:target).merge(self.label_class.editor_selectable)
   end
@@ -66,7 +66,7 @@ class Labeling::SKOSXL::Base < Labeling::Base
   def self.edit_partial_name(obj)
     "partials/labeling/skosxl/edit_base"
   end
-  
+
   # def by_label_language(language)
   #   includes(:target).merge(self.label_class.by_language(language))
   # end

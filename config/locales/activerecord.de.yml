@@ -1,10 +1,10 @@
 de:
   activerecord:
     models:
-      label/skosxl/base: 
+      label/skosxl/base:
         one: XL-Label
         other: XL-Labels
-      label/skosxl/relation/base: 
+      label/skosxl/relation/base:
         one: Label-Relation
         other: Label-Relationen
       labeling/skosxl/base:

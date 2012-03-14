@@ -10,7 +10,7 @@ env:
   - DB=mysql
 
 before_script: ruby ./script/ci/travis_before_build.rb
-script: bundle exec rake db:drop db:create iqvoc:db:migrate_all test RAILS_ENV=test
+script: bundle exec rake iqvoc:setup:generate_secret_token db:drop db:create iqvoc:db:migrate_all test RAILS_ENV=test
 
 branches:
   only:

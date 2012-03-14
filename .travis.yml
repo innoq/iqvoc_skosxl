@@ -7,7 +7,7 @@ env:
   - DB=sqlite
   - DB=mysql
 
-before_script: cp config/database.travis.yml config/database.yml
+before_script: "cp config/database.#{ENV['DB']}.yml config/database.yml"
 script: bundle exec rake db:drop db:create db:migrate test RAILS_ENV=test
 
 branches:

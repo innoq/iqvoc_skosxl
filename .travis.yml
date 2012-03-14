@@ -7,7 +7,7 @@ env:
   - DB=sqlite
   - DB=mysql
 
-before_script: ./script/ci/travis_before_build.rb
+before_script: ruby ./script/ci/travis_before_build.rb
 script: bundle exec rake db:drop db:create db:migrate test RAILS_ENV=test
 
 branches:

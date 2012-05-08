@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem 'rails', '3.2.2'
+gem 'rails', '3.2.3'
 gem 'iqvoc', '~> 3.5.5'
 
 group :development do

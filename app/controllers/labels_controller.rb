@@ -61,7 +61,7 @@ class LabelsController < ApplicationController
     @label = Iqvoc::XLLabel.base_class.new(params[:label])
     if @label.valid?
       if @label.save
-        flash[:notice] = I18n.t("txt.controllers.versioned_label.success")
+        flash[:success] = I18n.t("txt.controllers.versioned_label.success")
         redirect_to label_path(:published => 0, :id => @label.origin)
       else
         flash.now[:error] = I18n.t("txt.controllers.versioned_label.error")
@@ -103,7 +103,7 @@ class LabelsController < ApplicationController
       format.html do
         raise ActiveRecord::RecordNotFound unless @label
         if @label.update_attributes(params[:label])
-          flash[:notice] = I18n.t("txt.controllers.versioned_label.update_success")
+          flash[:success] = I18n.t("txt.controllers.versioned_label.update_success")
           redirect_to label_path(:published => 0, :id => @label)
         else
           flash.now[:error] = I18n.t("txt.controllers.versioned_label.update_error")
@@ -119,10 +119,10 @@ class LabelsController < ApplicationController
     authorize! :destroy, @new_label
 
     if @new_label.destroy
-      flash[:notice] = I18n.t("txt.controllers.label_versions.delete")
+      flash[:success] = I18n.t("txt.controllers.label_versions.delete")
       redirect_to dashboard_path
     else
-      flash[:notice] = I18n.t("txt.controllers.label_versions.delete_error")
+      flash[:error] = I18n.t("txt.controllers.label_versions.delete_error")
       redirect_to label_path(:published => 0, :id => @new_label)
     end
   end

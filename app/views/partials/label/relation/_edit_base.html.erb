@@ -1,13 +1,11 @@
-<li>
-  <%= label_tag(klass.name.to_relation_name,
-          klass.model_name.human(:count => 2)) %>
-  <%= text_field_tag "label[inline_#{klass.name.to_relation_name}]",
-          label.send("inline_#{klass.name.to_relation_name}"),
-          :id => "#{klass.name.to_relation_name}",
-          :class => "entity_select",
-          :"data-query-url" => labels_path(:format => :json),
-          :"data-entity-uri" => label_path("{id}"),
-          :"data-entities" => Iqvoc::XLLabel.base_class.editor_selectable.
-              by_origin(label.send("inline_#{klass.name.to_relation_name}")).
-              map { |l| label_widget_data(l) }.to_json %>
-</li>
+<% fieldname = "label[inline_#{klass.name.to_relation_name}]" %>
+<%= f.input fieldname, :label => klass.model_name.human(:count => 2) do %>
+  <%= text_field_tag fieldname, label.send("inline_#{klass.name.to_relation_name}"),
+    :id => klass.name.to_relation_name,
+    :class => "entity_select",
+    :"data-query-url" => labels_path(:format => :json),
+    :"data-entity-uri" => label_path("{id}"),
+    :"data-entities" => Iqvoc::XLLabel.base_class.editor_selectable.
+        by_origin(label.send("inline_#{klass.name.to_relation_name}")).
+        map { |l| label_widget_data(l) }.to_json %>
+<% end %>

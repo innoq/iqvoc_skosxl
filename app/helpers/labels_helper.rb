@@ -22,14 +22,6 @@ module LabelsHelper
           additional_object.build_rdf(document, c)
         end
       end
-
-=begin
-      concept.matches.each do |match|
-        match.build_rdf(document, c)
-      end
-
-
-=end
     end
   end
 
@@ -63,6 +55,18 @@ module LabelsHelper
     end
 
     res
+  end
+
+  def label_header(label)
+    desc = label.class.model_name.human
+
+    if label.expired_at
+      desc += " #{t('txt.views.concepts.expired_at', :date => l(label.expired_at, :format => :long))} "
+    end
+
+    title = label.origin
+
+    page_header :title => title.to_s, :desc => desc.html_safe
   end
 
 end

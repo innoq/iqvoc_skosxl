@@ -1,22 +1,7 @@
-<%- published_param = @label.published? ? nil : 0 %>
-<%= content_for :head do -%>
-  <link href="<%= rdf_url(@label.origin, :format => :ttl, :published => published_param, :lang => nil) %>" type="text/turtle" rel="alternate" title=""/>
-  <link href="<%= rdf_url(@label.origin, :format => :rdf, :published => published_param, :lang => nil) %>" type="application/rdf+xml" rel="alternate" title=""/>
-<% end -%>
+<% published_param = label.published? ? nil : 0 %>
+<%= content_for :head do %>
+  <link href="<%= rdf_url(label.origin, :format => :ttl, :published => published_param, :lang => nil) %>" type="text/turtle" rel="alternate" title=""/>
+  <link href="<%= rdf_url(label.origin, :format => :rdf, :published => published_param, :lang => nil) %>" type="application/rdf+xml" rel="alternate" title=""/>
+<% end %>
 
-<h2><%= @label.class.model_name.human %>:
-  <%= @label.origin %>
-  <%- if !@label.published? %>
-    (<%= t('txt.common.unpublished_version') %>)
-  <%- end -%>
-</h2>
-
-<div id="abstract_uri">
-  <%= rdf_url(@label.origin, :format => nil, :published => published_param, :lang => nil) %>
-  (<%= link_to "Turtle", rdf_url(@label.origin, :format => :ttl, :published => published_param, :lang => nil) %>,
-  <%= link_to "RDF/XML", rdf_url(@label.origin, :format => :rdf, :published => published_param, :lang => nil) %>)
-</div>
-
-<%- if @label.expired_at -%>
-  <h4><%= t('txt.views.concepts.expired_at', :date => l(@label.expired_at, :format => :long)) %></h4>
-<%- end -%>
+<%= label_header(label) %>

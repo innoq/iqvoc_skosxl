@@ -16,3 +16,7 @@ en:
       labeling/skosxl/alt_label:
         one: Alternative Label
         other: Alternative Labels
+
+    attributes:
+      label/skosxl/base:
+        value: Value

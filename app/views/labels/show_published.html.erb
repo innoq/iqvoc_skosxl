@@ -1,11 +1,14 @@
-<%= render 'show_head' %>
+<%= render 'header', :label => @label %>
+<%= render 'sidebar', :label => @label %>
 
 <% if can?(:read, @new_label_version) || can?(:branch, @label) %>
-  <div class="editing_versioning_toolbar ui-corner-all ui-widget ui-widget-content">
+  <div class="editing_versioning_toolbar well">
     <% if @new_label_version.blank? && can?(:branch, @label) %>
-      <%= button_to t("txt.views.versioning.versioning_mode"), label_versions_branch_path(:origin => @label.origin) %>
+      <%= button_to t("txt.views.versioning.versioning_mode"),
+      label_versions_branch_path(:origin => @label.origin), :class => 'btn' %>
     <% elsif can?(:read, @new_label_version) %>
-      <%= link_to t("txt.views.versioning.preview_new_version"), label_path(:published => 0, :id => @new_label_version) %>
+      <%= link_to t("txt.views.versioning.preview_new_version"),
+      label_path(:published => 0, :id => @new_label_version), :class => 'btn' %>
     <% end %>
   </div>
 <% end %>

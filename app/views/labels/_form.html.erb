@@ -1,62 +1,46 @@
-<h3><%= Label::Base.model_name.human %></h3>
+<%= simple_form_for label,
+  :as => :label,
+  :url => label.new_record? ? labels_path : label_path(:id => label, :published => 0),
+  :html => { :class => "form-horizontal" } do |f| %>
 
-<%= form_for @label, :as => 'label', :url => @label.new_record? ? labels_path : label_path(:id => @label, :published => 0), :html => {:class => "form"} do |f| %>
   <fieldset id="label_base_data">
     <legend><%= t("txt.common.attributes") %></legend>
-    <ol>
-      <li>
-        <label><%= t("txt.views.labels.template_form") %></label>
-        <%= f.text_field :value %>
-      </li>
-      <li>
-        <%= f.label :language %>
-        <%= @label.language %>
-        <%= f.hidden_field :language %>
-      </li>
+    <%= f.input :value %>
+    <%= f.input :language do %>
+      <%= @label.language %>
+      <span><%= f.hidden_field :language %></span>
+    <% end %>
 
-      <%- if Iqvoc::XLLabel.has_additional_base_data -%>
-        <%= render :partial => 'partials/label/additional_base_data', :locals => { :f => f } %>
-      <%- end -%>
+    <% if Iqvoc::XLLabel.has_additional_base_data %>
+      <%= render 'partials/label/additional_base_data', :f => f %>
+    <% end %>
 
-      <li>
-        <%= f.label :follow_up %>
-        <%= f.text_field :follow_up, :class => "datepicker" %>
-      </li>
-      <li>
-        <%= f.label :expired_at %>
-        <%= f.text_field :expired_at, :class => "datepicker" %>
-      </li>
-    </ol>
+    <%= f.input :follow_up, :as => :string, :input_html => { :class => 'datepicker' } %>
+    <%= f.input :expired_at, :as => :string, :input_html => { :class => 'datepicker' } %>
   </fieldset>
 
   <fieldset>
-    <legend>Relations</legend>
-    <ol>
-      <%- Iqvoc::XLLabel.relation_classes.each do |relation_class| -%>
-        <%= render relation_class.edit_partial_name(@label), :label => @label, :klass => relation_class %>
-      <%- end -%>
-    </ol>
+    <legend><%= Label::Relation::SKOSXL::Base.model_name.human(:count => 2) %></legend>
+      <% Iqvoc::XLLabel.relation_classes.each do |relation_class| %>
+        <%= render relation_class.edit_partial_name(label), :f => f, :label => label, :klass => relation_class %>
+      <% end %>
   </fieldset>
 
-  <%- Iqvoc::XLLabel.additional_association_classes.keys.each do |association_class| -%>
+  <% Iqvoc::XLLabel.additional_association_classes.keys.each do |association_class| %>
     <fieldset>
       <legend><%= association_class.model_name.human(:count => 2) %></legend>
-      <ol>
-        <%= render association_class.edit_partial_name(@label), :label => @label, :klass => association_class, :f => f %>
-      </ol>
+      <%= render association_class.edit_partial_name(label), :label => label, :klass => association_class, :f => f %>
     </fieldset>
-  <%- end -%>
+  <% end %>
 
 
-  <% unless @label.new_record? %>
+  <% unless label.new_record? %>
     <% Iqvoc::XLLabel.note_classes.each do |note_class| %>
-      <%= render note_class.edit_partial_name(@label), :owner_klass => @label, :assoc_klass => note_class, :f => f %>
+      <%= render note_class.edit_partial_name(label), :owner_klass => label, :assoc_klass => note_class, :f => f %>
     <% end %>
   <% end %>
 
-  <%= f.submit t("txt.common.save") %>
-
-  <% unless controller.action_name == "new" || controller.action_name == "create" %>
-    <%= link_to t("txt.common.reset"), nil, :class => "button" %>
-  <% end %>
-<% end %>
+  <div class="form-actions">
+    <%= f.submit t("txt.common.save"), :class => 'btn btn-primary' %>
+  </div>
+<% end # form %>

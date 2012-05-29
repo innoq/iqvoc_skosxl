@@ -1,5 +1,9 @@
 en:
   txt:
+    views:
+      layouts:
+        sections:
+          concepts: Konzepte
     models:
       label:
         origin_invalid: Origin contains invalid characters.

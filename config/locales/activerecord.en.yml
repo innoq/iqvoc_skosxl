@@ -4,7 +4,7 @@ en:
       label/skosxl/base:
         one: XL Label
         other: XL Labels
-      label/skosxl/relation/base:
+      label/relation/skosxl/base:
         one: Label Relation
         other: Label Relations
       labeling/skosxl/base:

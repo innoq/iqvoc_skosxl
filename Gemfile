@@ -1,13 +1,14 @@
 source "http://rubygems.org"
 
 gem 'rails', '3.2.3'
-gem 'iqvoc', '~> 3.5.5'
+gem 'iqvoc', '~> 4.0.0'
 
 group :development do
   gem 'awesome_print'
 end
 
 group :assets do
+  gem 'sass-rails', '~> 3.2.5'
   gem 'uglifier', '>= 1.0.3'
 end
 

@@ -15,4 +15,11 @@ module IqvocSkosxlHelper
     end
   end
 
+  def search_result_label(label, concept)
+    str = ActiveSupport::SafeBuffer.new
+    str << label
+    str << " (#{concept.additional_info})" if concept.additional_info
+    str
+  end
+
 end

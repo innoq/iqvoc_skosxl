@@ -130,15 +130,6 @@ class Label::SKOSXL::Base < Label::Base
     "partials/label/skosxl/edit_link_base"
   end
 
-  def self.from_rdf(str)
-    h = Iqvoc::RdfHelper.split_literal(str)
-    self.new(:value => h[:value], :language => h[:language])
-  end
-
-  def self.from_rdf!(str)
-    self.from_rdf(str).save!
-  end
-
   def build_rdf_subject(document, controller, &block)
     ns = IqRdf::Namespace.find_namespace_class(self.rdf_namespace.to_sym)
     raise "Namespace '#{rdf_namespace}' is not defined in IqRdf document." unless ns
@@ -161,9 +152,9 @@ class Label::SKOSXL::Base < Label::Base
   end
 
   def from_rdf(str)
-    h = Iqvoc::RdfHelper.split_literal(str)
-    self.value    = h[:value]
-    self.language = h[:language]
+    raise "invalid rdf literal" unless str =~ /^"(.+)"(@(.+))$/
+    self.value = $1
+    self.language = $3
     self
   end
 

@@ -4,6 +4,7 @@ de:
       layouts:
         sections:
           concepts: Konzepte
+          inflectionals: Schreibweisen
     models:
       label:
         origin_invalid: enthält ungültige Zeichen.

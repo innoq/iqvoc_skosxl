@@ -3,7 +3,8 @@ en:
     views:
       layouts:
         sections:
-          concepts: Konzepte
+          concepts: Concepts
+          inflectionals: Inflectionals
     models:
       label:
         origin_invalid: Origin contains invalid characters.

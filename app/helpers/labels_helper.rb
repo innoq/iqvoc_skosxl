@@ -1,7 +1,7 @@
 module LabelsHelper
 
   def render_label_rdf(document, label)
-    document << label.build_rdf_subject(document, controller) do |c|
+    document << label.build_rdf_subject do |c|
 
       c.Schema::expires(label.expired_at) if label.expired_at
 

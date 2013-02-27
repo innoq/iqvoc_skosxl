@@ -130,7 +130,7 @@ class Label::SKOSXL::Base < Label::Base
     "partials/label/skosxl/edit_link_base"
   end
 
-  def build_rdf_subject(document, controller, &block)
+  def build_rdf_subject(&block)
     ns = IqRdf::Namespace.find_namespace_class(self.rdf_namespace.to_sym)
     raise "Namespace '#{rdf_namespace}' is not defined in IqRdf document." unless ns
     IqRdf.build_uri(self.origin, ns.build_uri(self.rdf_class), &block)

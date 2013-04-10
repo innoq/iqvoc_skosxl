@@ -1,19 +1,21 @@
 class DisabledNamespace
 
-  class << self
-    attr_accessor :obsolete
+  attr_reader :obsolete
+
+  def initialize(obsolete_namespace)
+    @obsolete = obsolete_namespace
   end
 
-  def self.method_missing(meth, *args, &block)
+  def method_missing(meth, *args, &block)
     error
   end
 
-  def self.const_missing(name)
+  def const_missing(name)
     error
   end
 
-  def self.error
-    warn <<-EOS.strip.gsub(/\s+/, " ")
+  def error
+    raise RuntimeError, <<-EOS.strip.gsub(/\s+/, " ")
       this namespace has been disabled - the original functionality remains
       available via `obsolete`
     EOS
@@ -21,9 +23,8 @@ class DisabledNamespace
 
 end
 
-DisabledNamespace.obsolete = Iqvoc::Label
 silence_warnings do
-  Iqvoc::Label = DisabledNamespace
+  Iqvoc::Label = DisabledNamespace.new(Iqvoc::Label)
 end
 
 Iqvoc.searchable_class_names = ['Labeling::SKOSXL::Base'] +

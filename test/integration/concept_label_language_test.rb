@@ -39,7 +39,7 @@ class ConceptLabelLanguageTest < ActionDispatch::IntegrationTest
         :with => "#{@labels["Deutsch"].origin},"
     click_button "Speichern"
 
-    assert page.has_css?(".flash_error")
+    assert page.has_css?(".alert-error")
     assert page.has_css?("#new_concept")
     assert page.source.include?( # XXX: page.has_content? didn't work
         I18n.t("txt.controllers.versioned_concept.label_error") % "Deutsch")
@@ -58,7 +58,7 @@ class ConceptLabelLanguageTest < ActionDispatch::IntegrationTest
         :with => "#{@labels["Deutsch"].origin},"
     click_button "Speichern"
 
-    assert page.has_css?(".flash_error")
+    assert page.has_css?(".alert-error")
     assert page.has_css?("#new_concept")
     assert page.source.include?( # XXX: page.has_content? didn't work
         I18n.t("txt.controllers.versioned_concept.label_error") % "Deutsch")
@@ -85,7 +85,7 @@ class ConceptLabelLanguageTest < ActionDispatch::IntegrationTest
         :with => "#{@labels["English"].origin},"
     click_button "Speichern"
 
-    assert page.has_css?(".flash_error")
+    assert page.has_css?(".alert-error")
     assert page.has_css?("#edit_concept")
     assert page.source.include?( # XXX: page.has_content? didn't work
         I18n.t("txt.controllers.versioned_concept.label_error") % "English")

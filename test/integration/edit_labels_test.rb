@@ -4,7 +4,7 @@ require 'integration_test_helper'
 class EditConceptsTest < ActionDispatch::IntegrationTest
 
   setup do
-    @label = Factory(:xllabel)
+    @label = FactoryGirl.create(:xllabel)
   end
 
   test "Create a new concept version" do

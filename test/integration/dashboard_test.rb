@@ -4,7 +4,7 @@ require 'integration_test_helper'
 class DashboardTest < ActionDispatch::IntegrationTest
 
   setup do
-    @label = Factory(:xllabel, :published_at => nil)
+    @label = FactoryGirl.create(:xllabel, :published_at => nil)
   end
 
   test "labels appearing in dashboard" do

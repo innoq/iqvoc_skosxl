@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120201120736) do
+ActiveRecord::Schema.define(:version => 20130315141952) do
 
   create_table "collection_members", :force => true do |t|
     t.integer "collection_id"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20120201120736) do
     t.integer  "target_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "rank",       :default => 100
   end
 
   add_index "concept_relations", ["owner_id", "target_id"], :name => "ix_concept_relations_fk"
@@ -47,7 +48,7 @@ ActiveRecord::Schema.define(:version => 20120201120736) do
     t.boolean  "top_term",                             :default => false
   end
 
-  add_index "concepts", ["origin"], :name => "ix_concepts_on_origin", :length => {"origin"=>255}
+  add_index "concepts", ["origin"], :name => "ix_concepts_on_origin"
   add_index "concepts", ["published_version_id"], :name => "ix_concepts_publ_version_id"
 
   create_table "configuration_settings", :force => true do |t|
@@ -84,9 +85,9 @@ ActiveRecord::Schema.define(:version => 20120201120736) do
     t.string   "value",                :limit => 1024
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.date     "published_at"
     t.integer  "rev",                                  :default => 1
     t.integer  "published_version_id"
+    t.date     "published_at"
     t.integer  "locked_by"
     t.date     "expired_at"
     t.date     "follow_up"
@@ -95,9 +96,9 @@ ActiveRecord::Schema.define(:version => 20120201120736) do
   end
 
   add_index "labels", ["language"], :name => "ix_labels_on_language"
-  add_index "labels", ["origin"], :name => "ix_labels_on_origin", :length => {"origin"=>255}
+  add_index "labels", ["origin"], :name => "ix_labels_on_origin"
   add_index "labels", ["published_version_id"], :name => "ix_labels_on_published_v"
-  add_index "labels", ["value"], :name => "ix_labels_on_value", :length => {"value"=>255}
+  add_index "labels", ["value"], :name => "ix_labels_on_value"
 
   create_table "matches", :force => true do |t|
     t.integer  "concept_id"
@@ -109,6 +110,14 @@ ActiveRecord::Schema.define(:version => 20120201120736) do
 
   add_index "matches", ["concept_id", "type"], :name => "ix_matches_fk_type"
   add_index "matches", ["type"], :name => "ix_matches_on_type"
+
+  create_table "notations", :force => true do |t|
+    t.integer "concept_id"
+    t.string  "value",      :limit => 4000
+    t.string  "data_type",  :limit => 4000
+  end
+
+  add_index "notations", ["concept_id"], :name => "index_notations_on_concept_id"
 
   create_table "note_annotations", :force => true do |t|
     t.integer  "note_id"

@@ -13,7 +13,6 @@ class RoutingTest < ActionController::TestCase
 
   test "routing" do
     get :show, :lang => "en", :format => "html", :id => @label.origin
-    puts "===== #{@response.headers} -----"
     assert_response :success
   end
 

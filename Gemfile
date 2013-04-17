@@ -34,6 +34,13 @@ end
 group :production, :production_internal do
   platforms :ruby do
     gem 'sqlite3'
+
+    gem 'pry'
+    gem 'pry-rails'
+    gem 'pry-debugger'
+    gem 'pry-remote'
+    gem 'hirb-unicode'
+    gem 'cane'
   end
 
   platforms :jruby do

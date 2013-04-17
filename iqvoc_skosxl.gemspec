@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = "iQvoc SKOS-XL extension"
   s.description = ""
 
-  s.add_dependency "iqvoc", "~> 4.0.0"
+  s.add_dependency "iqvoc", "~> 4.1.0"
   s.add_dependency "bundler"
 
   s.files = %w(README.md Gemfile Gemfile.lock Rakefile iqvoc_skosxl.gemspec) + Dir.glob("{app,config,db,public,lib,test}/**/*")

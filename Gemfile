@@ -1,15 +1,15 @@
 source "http://rubygems.org"
 
-gem 'rails', '3.2.3'
-gem 'iqvoc', '~> 4.0.0'
+gem 'rails', '~> 3.2.13'
+gem 'iqvoc', :git => 'git://github.com/innoq/iqvoc.git'
 
 group :development do
   gem 'awesome_print'
 end
 
 group :assets do
+  gem 'uglifier',   '>= 1.0.3'
   gem 'sass-rails', '~> 3.2.5'
-  gem 'uglifier', '>= 1.0.3'
 end
 
 group :development, :test do

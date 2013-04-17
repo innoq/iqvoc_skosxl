@@ -39,6 +39,14 @@ GEM
       activesupport (= 3.2.13)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
+    activerecord-jdbc-adapter (1.2.9)
+    activerecord-jdbcmysql-adapter (1.2.9)
+      activerecord-jdbc-adapter (~> 1.2.9)
+      jdbc-mysql (~> 5.1.0)
+    activerecord-jdbcsqlite3-adapter (1.2.9)
+      activerecord-jdbc-adapter (~> 1.2.9)
+      jdbc-sqlite3 (~> 3.7.2)
+    activerecord-oracle_enhanced-adapter (1.4.2)
     activeresource (3.2.13)
       activemodel (= 3.2.13)
       activesupport (= 3.2.13)
@@ -88,8 +96,11 @@ GEM
       builder
       bundler
     iq_triplestorage (0.2.2)
+    jdbc-mysql (5.1.24)
+    jdbc-sqlite3 (3.7.2.1)
     journey (1.0.4)
     json (1.7.7)
+    json (1.7.7-java)
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -102,6 +113,7 @@ GEM
     multi_json (1.7.2)
     mysql2 (0.3.11)
     nokogiri (1.5.9)
+    nokogiri (1.5.9-java)
     parallel (0.6.4)
     polyglot (0.3.3)
     pry (0.9.12)
@@ -173,6 +185,7 @@ GEM
       nokogiri (~> 1.3)
 
 PLATFORMS
+  java
   ruby
 
 DEPENDENCIES

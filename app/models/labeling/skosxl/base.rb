@@ -1,5 +1,9 @@
 class Labeling::SKOSXL::Base < Labeling::Base
 
+  class_attribute :rdf_namespace, :rdf_predicate
+  self.rdf_namespace = nil
+  self.rdf_predicate = nil
+
   def self.target_in_edit_mode
     includes(:target).merge(Iqvoc::XLLabel.base_class.in_edit_mode)
   end
@@ -70,6 +74,11 @@ class Labeling::SKOSXL::Base < Labeling::Base
   # def by_label_language(language)
   #   includes(:target).merge(self.label_class.by_language(language))
   # end
+
+  def build_rdf(document, subject)
+    subject.send(self.rdf_namespace.camelcase).send(self.rdf_predicate, target.origin)
+    subject.Skos.send(self.rdf_predicate, target.value.to_s, :lang => target.language)
+  end
 
   def build_search_result_rdf(document, result)
     result.Sdc::link(IqRdf.build_uri(owner.origin))

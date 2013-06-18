@@ -1,9 +1,7 @@
 class Labeling::SKOSXL::PrefLabel < Labeling::SKOSXL::Base
 
-  def build_rdf(document, subject)
-    subject.Skosxl::prefLabel(IqRdf.build_uri(target.origin))
-    subject.Skos.prefLabel(target.to_s, :lang => target.language)
-  end
+  self.rdf_namespace = 'skosxl'
+  self.rdf_predicate = 'prefLabel'
 
   def self.only_one_allowed?
     true

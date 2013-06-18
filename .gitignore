@@ -4,6 +4,8 @@ pkg/*
 *.gem
 .bundle
 
+db/schema.rb
+
 config/database.yml
 config/initializers/secret_token.rb
 

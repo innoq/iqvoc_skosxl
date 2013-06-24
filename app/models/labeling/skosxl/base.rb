@@ -76,7 +76,7 @@ class Labeling::SKOSXL::Base < Labeling::Base
   # end
 
   def build_rdf(document, subject)
-    subject.send(self.rdf_namespace.camelcase).send(self.rdf_predicate, target.origin)
+    subject.send(self.rdf_namespace.camelcase).send(self.rdf_predicate, IqRdf.build_uri(target.origin))
     subject.Skos.send(self.rdf_predicate, target.value.to_s, :lang => target.language)
   end
 

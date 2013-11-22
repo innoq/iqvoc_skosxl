@@ -1,4 +1,3 @@
-require 'debug'
 require 'iqvoc/environments/test'
 
 if Iqvoc::SKOSXL.const_defined?(:Application)

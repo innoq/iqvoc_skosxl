@@ -14,7 +14,7 @@ module Iqvoc
 
     self.base_class_name = 'Label::SKOSXL::Base'
 
-    self.relation_class_names = ['Label::Relation::SKOSXL::Base']
+    self.relation_class_names = []
 
     self.note_class_names = Iqvoc::Concept.note_class_names
 

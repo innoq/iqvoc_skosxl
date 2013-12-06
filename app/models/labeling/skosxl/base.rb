@@ -36,7 +36,7 @@ class Labeling::SKOSXL::Base < Labeling::Base
   def self.single_query(params = {})
     query_str = build_query_string(params)
 
-    scope = includes(:target).order("LOWER(#{Label::Base.table_name}.value)")
+    scope = includes(:target).order("LOWER(#{Label::Base.table_name}.value)").references(:labels)
 
     if params[:query].present?
       scope = scope.merge(Label::Base.by_query_value(query_str).by_language(params[:languages].to_a).published)

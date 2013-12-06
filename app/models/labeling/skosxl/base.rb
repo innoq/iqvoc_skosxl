@@ -56,7 +56,7 @@ class Labeling::SKOSXL::Base < Labeling::Base
       #
     end
 
-    scope
+    scope.map { |result| SearchResult.new(result) }
   end
 
   def self.search_result_partial_name

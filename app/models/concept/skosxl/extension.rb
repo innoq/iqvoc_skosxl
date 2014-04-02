@@ -7,12 +7,16 @@ module Concept
       included do
         validate :valid_label_language
 
-        after_save do |concept|
+        before_validation do |concept|
           # Labelings
           (@labelings_by_id ||= {}).each do |labeling_relation_name, origin_mappings|
             # Remove all associated labelings of the given type
             concept.send(labeling_relation_name).destroy_all
+          end
+        end
 
+        after_save do |concept|
+          (@labelings_by_id ||= {}).each do |labeling_relation_name, origin_mappings|
             # (Re)create labelings reflecting a widget's parameters
             origin_mappings.each do |language, new_origins|
               new_origins = new_origins.

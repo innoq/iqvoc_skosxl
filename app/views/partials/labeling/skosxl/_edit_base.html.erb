@@ -2,18 +2,18 @@
   <%- fieldname = "concept[labelings_by_id][#{klass.name.to_relation_name}][#{language}]" -%>
   <%- label = klass.model_name.human(:count => 2) -%>
 
-  <%= f.label label %>
-  <%= f.input fieldname, :wrapper => :prepend, :label => false do %>
-    <span class="add-on"><%= language %></span><%= text_field_tag "concept[labelings_by_id][#{klass.name.to_relation_name}][#{language}]",
-            concept.labelings_by_id(klass.name.to_relation_name, language),
-            :id => "#{klass.name.to_relation_name}_#{language}",
-            :class => "entity_select",
-            :"data-query-url" => labels_path(:format => :json, :language => language),
-            :"data-entity-uri" => label_path("{id}"),
-            :"data-entities" => Iqvoc::XLLabel.base_class.editor_selectable.
-                by_language(language).by_origin(concept.labelings_by_id(
-                    klass.name.to_relation_name, language).
-                    split(Iqvoc::InlineDataHelper::SPLITTER)).
-                map { |l| label_widget_data(l) }.to_json %>
+  <%= f.form_group nil, :label => { :text => label } do %>
+    <%= text_field_tag fieldname,
+        concept.labelings_by_id(klass.name.to_relation_name, language),
+        :id => "#{klass.name.to_relation_name}_#{language}",
+        :class => "entity_select form-control",
+        :"data-language" => language,
+        :"data-query-url" => labels_path(:format => :json, :language => language),
+        :"data-entity-uri" => label_path("{id}"),
+        :"data-entities" => Iqvoc::XLLabel.base_class.editor_selectable.
+            by_language(language).by_origin(concept.labelings_by_id(
+                klass.name.to_relation_name, language).
+                split(Iqvoc::InlineDataHelper::SPLITTER)).
+            map { |l| label_widget_data(l) }.to_json %>
   <% end %>
 <% end %>

@@ -1,5 +1,5 @@
-<%= sidebar_item :path => new_label_path, :perms => [:create, Iqvoc::XLLabel.base_class], :active => params[:action] == 'new' do %>
-  <%= icon(:edit) + " " + t('txt.views.labels.new') %> (<% Iqvoc::Concept::labeling_class_names.values.flatten.map(&:to_s).uniq.each do |language| %>
-    <%= link_to language.to_s, new_label_path(:published => 0, :language => language), :class => 'inline-language-selector' %>
-  <% end %>)
-<% end %>
+<span class="list-group-item">
+<%= icon(:edit) %> <%= t("txt.views.labels.new") %> (<% Iqvoc::Concept::labeling_class_names.values.flatten.map(&:to_s).uniq.each do |language| %>
+  <%= link_to language.to_s, new_label_path(:published => 0, :language => language), :class => 'inline-language-selector' %>
+<% end %>)
+</span>

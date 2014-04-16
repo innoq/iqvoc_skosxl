@@ -1,22 +1,19 @@
-<%= simple_form_for label,
+<%= bootstrap_form_for label,
   :as => :label,
   :url => label.new_record? ? labels_path : label_path(:id => label, :published => 0),
-  :html => { :class => "form-horizontal" } do |f| %>
+  :layout => :horizontal do |f| %>
 
   <fieldset id="label_base_data">
     <legend><%= t("txt.common.attributes") %></legend>
-    <%= f.input :value %>
-    <%= f.input :language do %>
-      <%= @label.language %>
-      <span><%= f.hidden_field :language %></span>
-    <% end %>
+    <%= f.text_field :value %>
+    <%= f.text_field :language, :disabled => true %>
 
     <% if Iqvoc::XLLabel.has_additional_base_data %>
       <%= render 'partials/label/additional_base_data', :f => f %>
     <% end %>
 
-    <%= f.input :follow_up, :as => :string, :input_html => { :class => 'datepicker' } %>
-    <%= f.input :expired_at, :as => :string, :input_html => { :class => 'datepicker' } %>
+    <%= f.text_field :follow_up, :class => 'datepicker' %>
+    <%= f.text_field :expired_at, :class => 'datepicker' %>
   </fieldset>
 
   <fieldset>
@@ -40,7 +37,9 @@
     <% end %>
   <% end %>
 
-  <div class="form-actions">
+  <hr />
+
+  <div class="well">
     <%= f.submit t("txt.common.save"), :class => 'btn btn-primary' %>
   </div>
-<% end # form %>
+<% end %>

@@ -1,5 +1,5 @@
 <% fieldname = "label[inline_#{klass.name.to_relation_name}]" %>
-<%= f.input fieldname, :label => klass.model_name.human(:count => 2) do %>
+<%= f.form_group nil, :label => { :text => klass.model_name.human(:count => 2) } do %>
   <%= text_field_tag fieldname, label.send("inline_#{klass.name.to_relation_name}"),
     :id => klass.name.to_relation_name,
     :class => "entity_select",

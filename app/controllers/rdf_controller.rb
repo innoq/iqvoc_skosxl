@@ -1,4 +1,5 @@
-require_dependency Iqvoc::Engine.find_root_with_flag("app").join("app/controllers/rdf_controller").to_s
+require_dependency Iqvoc.root.join("app/controllers/rdf_controller").to_s
+
 class RdfController
 
   def show_with_labels

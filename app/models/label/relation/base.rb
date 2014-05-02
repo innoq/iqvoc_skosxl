@@ -18,7 +18,7 @@ class Label::Relation::Base < ActiveRecord::Base
   end
 
   def self.by_range_origin(origin)
-    includes(:range).merge(Label::Base.by_origin(origin))
+    includes(:range).references(:labels).merge(Label::Base.by_origin(origin))
   end
 
   def self.range_editor_selectable
@@ -29,7 +29,7 @@ class Label::Relation::Base < ActiveRecord::Base
   end
 
   def self.range_in_edit_mode
-    joins(:range).merge(Iqvoc::XLLabel.base_class.in_edit_mode)
+    joins(:range).references(:labels).merge(Iqvoc::XLLabel.base_class.in_edit_mode)
   end
 
   def self.view_section(obj)

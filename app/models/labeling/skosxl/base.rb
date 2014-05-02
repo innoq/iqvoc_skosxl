@@ -5,19 +5,19 @@ class Labeling::SKOSXL::Base < Labeling::Base
   self.rdf_predicate = nil
 
   def self.target_in_edit_mode
-    includes(:target).merge(Iqvoc::XLLabel.base_class.in_edit_mode)
+    includes(:target).references(:labels).merge(Iqvoc::XLLabel.base_class.in_edit_mode)
   end
 
   def self.by_label_origin(origin)
-    includes(:target).merge(self.label_class.by_origin(origin))
+    includes(:target).references(:labels).merge(self.label_class.by_origin(origin))
   end
 
   def self.by_label_language(language)
-    includes(:target).merge(self.label_class.by_language(language))
+    includes(:target).references(:labels).merge(self.label_class.by_language(language))
   end
 
   def self.label_editor_selectable
-    includes(:target).merge(self.label_class.editor_selectable)
+    includes(:target).references(:labels).merge(self.label_class.editor_selectable)
   end
 
   def self.create_for(o, t)
@@ -36,7 +36,7 @@ class Labeling::SKOSXL::Base < Labeling::Base
   def self.single_query(params = {})
     query_str = build_query_string(params)
 
-    scope = includes(:target).order("LOWER(#{Label::Base.table_name}.value)").references(:labels)
+    scope = includes(:target).order("LOWER(#{Label::Base.table_name}.value)").references(:labels, :concepts)
 
     if params[:query].present?
       scope = scope.merge(Label::Base.by_query_value(query_str).by_language(params[:languages].to_a).published)

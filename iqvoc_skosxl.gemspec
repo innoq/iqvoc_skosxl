@@ -8,15 +8,17 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Robert Glaser", "Till Schulte-Coerne", "Frederik Dohr"]
   s.email       = ["till.schulte-coerne@innoq.com"]
-  s.homepage    = "http://innoq.com"
+  s.homepage    = "http://iqvoc.net"
   s.summary     = "iQvoc SKOS-XL extension"
-  s.description = ""
+  s.license     = "Apache License 2.0"
+  s.description = "iQvoc - a SKOS(-XL) vocabulary management system built on the Semantic Web"
 
-  s.add_dependency "iqvoc", "~> 4.4.0"
-  s.add_dependency "bundler"
+  s.add_dependency "iqvoc", "~> 4.4"
+  s.add_dependency "bundler", "~> 0"
 
-  s.files = %w(README.md Gemfile Gemfile.lock Rakefile iqvoc_skosxl.gemspec) + Dir.glob("{app,config,db,public,lib,test}/**/*")
-  s.test_files = Dir.glob("{test}/**/*")
-  s.executables = Dir.glob("{bin}/**/*")
+  s.files = %w(README.md Gemfile Gemfile.lock Rakefile iqvoc_skosxl.gemspec) +
+      Dir.glob("{app,config,db,public,lib,test}/**/*")
+  s.test_files = s.files.grep(%r{^test/})
+  s.executables = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths = ["lib"]
 end

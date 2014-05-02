@@ -15,7 +15,7 @@
   <% end %>
   <%= button_to t("txt.views.versioning.consistency_check"),
     label_versions_consistency_check_path(:origin => @label.origin),
-    :method => :get, :class => 'btn' %>
+    :method => :get, :class => 'btn btn-default' %>
 
   <% if (not @label.in_review?) && @label.locked_by == @current_user.id %>
     <%= button_to t("txt.common.to_review"),
@@ -25,19 +25,19 @@
 
   <% unless @label.locked? %>
     <%= button_to t("txt.views.versioning.to_edit_mode"),
-      label_versions_lock_path(:origin => @label.origin), :class => 'btn' %>
+      label_versions_lock_path(:origin => @label.origin), :class => 'btn btn-default' %>
     <%= button_to t("txt.views.versioning.delete"),
       label_path(:published => 0, :id => @label.origin),
       :method => :delete,
       :confirm => I18n.t("txt.views.versioning.delete_confirm"),
-      :class => 'btn' %>
+      :class => 'btn btn-default' %>
   <% else %>
     <%= button_to t("txt.views.versioning.unlock"),
       label_versions_unlock_path(:origin => @label.origin),
-      :class => 'btn' if can?(:unlock, @label) %>
+      :class => 'btn btn-default' if can?(:unlock, @label) %>
     <%= link_to t("txt.views.versioning.edit_mode"),
       edit_label_path(:published => 0, :id => @label.origin),
-      :class => 'btn' if can?(:update, @label) %>
+      :class => 'btn btn-default' if can?(:update, @label) %>
   <% end %>
 </div>
 

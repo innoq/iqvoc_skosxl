@@ -14,8 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'test_helper'
-require Iqvoc::Engine.root.join('test', 'integration_test_helper')
+require 'integration_test_helper'
 
 class DashboardTest < ActionDispatch::IntegrationTest
 

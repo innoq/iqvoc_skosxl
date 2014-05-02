@@ -24,3 +24,9 @@ Operate Iqvoc::SKOSXL and Iqvoc as Engines running in a custom App.
     `rake iqvoc:db:migrate_all`
 3. Populate Iqvoc seeds:
     `rake iqvoc:db:seed_all`
+
+## License
+
+Copyright 2014 innoQ Deutschland GmbH
+
+Licensed under the Apache License, Version 2.0

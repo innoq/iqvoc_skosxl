@@ -4,6 +4,7 @@ gem 'iqvoc', '~> 4.4.0', :github => 'innoq/iqvoc'
 
 group :development, :test do
   gem 'awesome_print'
+  gem 'spring'
 
   platforms :ruby do
     gem 'mysql2'

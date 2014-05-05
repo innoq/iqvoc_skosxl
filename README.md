@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/innoq/iqvoc_skosxl.svg?branch=master)](https://travis-ci.org/innoq/iqvoc_skosxl)
+
 # Iqvoc::SKOSXL
 
 This is the iQvoc SKOS-XL extension. Use this in your Gemfile to add SKOS-XL features to iQvoc.

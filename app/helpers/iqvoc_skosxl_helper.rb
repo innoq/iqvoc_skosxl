@@ -1,10 +1,5 @@
 module IqvocSkosxlHelper
 
-  def iqvoc_skosxl_default_rdf_namespaces
-    {
-    }
-  end
-
   def render_label(label)
     if label.new_record?
       "-"

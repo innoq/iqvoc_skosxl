@@ -13,7 +13,7 @@ class LabelTest < ActiveSupport::TestCase
     first_new_label = Label::SKOSXL::Base.new(@current_label.attributes)
     second_new_label = Label::SKOSXL::Base.new(@current_label.attributes)
     assert first_new_label.save
-    assert_equal false, second_new_label.save
+    refute second_new_label.save
   end
 
   test "language interpolation for label origin" do

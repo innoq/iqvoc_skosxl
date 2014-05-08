@@ -21,7 +21,7 @@ class Labeling::SKOSXL::Base < Labeling::Base
   end
 
   def self.create_for(o, t)
-    find_or_create_by_owner_id_and_target_id(o.id, t.id)
+    find_or_create_by(:owner_id => o.id, :target_id => t.id)
   end
 
   # FIXME: Hmm... Why should I sort labelings (not necessarily pref_labelings) by pref_label???

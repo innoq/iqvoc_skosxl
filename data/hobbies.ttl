@@ -22,8 +22,8 @@
 ## XL-Labels
 :computer_programming-xl-preflabel-en a skosxl:Label;
   skosxl:literalForm "Computer programming (used as xl:prefLabel)"@en;
-  skos:definition "Bla bla bla".
+  skos:definition "Bla bla bla"@en.
 
 :computer_programming-xl-altlabel-en a skosxl:Label;
   skosxl:literalForm "Computer programming (used as xl:altLabel)"@en;
-  skos:definition "Bla bla bla".
+  skos:definition "Bla bla bla"@en.

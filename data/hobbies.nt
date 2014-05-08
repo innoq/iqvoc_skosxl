@@ -1,0 +1,15 @@
+<http://hobbies.com#indoors> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Collection> .
+<http://hobbies.com#indoors> <http://www.w3.org/2004/02/skos/core#member> <http://hobbies.com#computer_programming> .
+<http://hobbies.com#achievement_hobbies> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept> .
+<http://hobbies.com#achievement_hobbies> <http://www.w3.org/2004/02/skos/core#prefLabel> "Achievement hobbies"@en .
+<http://hobbies.com#computer_programming> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept> .
+<http://hobbies.com#computer_programming> <http://www.w3.org/2004/02/skos/core#prefLabel> "Computer programming"@en .
+<http://hobbies.com#computer_programming> <http://www.w3.org/2004/02/skos/core#broader> <http://hobbies.com#achievement_hobbies> .
+<http://hobbies.com#computer_programming> <http://www.w3.org/2008/05/skos-xl#prefLabel> <http://hobbies.com#computer_programming-xl-preflabel-en> .
+<http://hobbies.com#computer_programming> <http://www.w3.org/2008/05/skos-xl#altLabel> <http://hobbies.com#computer_programming-xl-altlabel-en> .
+<http://hobbies.com#computer_programming-xl-preflabel-en> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2008/05/skos-xl#Label> .
+<http://hobbies.com#computer_programming-xl-preflabel-en> <http://www.w3.org/2008/05/skos-xl#literalForm> "Computer programming (used as xl:prefLabel)"@en .
+<http://hobbies.com#computer_programming-xl-preflabel-en> <http://www.w3.org/2004/02/skos/core#definition> "Bla bla bla" .
+<http://hobbies.com#computer_programming-xl-altlabel-en> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2008/05/skos-xl#Label> .
+<http://hobbies.com#computer_programming-xl-altlabel-en> <http://www.w3.org/2008/05/skos-xl#literalForm> "Computer programming (used as xl:altLabel)"@en .
+<http://hobbies.com#computer_programming-xl-altlabel-en> <http://www.w3.org/2004/02/skos/core#definition> "Bla bla bla" .

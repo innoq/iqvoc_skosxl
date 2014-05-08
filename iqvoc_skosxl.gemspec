@@ -19,6 +19,5 @@ Gem::Specification.new do |s|
   s.files = %w(README.md Gemfile Gemfile.lock Rakefile iqvoc_skosxl.gemspec) +
       Dir.glob("{app,config,db,public,lib,test}/**/*")
   s.test_files = s.files.grep(%r{^test/})
-  s.executables = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths = ["lib"]
 end

@@ -71,6 +71,17 @@ class Labeling::SKOSXL::Base < Labeling::Base
     "partials/labeling/skosxl/edit_base"
   end
 
+  def self.build_from_rdf(rdf_subject, rdf_predicate, rdf_object)
+    unless rdf_subject.is_a?(Concept::Base)
+      raise "#{self.name}#build_from_rdf: Subject (#{rdf_subject}) must be a Concept."
+    end
+
+    predicate_class = Iqvoc::RDFAPI::PREDICATE_DICTIONARY[rdf_predicate] || self
+    predicate_class.create do |klass|
+      klass.owner = rdf_subject
+      klass.target = rdf_object
+    end
+  end
 
   def build_rdf(document, subject)
     subject.send(self.rdf_namespace.camelcase).send(self.rdf_predicate, IqRdf.build_uri(target.origin))

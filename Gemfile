@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'iqvoc', '~> 4.4.0', :github => 'innoq/iqvoc'
+gem 'iqvoc', '~> 4.4.0', :github => 'innoq/iqvoc', :branch => 'async_export'
 
 group :development, :test do
   gem 'awesome_print'
   gem 'spring'
+  gem 'pry-rails'
 
   platforms :ruby do
     gem 'mysql2'

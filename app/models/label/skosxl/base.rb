@@ -129,6 +129,11 @@ class Label::SKOSXL::Base < Label::Base
     "partials/label/skosxl/edit_link_base"
   end
 
+  def notes_for_class(note_class)
+    note_class = note_class.name if note_class < ActiveRecord::Base # Use the class name string
+    notes.select{ |note| note.class.name == note_class }
+  end
+
   def origin=(val)
     # escape origin in any case
     write_attribute :origin, Iqvoc::Origin.new(val).to_s

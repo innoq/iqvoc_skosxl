@@ -45,3 +45,8 @@ end
 ActiveSupport.on_load :rdf_export_before_save do
   add_skos_xl_labels(@document)
 end
+
+ActiveSupport.on_load :skos_importer do
+  Iqvoc::SkosImporter::FIRST_LEVEL_OBJECT_CLASSES << Iqvoc::XLLabel.base_class
+  Iqvoc::SkosImporter::SECOND_LEVEL_OBJECT_CLASSES << Label::SKOSXL::Properties::LiteralForm
+end

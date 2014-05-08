@@ -19,7 +19,9 @@ class Label::SKOSXL::Base < Label::Base
   # ********** Hooks
 
   before_validation do |label|
-    label.origin = Iqvoc::Origin.new("#{value}-#{language}").to_s if label.origin.blank?
+    if label.origin.blank?
+      label.origin = Iqvoc::Origin.new("#{value}-#{language}").to_s
+    end
   end
 
   after_save do |label|
@@ -125,6 +127,11 @@ class Label::SKOSXL::Base < Label::Base
 
   def self.edit_link_partial_name
     "partials/label/skosxl/edit_link_base"
+  end
+
+  def origin=(val)
+    # escape origin in any case
+    write_attribute :origin, Iqvoc::Origin.new(val).to_s
   end
 
   def build_rdf_subject(&block)

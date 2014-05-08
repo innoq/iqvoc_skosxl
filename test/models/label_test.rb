@@ -17,14 +17,14 @@ class LabelTest < ActiveSupport::TestCase
   end
 
   test "language interpolation for label origin" do
-    assert_equal "Forest-en", @current_label.origin
+    assert_equal "forest-en", @current_label.origin
   end
 
   test "should create two labels with equal values but different languages" do
     l1 = FactoryGirl.create(:xllabel, :language => "de")
     l2 = FactoryGirl.build(:xllabel, :language => "en")
     assert_equal true, l2.save
-    assert_equal "Forest-en", l2.origin
+    assert_equal "forest-en", l2.origin
   end
 
   test "should validate origin for escaping" do

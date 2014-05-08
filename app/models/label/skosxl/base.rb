@@ -2,7 +2,8 @@
 
 class Label::SKOSXL::Base < Label::Base
 
-  include Iqvoc::Versioning
+  include Versioning
+  include Publishable
 
   class_attribute :rdf_namespace, :rdf_class
   self.rdf_namespace = "skosxl"
@@ -16,10 +17,6 @@ class Label::SKOSXL::Base < Label::Base
   validate :origin_has_to_be_escaped
 
   # ********** Hooks
-
-  after_initialize do
-    @full_validation = false
-  end
 
   before_validation do |label|
     label.origin = Iqvoc::Origin.new("#{value}-#{language}").to_s if label.origin.blank?
@@ -172,22 +169,6 @@ class Label::SKOSXL::Base < Label::Base
     Iqvoc::XLLabel.additional_association_classes.each do |association_class, foreign_key|
       return true if send(association_class.name.to_relation_name).count > 0
     end
-  end
-
-  def save_with_full_validation!
-    @full_validation = true
-    save!
-  end
-
-  # FIXME: should not @full_validation be set back to the value it had before??? This method changes the state!
-  def valid_with_full_validation?
-    @full_validation = true
-    valid?
-  end
-
-  def invalid_with_full_validation?
-    @full_validation = true
-    invalid?
   end
 
   # Responsible for displaying a warning message about

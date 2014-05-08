@@ -29,13 +29,14 @@ class LabelTest < ActiveSupport::TestCase
 
   test "should validate origin for escaping" do
     label = FactoryGirl.build(:xllabel)
-    assert label.valid_with_full_validation?
+    assert label.publishable?
 
     label.origin = "FoÖ/Bär"
-    assert label.invalid_with_full_validation?
+    assert_equal "foo-bar", label.origin
+    assert label.publishable?
 
     label.origin = Iqvoc::Origin.new("FoÖ/Bär").to_s
-    assert label.valid_with_full_validation?
+    assert label.publishable?
   end
 
 end

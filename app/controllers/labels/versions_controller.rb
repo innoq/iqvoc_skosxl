@@ -10,7 +10,7 @@ class Labels::VersionsController < ApplicationController
       if current_label.blank? || current_label.destroy
         new_version.publish
         new_version.unlock
-        if new_version.valid_with_full_validation?
+        if new_version.publishable?
           new_version.save
           begin
            # TODO if RdfStore.update(new_version.rdf_uri, label_url(:id => new_version, :format => :ttl))
@@ -85,7 +85,7 @@ class Labels::VersionsController < ApplicationController
 
     authorize! :check_consistency, label
 
-    if label.valid_with_full_validation?
+    if label.publishable?
       flash[:success] = t("txt.controllers.versioning.consistency_check_success")
       redirect_to label_path(:published => 0, :id => label)
     else

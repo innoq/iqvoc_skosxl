@@ -86,7 +86,7 @@ class LabelsController < ApplicationController
     # @alt_labelings = AltLabeling.by_label(@label).all(:include => {:owner => :pref_labels}).sort
 
     if params[:full_consistency_check]
-      @label.valid_with_full_validation?
+      @label.publishable?
     end
 
     Iqvoc::XLLabel.note_class_names.each do |note_class_name|

@@ -71,9 +71,6 @@ class Labeling::SKOSXL::Base < Labeling::Base
     "partials/labeling/skosxl/edit_base"
   end
 
-  # def by_label_language(language)
-  #   includes(:target).merge(self.label_class.by_language(language))
-  # end
 
   def build_rdf(document, subject)
     subject.send(self.rdf_namespace.camelcase).send(self.rdf_predicate, IqRdf.build_uri(target.origin))

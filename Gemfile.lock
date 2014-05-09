@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/innoq/iqvoc.git
-  revision: c331d6cb454509003946d782ba139d8a0f153af2
+  revision: 83b22005c6aae4baa2bb0654594dc655b10dd986
   branch: async_export
   specs:
     iqvoc (4.4.0)

@@ -6,7 +6,10 @@
   <fieldset id="label_base_data">
     <legend><%= t("txt.common.attributes") %></legend>
     <%= f.text_field :value %>
-    <%= f.text_field :language, :disabled => true %>
+    <%= f.form_group :language, :label => { :text => "foo" } do %>
+      <span><%= label.language %></span>
+      <%= f.hidden_field :language %>
+    <% end %>
 
     <% if Iqvoc::XLLabel.has_additional_base_data %>
       <%= render 'partials/label/additional_base_data', :f => f %>

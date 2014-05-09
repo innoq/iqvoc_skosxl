@@ -6,7 +6,7 @@
   <fieldset id="label_base_data">
     <legend><%= t("txt.common.attributes") %></legend>
     <%= f.text_field :value %>
-    <%= f.form_group :language, :label => { :text => "foo" } do %>
+    <%= f.form_group :language, :label => { :text => label.class.human_attribute_name(:language) } do %>
       <span><%= label.language %></span>
       <%= f.hidden_field :language %>
     <% end %>

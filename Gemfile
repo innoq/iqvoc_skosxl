@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'iqvoc', '~> 4.4.0', :github => 'innoq/iqvoc', :branch => 'async_export'
+gem 'iqvoc', '~> 4.4.0', :github => 'innoq/iqvoc'
 
 group :development, :test do
   gem 'awesome_print'

@@ -1,7 +1,6 @@
 GIT
   remote: git://github.com/innoq/iqvoc.git
-  revision: 83b22005c6aae4baa2bb0654594dc655b10dd986
-  branch: async_export
+  revision: fb5e4d8d04b9f0e58387f7581cad53702eb0a251
   specs:
     iqvoc (4.4.0)
       apipie-rails

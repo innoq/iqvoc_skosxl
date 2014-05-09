@@ -20,7 +20,7 @@
   <% if (not @label.in_review?) && @label.locked_by == @current_user.id %>
     <%= button_to t("txt.common.to_review"),
     label_versions_to_review_path(:origin => @label.origin),
-    :class => 'btn' %>
+    :class => 'btn btn-default' %>
   <% end %>
 
   <% unless @label.locked? %>

@@ -8,3 +8,4 @@
 <http://hobbies.com#computer_programming-xl-altlabel-en> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2008/05/skos-xl#Label> .
 <http://hobbies.com#computer_programming-xl-altlabel-en> <http://www.w3.org/2008/05/skos-xl#literalForm> "Computer programming (used as xl:altLabel)"@en .
 <http://hobbies.com#computer_programming-xl-altlabel-en> <http://www.w3.org/2004/02/skos/core#definition> "Yadda yadda"@en .
+<http://hobbies.com#computer_programming-xl-altlabel-en> <http://foo.bar/xl#test-relation> <http://hobbies.com#computer_programming-xl-preflabel-en> .

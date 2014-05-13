@@ -17,10 +17,11 @@ class SkosImporterTest < ActiveSupport::TestCase
     assert_equal 2, Label::SKOSXL::Base.count
     assert_equal 1, Concept::SKOS::Base.count
 
-    concept = Concept::SKOS::Base.first
-    pref_label = Labeling::SKOSXL::PrefLabel.first
-    alt_label = Labeling::SKOSXL::AltLabel.first
+    concept = Concept::SKOS::Base.published.first!
+    pref_label = Labeling::SKOSXL::PrefLabel.first!
+    alt_label = Labeling::SKOSXL::AltLabel.first!
 
+    assert concept.pref_label.published?
     assert_equal "computer_programming-xl-preflabel-en", concept.pref_label.origin
     assert_equal "Computer programming (used as xl:prefLabel)", concept.pref_label.value
     assert_equal "en", concept.pref_label.language
@@ -29,6 +30,7 @@ class SkosImporterTest < ActiveSupport::TestCase
     assert_equal "Bla bla bla", concept.pref_label.notes_for_class(Note::SKOS::Definition).first.value
 
     assert_equal concept, alt_label.owner
+    assert alt_label.target.published?
     assert_equal "computer_programming-xl-altlabel-en", alt_label.target.origin
     assert_equal "Computer programming (used as xl:altLabel)", alt_label.target.value
     assert_equal "en", alt_label.target.language

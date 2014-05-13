@@ -2,8 +2,8 @@ class Labels::VersionsController < ApplicationController
 
   def merge
     current_label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).published.last
-    new_version = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last
-    raise ActiveRecord::RecordNotFound.new("Couldn't find unpublished label with origin '#{params[:origin]}'") unless new_version
+    new_version = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last!
+
     authorize! :merge, new_version
 
     ActiveRecord::Base.transaction do
@@ -38,9 +38,11 @@ class Labels::VersionsController < ApplicationController
   end
 
   def branch
-    current_label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).published.last
-    raise ActiveRecord::RecordNotFound.new("Couldn't find published Label with origin '#{params[:origin]}'") unless current_label
-    raise "There is already an unpublished version for Label '#{params[:origin]}'" if Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last
+    current_label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).published.last!
+    if Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last
+      raise "There is already an unpublished version for Label '#{params[:origin]}'"
+    end
+
     authorize! :branch, current_label
     new_version = nil
     ActiveRecord::Base.transaction do
@@ -52,8 +54,7 @@ class Labels::VersionsController < ApplicationController
   end
 
   def lock
-    new_version = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last
-    raise ActiveRecord::RecordNotFound.new("Couldn't find unpublished Label with origin '#{params[:origin]}'") unless new_version
+    new_version = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last!
     raise "Label with origin '#{params[:origin]}' has already been locked." if new_version.locked?
 
     authorize! :lock, new_version
@@ -66,8 +67,7 @@ class Labels::VersionsController < ApplicationController
   end
 
   def unlock
-    new_version = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last
-    raise ActiveRecord::RecordNotFound.new("Couldn't find unpublished Label with origin '#{params[:origin]}'") unless new_version
+    new_version = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last!
     raise "Label with origin '#{params[:origin]}' wasn't locked." unless new_version.locked?
 
     authorize! :unlock, new_version
@@ -80,8 +80,7 @@ class Labels::VersionsController < ApplicationController
   end
 
   def consistency_check
-    label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last
-    raise ActiveRecord::RecordNotFound unless label
+    label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last!
 
     authorize! :check_consistency, label
 
@@ -95,8 +94,7 @@ class Labels::VersionsController < ApplicationController
   end
 
   def to_review
-    label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last
-    raise ActiveRecord::RecordNotFound unless label
+    label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last!
 
     authorize! :send_to_review, label
 

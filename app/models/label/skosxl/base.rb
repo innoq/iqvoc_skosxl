@@ -133,6 +133,11 @@ class Label::SKOSXL::Base < Label::Base
     notes.select{ |note| note.class.name == note_class }
   end
 
+  def relations_for_class(relation_class)
+    relation_class = relation_class.name if relation_class < ActiveRecord::Base # Use the class name string
+    relations.select{ |rel| rel.class.name == relation_class }
+  end
+
   def origin=(val)
     # escape origin in any case
     write_attribute :origin, Iqvoc::Origin.new(val).to_s

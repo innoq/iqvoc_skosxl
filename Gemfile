@@ -20,5 +20,6 @@ end
 group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'poltergeist', '~> 1.5.0'
   gem 'webmock'
 end

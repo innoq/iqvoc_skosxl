@@ -14,7 +14,7 @@ class SkosImporterTest < ActiveSupport::TestCase
       self.rdf_predicate = 'test-relation'
     end
 
-    @importer = Iqvoc::SkosImporter.new(TEST_DATA, "http://hobbies.com#")
+    @importer = Iqvoc::SkosImporter.new(TEST_DATA, "http://hobbies.com/")
     @importer.second_level_object_classes << TestRelation
   end
 

@@ -22,12 +22,14 @@ class LabelsOrderTest < ActionDispatch::IntegrationTest
     names = ["aaa", "bbb", "abc", "ABC"]
     lang = "en"
     # create a few labels
-    label_class = Iqvoc::Concept.labeling_classes.first.first.label_class
-    names.each { |name|
-      label = label_class.new(:origin => "_%s" % name, :value => name,
-        :language => lang, :published_at => Time.now)
-      label.save
-    }
+    names.each_with_index do |name, index|
+      label = Label::SKOSXL::Base.create! do |l|
+        l.origin = "#{name}-#{index}"
+        l.value = name
+        l.language = lang
+        l.published_at = Time.now
+      end
+    end
     assert_equal names.length, Label::Base.all.count # just to avoid confusion
 
     get labels_path(:lang => lang, :format => "json")

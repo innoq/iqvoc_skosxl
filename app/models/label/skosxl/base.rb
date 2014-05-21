@@ -3,6 +3,7 @@
 class Label::SKOSXL::Base < Label::Base
 
   include Versioning
+  include FirstLevelObjectValidations
 
   class_attribute :rdf_namespace, :rdf_class
   self.rdf_namespace = "skosxl"
@@ -11,8 +12,6 @@ class Label::SKOSXL::Base < Label::Base
   attr_protected :origin
 
   # ********** Validations
-
-  validate :two_versions_exist, :on => :create
   validate :origin_has_to_be_escaped
 
   # ********** Hooks
@@ -202,12 +201,6 @@ class Label::SKOSXL::Base < Label::Base
   def origin_has_to_be_escaped
     if origin != Iqvoc::Origin.new(origin).to_s
       errors.add :origin, I18n.t("txt.models.label.origin_invalid")
-    end
-  end
-
-  def two_versions_exist
-    if Label::SKOSXL::Base.by_origin(origin).count >= 2
-      errors.add :base, I18n.t("txt.models.label.version_error")
     end
   end
 

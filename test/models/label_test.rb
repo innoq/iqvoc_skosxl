@@ -5,25 +5,26 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '../test_helper')
 class LabelTest < ActiveSupport::TestCase
 
   setup do
-    @current_label = FactoryGirl.create(:xllabel_with_association)
     @user = FactoryGirl.create(:user)
   end
 
   test "should not create two similar labels" do
-    first_new_label = Label::SKOSXL::Base.new(@current_label.attributes)
-    second_new_label = Label::SKOSXL::Base.new(@current_label.attributes)
-    assert first_new_label.save
-    refute second_new_label.save
+    @current_label = FactoryGirl.create(:xllabel)
+    duplicate = FactoryGirl.build(:xllabel)
+    refute duplicate.save
+    duplicate.published_at = nil
+    assert duplicate.save
   end
 
   test "language interpolation for label origin" do
+    @current_label = FactoryGirl.create(:xllabel)
     assert_equal "forest-en", @current_label.origin
   end
 
   test "should create two labels with equal values but different languages" do
     l1 = FactoryGirl.create(:xllabel, :language => "de")
     l2 = FactoryGirl.build(:xllabel, :language => "en")
-    assert_equal true, l2.save
+    assert l2.save
     assert_equal "forest-en", l2.origin
   end
 

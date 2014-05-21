@@ -6,9 +6,6 @@ FactoryGirl.define do
     l.published_at 3.days.ago
   end
 
-  factory :xllabel_with_association, :parent => :xllabel do |l|
-  end
-
   factory :user do |u|
     u.forename 'Test'
     u.surname 'User'

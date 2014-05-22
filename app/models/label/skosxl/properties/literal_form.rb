@@ -11,6 +11,13 @@ class Label::SKOSXL::Properties::LiteralForm
         "#{self.name}#build_from_rdf: Object (#{rdf_object}) must be a string literal"
     end
 
-    rdf_subject.update_attributes(:value => $1, :language => $3)
+    lang = $3
+    value = begin
+      JSON.parse(%Q{["#{$1}"]})[0].gsub("\\n", "\n") # Trick to decode \uHHHHH chars
+    rescue JSON::ParserError
+      $1
+    end
+
+    rdf_subject.update_attributes(:value => value, :language => lang)
   end
 end

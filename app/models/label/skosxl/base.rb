@@ -9,8 +9,6 @@ class Label::SKOSXL::Base < Label::Base
   self.rdf_namespace = "skosxl"
   self.rdf_class = "Label"
 
-  attr_protected :origin
-
   # ********** Validations
   validate :origin_has_to_be_escaped
 

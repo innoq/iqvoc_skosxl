@@ -34,10 +34,9 @@ class LabelsController < ApplicationController
       @new_label_version = Iqvoc::XLLabel.base_class.by_origin(params[:id]).unpublished.last
     elsif params[:published] == '0'
       published = false
-      @label = Iqvoc::XLLabel.base_class.by_origin(params[:id]).unpublished.last
+      @label = Iqvoc::XLLabel.base_class.by_origin(params[:id]).unpublished.last!
     end
 
-    raise ActiveRecord::RecordNotFound unless @label
     authorize! :read, @label
 
     respond_to do |format|
@@ -58,7 +57,7 @@ class LabelsController < ApplicationController
 
   def create
     authorize! :create, Iqvoc::XLLabel.base_class
-    @label = Iqvoc::XLLabel.base_class.new(params[:label])
+    @label = Iqvoc::XLLabel.base_class.new(label_params)
     if @label.valid?
       if @label.save
         flash[:success] = I18n.t("txt.controllers.versioned_label.success")
@@ -74,8 +73,7 @@ class LabelsController < ApplicationController
   end
 
   def edit
-    @label = Iqvoc::XLLabel.base_class.by_origin(params[:id]).unpublished.last
-    raise ActiveRecord::RecordNotFound unless @label
+    @label = Iqvoc::XLLabel.base_class.by_origin(params[:id]).unpublished.last!
     authorize! :update, @label
 
     if params[:check_associations_in_editing_mode]
@@ -95,14 +93,12 @@ class LabelsController < ApplicationController
   end
 
   def update
-    @label = Iqvoc::XLLabel.base_class.by_origin(params[:id]).unpublished.last
-    raise ActiveRecord::RecordNotFound unless @label
+    @label = Iqvoc::XLLabel.base_class.by_origin(params[:id]).unpublished.last!
     authorize! :update, @label
 
     respond_to do |format|
       format.html do
-        raise ActiveRecord::RecordNotFound unless @label
-        if @label.update_attributes(params[:label])
+        if @label.update_attributes(label_params)
           flash[:success] = I18n.t("txt.controllers.versioned_label.update_success")
           redirect_to label_path(:published => 0, :id => @label)
         else
@@ -114,8 +110,7 @@ class LabelsController < ApplicationController
   end
 
   def destroy
-    @new_label = Iqvoc::XLLabel.base_class.by_origin(params[:id]).unpublished.last
-    raise ActiveRecord::RecordNotFound unless @new_label
+    @new_label = Iqvoc::XLLabel.base_class.by_origin(params[:id]).unpublished.last!
     authorize! :destroy, @new_label
 
     if @new_label.destroy
@@ -125,5 +120,11 @@ class LabelsController < ApplicationController
       flash[:error] = I18n.t("txt.controllers.label_versions.delete_error")
       redirect_to label_path(:published => 0, :id => @new_label)
     end
+  end
+
+  private
+
+  def label_params
+    params.require(:label).permit!
   end
 end

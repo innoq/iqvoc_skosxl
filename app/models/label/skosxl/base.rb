@@ -3,13 +3,11 @@
 class Label::SKOSXL::Base < Label::Base
   include Versioning
   include FirstLevelObjectValidations
+  include Label::SKOSXL::Validations
 
   class_attribute :rdf_namespace, :rdf_class
   self.rdf_namespace = 'skosxl'
   self.rdf_class = 'Label'
-
-  # ********** Validations
-  validate :origin_has_to_be_escaped
 
   # ********** Hooks
 
@@ -189,15 +187,5 @@ class Label::SKOSXL::Base < Label::Base
     {
       label_relations: Label::Relation::Base.by_domain(id).range_in_edit_mode
     }
-  end
-
-  protected
-
-  # Validations
-
-  def origin_has_to_be_escaped
-    if origin != Iqvoc::Origin.new(origin).to_s
-      errors.add :origin, I18n.t('txt.models.label.origin_invalid')
-    end
   end
 end

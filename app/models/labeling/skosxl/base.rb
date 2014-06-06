@@ -21,7 +21,7 @@ class Labeling::SKOSXL::Base < Labeling::Base
   end
 
   def self.create_for(o, t)
-    find_or_create_by(:owner_id => o.id, :target_id => t.id)
+    find_or_create_by(owner_id: o.id, target_id: t.id)
   end
 
   # FIXME: Hmm... Why should I sort labelings (not necessarily pref_labelings) by pref_label???
@@ -45,8 +45,8 @@ class Labeling::SKOSXL::Base < Labeling::Base
     end
 
     if params[:collection_origin].present?
-      scope = scope.includes(:owner => { :collection_members => :collection })
-      scope = scope.merge(Collection::Base.where(:origin => params[:collection_origin]))
+      scope = scope.includes(owner: { collection_members: :collection })
+      scope = scope.merge(Collection::Base.where(origin: params[:collection_origin]))
     end
 
     # Check that the included concept is in published state:
@@ -85,7 +85,7 @@ class Labeling::SKOSXL::Base < Labeling::Base
 
   def build_rdf(document, subject)
     subject.send(self.rdf_namespace.camelcase).send(self.rdf_predicate, IqRdf.build_uri(target.origin))
-    subject.Skos.send(self.rdf_predicate, target.value.to_s, :lang => target.language)
+    subject.Skos.send(self.rdf_predicate, target.value.to_s, lang: target.language)
   end
 
   def build_search_result_rdf(document, result)

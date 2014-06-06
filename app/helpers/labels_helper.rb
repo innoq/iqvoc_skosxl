@@ -7,7 +7,7 @@ module LabelsHelper
 
       c.Owl::deprecated(true) if label.expired_at and label.expired_at <= Date.new
 
-      c.Skosxl::literalForm(label.value, :lang => label.language)
+      c.Skosxl::literalForm(label.value, lang: label.language)
 
       label.relations.each do |relation|
         relation.build_rdf(document, c)
@@ -28,15 +28,15 @@ module LabelsHelper
   def render_label_association(hash, label, association_class, further_options = {})
     return unless association_class.partial_name(label)
     ((hash[association_class.view_section(label)] ||= {})[association_class.view_section_sort_key(label)] ||= '') <<
-      render(association_class.partial_name(label), further_options.merge(:label => label, :klass => association_class))
+      render(association_class.partial_name(label), further_options.merge(label: label, klass: association_class))
   end
 
   def label_view_data(label)
     res = {'main' => {}}
 
-    res['main'][10] = render 'labels/value_and_language', :label => label
+    res['main'][10] = render 'labels/value_and_language', label: label
 
-    res['main'][1000] = render 'labels/details', :label => label
+    res['main'][1000] = render 'labels/details', label: label
 
     Iqvoc::Concept.labeling_classes.keys.each do |labeling_class|
       render_label_association(res, label, labeling_class)
@@ -61,12 +61,12 @@ module LabelsHelper
     desc = label.class.model_name.human
 
     if label.expired_at
-      desc += " #{t('txt.views.concepts.expired_at', :date => l(label.expired_at, :format => :long))} "
+      desc += " #{t('txt.views.concepts.expired_at', date: l(label.expired_at, format: :long))} "
     end
 
     title = label.origin
 
-    page_header :title => title.to_s, :desc => desc.html_safe
+    page_header title: title.to_s, desc: desc.html_safe
   end
 
 end

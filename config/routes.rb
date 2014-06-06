@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  scope ':lang', :constraints => Iqvoc.routing_constraint do
+  scope ':lang', constraints: Iqvoc.routing_constraint do
     resources :labels
 
     post 'labels/versions/:origin/branch' => 'labels/versions#branch',

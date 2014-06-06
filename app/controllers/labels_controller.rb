@@ -12,17 +12,17 @@ class LabelsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to :action => 'index', :format => 'txt'
+        redirect_to action: 'index', format: 'txt'
       end
       format.text do
-        render :content_type => 'text/plain',
-            :text => @labels.map { |label| "#{label.origin}: #{label.value}" }.join("\n")
+        render content_type: 'text/plain',
+            text: @labels.map { |label| "#{label.origin}: #{label.value}" }.join("\n")
       end
       format.json do
         response = []
         @labels.each { |label| response << label_widget_data(label) }
 
-        render :json => response
+        render json: response
       end
     end
   end
@@ -50,8 +50,8 @@ class LabelsController < ApplicationController
   def new
     authorize! :create, Iqvoc::XLLabel.base_class
     raise 'You have to specify a language parameter!' if params[:language].blank?
-    data = {:language => params[:language]}
-    data.merge(:value => params[:value]) if params[:value]
+    data = {language: params[:language]}
+    data.merge(value: params[:value]) if params[:value]
     @label = Iqvoc::XLLabel.base_class.new(data)
   end
 
@@ -61,7 +61,7 @@ class LabelsController < ApplicationController
     if @label.valid?
       if @label.save
         flash[:success] = I18n.t('txt.controllers.versioned_label.success')
-        redirect_to label_path(:published => 0, :id => @label.origin)
+        redirect_to label_path(published: 0, id: @label.origin)
       else
         flash.now[:error] = I18n.t('txt.controllers.versioned_label.error')
         render :new
@@ -100,10 +100,10 @@ class LabelsController < ApplicationController
       format.html do
         if @label.update_attributes(label_params)
           flash[:success] = I18n.t('txt.controllers.versioned_label.update_success')
-          redirect_to label_path(:published => 0, :id => @label)
+          redirect_to label_path(published: 0, id: @label)
         else
           flash.now[:error] = I18n.t('txt.controllers.versioned_label.update_error')
-          render :action => :edit
+          render action: :edit
         end
       end
     end
@@ -118,7 +118,7 @@ class LabelsController < ApplicationController
       redirect_to dashboard_path
     else
       flash[:error] = I18n.t('txt.controllers.label_versions.delete_error')
-      redirect_to label_path(:published => 0, :id => @new_label)
+      redirect_to label_path(published: 0, id: @new_label)
     end
   end
 

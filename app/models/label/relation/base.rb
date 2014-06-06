@@ -6,15 +6,15 @@ class Label::Relation::Base < ActiveRecord::Base
 
   self.table_name ='label_relations'
 
-  belongs_to :domain, :class_name => 'Label::Base'
-  belongs_to :range,  :class_name => 'Label::Base'
+  belongs_to :domain, class_name: 'Label::Base'
+  belongs_to :range,  class_name: 'Label::Base'
 
   def self.by_domain(domain)
-    where(:domain_id => domain)
+    where(domain_id: domain)
   end
 
   def self.by_range(range)
-    where(:range_id => range)
+    where(range_id: range)
   end
 
   def self.by_range_origin(origin)

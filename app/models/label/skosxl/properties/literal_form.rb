@@ -18,6 +18,6 @@ class Label::SKOSXL::Properties::LiteralForm
       $1
     end
 
-    rdf_subject.update_attributes(:value => value, :language => lang)
+    rdf_subject.update_attributes(value: value, language: lang)
   end
 end

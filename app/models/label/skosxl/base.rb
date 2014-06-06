@@ -28,7 +28,7 @@ class Label::SKOSXL::Base < Label::Base
 
       # Recreate relations reflecting the widget's parameters
       Iqvoc::XLLabel.base_class.by_origin(origins).each do |l|
-        label.send(relation_class_name.to_relation_name).create(:range => l)
+        label.send(relation_class_name.to_relation_name).create(range: l)
       end
     end
   end
@@ -37,31 +37,31 @@ class Label::SKOSXL::Base < Label::Base
 
   @nested_relations = [] # Will be marked as nested attributes later
 
-  has_many :labelings, :class_name => 'Labeling::Base', :foreign_key => 'target_id', :dependent => :destroy
-  has_many :concepts, :through => :labelings, :source => :owner
+  has_many :labelings, class_name: 'Labeling::Base', foreign_key: 'target_id', dependent: :destroy
+  has_many :concepts, through: :labelings, source: :owner
   include_to_deep_cloning(:labelings)
 
-  has_many :relations, :foreign_key => 'domain_id', :class_name => 'Label::Relation::Base', :dependent => :destroy
+  has_many :relations, foreign_key: 'domain_id', class_name: 'Label::Relation::Base', dependent: :destroy
   # Which references are pointing to this label?
-  has_many :referenced_by_relations, :foreign_key => 'range_id', :class_name => 'Label::Relation::Base', :dependent => :destroy
+  has_many :referenced_by_relations, foreign_key: 'range_id', class_name: 'Label::Relation::Base', dependent: :destroy
   include_to_deep_cloning(:relations, :referenced_by_relations)
 
-  has_many :notes, :as => :owner, :class_name => 'Note::Base', :dependent => :destroy
-  has_many :annotations, :through => :notes, :source => :annotations
-  include_to_deep_cloning(:notes => :annotations)
+  has_many :notes, as: :owner, class_name: 'Note::Base', dependent: :destroy
+  has_many :annotations, through: :notes, source: :annotations
+  include_to_deep_cloning(notes: :annotations)
 
   # ************** "Dynamic"/configureable relations
 
   Iqvoc::XLLabel.note_class_names.each do |note_class_name|
-    has_many note_class_name.to_relation_name, :as => :owner, :class_name => note_class_name, :dependent => :destroy
+    has_many note_class_name.to_relation_name, as: :owner, class_name: note_class_name, dependent: :destroy
     @nested_relations << note_class_name.to_relation_name
   end
 
   Iqvoc::XLLabel.relation_class_names.each do |relation_class_name|
     has_many relation_class_name.to_relation_name,
-      :foreign_key => 'domain_id',
-      :class_name  => relation_class_name,
-      :dependent   => :destroy
+      foreign_key: 'domain_id',
+      class_name: relation_class_name,
+      dependent: :destroy
 
     # Serialized setters and getters (\r\n or , separated)
     define_method("inline_#{relation_class_name.to_relation_name}".to_sym) do
@@ -77,7 +77,7 @@ class Label::SKOSXL::Base < Label::Base
   end
 
   Iqvoc::XLLabel.additional_association_classes.each do |association_class, foreign_key|
-    has_many association_class.name.to_relation_name, :class_name => association_class.name, :foreign_key => foreign_key, :dependent => :destroy
+    has_many association_class.name.to_relation_name, class_name: association_class.name, foreign_key: foreign_key, dependent: :destroy
     include_to_deep_cloning(association_class.deep_cloning_relations)
     association_class.referenced_by(self)
   end
@@ -85,17 +85,17 @@ class Label::SKOSXL::Base < Label::Base
   # ********** Relation Stuff
 
   @nested_relations.each do |relation|
-    accepts_nested_attributes_for relation, :allow_destroy => true, :reject_if => Proc.new { |attrs| attrs[:value].blank? }
+    accepts_nested_attributes_for relation, allow_destroy: true, reject_if: Proc.new { |attrs| attrs[:value].blank? }
   end
 
   # ********** Scopes
 
   def self.by_origin(origin)
-    where(:origin => origin)
+    where(origin: origin)
   end
 
   def self.with_associations
-    includes(:labelings => :owner)
+    includes(labelings: :owner)
   end
 
   def self.for_dashboard
@@ -170,7 +170,7 @@ class Label::SKOSXL::Base < Label::Base
 
   def from_rdf!(str)
     from_rdf(str)
-    save(:validate => false)
+    save(validate: false)
   end
 
   def to_param
@@ -188,7 +188,7 @@ class Label::SKOSXL::Base < Label::Base
   # associated objects which are currently edited y another user.
   def associated_objects_in_editing_mode
     {
-      :label_relations => Label::Relation::Base.by_domain(id).range_in_edit_mode
+      label_relations: Label::Relation::Base.by_domain(id).range_in_edit_mode
     }
   end
 

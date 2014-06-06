@@ -33,10 +33,10 @@ class ConceptLabelLanguageTest < ActionDispatch::IntegrationTest
   test 'invalid alt label languages are rejected' do
     login('administrator')
 
-    visit new_concept_path(:lang => 'de', :format => 'html')
+    visit new_concept_path(lang: 'de', format: 'html')
     # NB: label language does not match relation language
     fill_in 'labeling_skosxl_alt_labels_en',
-        :with => "#{@labels['Deutsch'].origin},"
+        with: "#{@labels['Deutsch'].origin},"
     click_button 'Speichern'
 
     assert page.has_css?('.alert-danger')
@@ -45,17 +45,17 @@ class ConceptLabelLanguageTest < ActionDispatch::IntegrationTest
         I18n.t('txt.controllers.versioned_concept.label_error') % 'Deutsch')
 
     # ensure concept was not saved
-    visit dashboard_path(:lang => 'de', :format => 'html')
+    visit dashboard_path(lang: 'de', format: 'html')
     assert page.has_no_css?('td')
   end
 
   test 'invalid pref label languages are rejected during creation' do
     login('administrator')
 
-    visit new_concept_path(:lang => 'de', :format => 'html')
+    visit new_concept_path(lang: 'de', format: 'html')
     # NB: label language does not match relation language
     fill_in 'labeling_skosxl_pref_labels_en',
-        :with => "#{@labels['Deutsch'].origin},"
+        with: "#{@labels['Deutsch'].origin},"
     click_button 'Speichern'
 
     assert page.has_css?('.alert-danger')
@@ -64,7 +64,7 @@ class ConceptLabelLanguageTest < ActionDispatch::IntegrationTest
         I18n.t('txt.controllers.versioned_concept.label_error') % 'Deutsch')
 
     # ensure concept was not saved
-    visit dashboard_path(:lang => 'de', :format => 'html')
+    visit dashboard_path(lang: 'de', format: 'html')
     assert page.has_no_css?('td')
   end
 
@@ -72,17 +72,17 @@ class ConceptLabelLanguageTest < ActionDispatch::IntegrationTest
     login('administrator')
 
     # create, then edit concept
-    visit new_concept_path(:lang => 'de', :format => 'html')
+    visit new_concept_path(lang: 'de', format: 'html')
     click_button 'Speichern'
-    visit dashboard_path(:lang => 'de', :format => 'html')
+    visit dashboard_path(lang: 'de', format: 'html')
     page.find('td a').click
     page.click_link_or_button 'In Bearbeitung versetzen'
 
     # NB: label languages do not match relation languages
     fill_in 'labeling_skosxl_pref_labels_en',
-        :with => "#{@labels['Deutsch'].origin},"
+        with: "#{@labels['Deutsch'].origin},"
     fill_in 'labeling_skosxl_alt_labels_de',
-        :with => "#{@labels['English'].origin},"
+        with: "#{@labels['English'].origin},"
     click_button 'Speichern'
 
     assert page.has_css?('.alert-danger')

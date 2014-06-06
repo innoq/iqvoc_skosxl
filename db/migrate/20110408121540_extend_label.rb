@@ -1,14 +1,14 @@
 class ExtendLabel < ActiveRecord::Migration
 
   FIELDS = [
-    {'rev' => {:type => :integer, :options => {:default => 1}}},
-    {'published_version_id' => {:type => :integer}},
-    {'published_at' => {:type => :date}},
-    {'locked_by' => {:type => :integer}},
-    {'expired_at' => {:type => :date}},
-    {'follow_up' => {:type => :date}},
-    {'to_review' => {:type => :boolean}},
-    {'rdf_updated_at' => {:type => :date}}
+    {'rev' => {type: :integer, options: {default: 1}}},
+    {'published_version_id' => {type: :integer}},
+    {'published_at' => {type: :date}},
+    {'locked_by' => {type: :integer}},
+    {'expired_at' => {type: :date}},
+    {'follow_up' => {type: :date}},
+    {'to_review' => {type: :boolean}},
+    {'rdf_updated_at' => {type: :date}}
   ]
 
   def self.up
@@ -20,7 +20,7 @@ class ExtendLabel < ActiveRecord::Migration
       end
     end
 
-    add_index :labels, 'published_version_id', :name => 'ix_labels_on_published_v' unless index_exists?(:labels, 'published_version_id', :name => 'ix_labels_on_published_v')
+    add_index :labels, 'published_version_id', name: 'ix_labels_on_published_v' unless index_exists?(:labels, 'published_version_id', name: 'ix_labels_on_published_v')
 
   end
 

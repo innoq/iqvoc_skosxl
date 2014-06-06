@@ -17,7 +17,6 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), '../integration_test_helper')
 
 class LabelsOrderTest < ActionDispatch::IntegrationTest
-
   test 'label order is not case-sensitive' do
     names = ['aaa', 'bbb', 'abc', 'ABC']
     lang = 'en'
@@ -41,5 +40,4 @@ class LabelsOrderTest < ActionDispatch::IntegrationTest
     assert_equal 'ABC', data[2]['name'] # XXX: do we care about order of "ABC" vs. "abc"?
     assert_equal 'bbb', data[3]['name']
   end
-
 end

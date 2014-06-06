@@ -1,5 +1,4 @@
 class ExtendLabel < ActiveRecord::Migration
-
   FIELDS = [
     {'rev' => {type: :integer, options: {default: 1}}},
     {'published_version_id' => {type: :integer}},
@@ -21,7 +20,6 @@ class ExtendLabel < ActiveRecord::Migration
     end
 
     add_index :labels, 'published_version_id', name: 'ix_labels_on_published_v' unless index_exists?(:labels, 'published_version_id', name: 'ix_labels_on_published_v')
-
   end
 
   def self.down
@@ -33,5 +31,4 @@ class ExtendLabel < ActiveRecord::Migration
       end
     end
   end
-
 end

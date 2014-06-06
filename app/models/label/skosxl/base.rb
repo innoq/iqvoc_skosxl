@@ -1,7 +1,6 @@
 # encoding: UTF-8
 
 class Label::SKOSXL::Base < Label::Base
-
   include Versioning
   include FirstLevelObjectValidations
 
@@ -201,5 +200,4 @@ class Label::SKOSXL::Base < Label::Base
       errors.add :origin, I18n.t('txt.models.label.origin_invalid')
     end
   end
-
 end

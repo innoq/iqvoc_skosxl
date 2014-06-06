@@ -1,5 +1,4 @@
 class Label::Relation::Base < ActiveRecord::Base
-
   class_attribute :rdf_namespace, :rdf_predicate
   self.rdf_namespace = nil
   self.rdf_predicate = nil
@@ -51,5 +50,4 @@ class Label::Relation::Base < ActiveRecord::Base
   def self.only_one_allowed?
     false
   end
-
 end

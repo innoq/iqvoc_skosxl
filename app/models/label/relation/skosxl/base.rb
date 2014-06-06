@@ -1,5 +1,4 @@
 class Label::Relation::SKOSXL::Base < Label::Relation::Base
-
   self.rdf_namespace = 'skosxl'
 
   def self.build_from_rdf(subject, predicate, object)
@@ -12,5 +11,4 @@ class Label::Relation::SKOSXL::Base < Label::Relation::Base
 
     subject.send(self.rdf_namespace.camelcase).send(pred, IqRdf.build_uri(range.origin))
   end
-
 end

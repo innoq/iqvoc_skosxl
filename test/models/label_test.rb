@@ -3,7 +3,6 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), '../test_helper')
 
 class LabelTest < ActiveSupport::TestCase
-
   setup do
     @user = User.create(
       email: 'testuser@iqvoc.local',
@@ -52,5 +51,4 @@ class LabelTest < ActiveSupport::TestCase
     label.origin = Iqvoc::Origin.new('FoÖ/Bär').to_s
     assert label.publishable?
   end
-
 end

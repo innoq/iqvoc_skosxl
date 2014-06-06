@@ -8,7 +8,6 @@ Bundler.require(*Rails.groups)
 
 module Iqvoc::SKOSXL
   class Application < Rails::Application
-
     # This has to be here because iqvoc_skosxl.rb needs to know if it runs as app or as engine
     require 'iqvoc_skosxl'
 

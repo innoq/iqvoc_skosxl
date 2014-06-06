@@ -8,7 +8,6 @@ Iqvoc.searchable_class_names = {
     'Labeling::SKOSXL::AltLabel' => 'alt_labels'
 }
 
-
 module SkosXlExporterExtensions
   extend ActiveSupport::Concern
   include LabelsHelper
@@ -32,9 +31,7 @@ module SkosXlExporterExtensions
 
     @logger.info "Finished exporting xl labels (#{offset} labels exported)."
   end
-
 end
-
 
 module Iqvoc
   class SkosExporter

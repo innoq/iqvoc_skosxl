@@ -1,5 +1,4 @@
 class AddLabelRelations < ActiveRecord::Migration
-
   def self.up
     unless table_exists?('label_relations')
       create_table 'label_relations', force: true do |t|
@@ -20,5 +19,4 @@ class AddLabelRelations < ActiveRecord::Migration
       drop_table('label_relations')
     end
   end
-
 end

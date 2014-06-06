@@ -17,7 +17,6 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), '../integration_test_helper')
 
 class DashboardTest < ActionDispatch::IntegrationTest
-
   setup do
     @label = Iqvoc::XLLabel.base_class.create(
       language: 'en', value: 'Forest', published_at: nil)
@@ -40,5 +39,4 @@ class DashboardTest < ActionDispatch::IntegrationTest
     click_link_or_button('de')
     assert_equal new_label_path(lang: 'de', format: 'html'), current_path
   end
-
 end

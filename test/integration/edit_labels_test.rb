@@ -17,7 +17,6 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), '../integration_test_helper')
 
 class EditConceptsTest < ActionDispatch::IntegrationTest
-
   setup do
     @label = Iqvoc::XLLabel.base_class.create(
       language: 'en', value: 'Forest', published_at: 3.days.ago)
@@ -37,5 +36,4 @@ class EditConceptsTest < ActionDispatch::IntegrationTest
     assert page.has_link?('Vorschau der Version in Bearbeitung'), "Link 'Vorschau der Version in Bearbeitung' is missing"
     click_link_or_button('Vorschau der Version in Bearbeitung')
   end
-
 end

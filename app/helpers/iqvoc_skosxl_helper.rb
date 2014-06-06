@@ -1,5 +1,4 @@
 module IqvocSkosxlHelper
-
   def render_label(label)
     if label.new_record?
       '-'
@@ -16,5 +15,4 @@ module IqvocSkosxlHelper
     str << " (#{concept.additional_info})" if concept.additional_info
     str
   end
-
 end

@@ -1,5 +1,4 @@
 class Labels::VersionsController < ApplicationController
-
   def merge
     current_label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).published.last
     new_version = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last!
@@ -103,5 +102,4 @@ class Labels::VersionsController < ApplicationController
     flash[:success] = t('txt.controllers.versioning.to_review_success')
     redirect_to label_path(published: 0, id: label)
   end
-
 end

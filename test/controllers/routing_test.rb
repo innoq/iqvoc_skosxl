@@ -4,7 +4,6 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '../test_helper')
 require 'iqvoc/rdfapi' # XXX: only required with Zeus
 
 class RoutingTest < ActionController::TestCase
-
   setup do
     @controller = LabelsController.new
     @label = Iqvoc::XLLabel.base_class.create value: 'foo',
@@ -15,5 +14,4 @@ class RoutingTest < ActionController::TestCase
     get :show, lang: 'en', format: 'html', id: @label.origin
     assert_response :success
   end
-
 end

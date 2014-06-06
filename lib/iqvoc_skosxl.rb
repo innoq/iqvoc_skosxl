@@ -26,5 +26,4 @@ module IqvocSKOSXL
     # Iqvoc.searchable_class_names = Iqvoc::Concept.labeling_class_names.keys +
     #    Iqvoc::Concept.note_class_names
   end
-
 end

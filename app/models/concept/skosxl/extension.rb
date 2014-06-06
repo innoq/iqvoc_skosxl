@@ -1,7 +1,6 @@
 module Concept
   module SKOSXL
     module Extension
-
       extend ActiveSupport::Concern
 
       included do
@@ -54,7 +53,6 @@ module Concept
           }
         }
       end
-
     end
   end
 end

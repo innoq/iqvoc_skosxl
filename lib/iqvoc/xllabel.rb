@@ -1,7 +1,5 @@
 module Iqvoc
-
   module XLLabel # These are the settings when using SKOS-XL
-
     Iqvoc.first_level_class_configuration_modules << self
 
     mattr_accessor :base_class_name,
@@ -54,7 +52,5 @@ module Iqvoc
         hash[class_name.constantize] = additional_association_class_names[class_name]
       end
     end
-
   end
-
 end

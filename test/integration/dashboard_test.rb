@@ -19,7 +19,8 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '../integration_test
 class DashboardTest < ActionDispatch::IntegrationTest
 
   setup do
-    @label = FactoryGirl.create(:xllabel, :published_at => nil)
+    @label = Iqvoc::XLLabel.base_class.create(
+      language: 'en', value: 'Forest', published_at: nil)
   end
 
   test "labels appearing in dashboard" do

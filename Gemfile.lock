@@ -108,11 +108,6 @@ GEM
       nokogiri (>= 1.4.3)
     erubis (2.7.0)
     execjs (2.1.0)
-    factory_girl (4.4.0)
-      activesupport (>= 3.0.0)
-    factory_girl_rails (4.4.1)
-      factory_girl (~> 4.4.0)
-      railties (>= 3.0.0)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.3-java)
@@ -308,7 +303,6 @@ DEPENDENCIES
   activerecord-jdbcsqlite3-adapter
   awesome_print
   capybara
-  factory_girl_rails
   iqvoc (~> 4.4.0)!
   mysql2
   poltergeist (~> 1.5.0)

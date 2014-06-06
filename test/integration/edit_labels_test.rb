@@ -19,7 +19,8 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '../integration_test
 class EditConceptsTest < ActionDispatch::IntegrationTest
 
   setup do
-    @label = FactoryGirl.create(:xllabel)
+    @label = Iqvoc::XLLabel.base_class.create(
+      language: 'en', value: 'Forest', published_at: 3.days.ago)
   end
 
   test "Create a new concept version" do

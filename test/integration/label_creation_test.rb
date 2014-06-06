@@ -30,15 +30,4 @@ class LabelCreationTest < ActionDispatch::IntegrationTest
     click_link_or_button 'Konsistenz prüfen'
     assert page.has_content? 'Instanz ist konsistent.'
   end
-
-  test 'failed label creation' do
-    visit new_label_path(lang: 'de', language: 'de')
-    assert page.has_content? 'Neues Label'
-    fill_in 'Vorlageform', with: ''
-    click_link_or_button 'Speichern'
-    assert page.has_content? 'Das Label wurde erstellt.'
-    click_link_or_button 'Konsistenz prüfen'
-    binding.pry
-    assert page.has_content? 'Instanz ist konsistent.'
-  end
 end

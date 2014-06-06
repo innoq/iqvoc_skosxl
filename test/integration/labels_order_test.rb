@@ -18,9 +18,9 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '../integration_test
 
 class LabelsOrderTest < ActionDispatch::IntegrationTest
 
-  test "label order is not case-sensitive" do
-    names = ["aaa", "bbb", "abc", "ABC"]
-    lang = "en"
+  test 'label order is not case-sensitive' do
+    names = ['aaa', 'bbb', 'abc', 'ABC']
+    lang = 'en'
     # create a few labels
     names.each_with_index do |name, index|
       label = Label::SKOSXL::Base.create! do |l|
@@ -32,14 +32,14 @@ class LabelsOrderTest < ActionDispatch::IntegrationTest
     end
     assert_equal names.length, Label::Base.all.count # just to avoid confusion
 
-    get labels_path(:lang => lang, :format => "json")
+    get labels_path(:lang => lang, :format => 'json')
     data = JSON.parse(@response.body)
 
     assert_response :success
-    assert_equal "aaa", data[0]["name"]
-    assert_equal "abc", data[1]["name"]
-    assert_equal "ABC", data[2]["name"] # XXX: do we care about order of "ABC" vs. "abc"?
-    assert_equal "bbb", data[3]["name"]
+    assert_equal 'aaa', data[0]['name']
+    assert_equal 'abc', data[1]['name']
+    assert_equal 'ABC', data[2]['name'] # XXX: do we care about order of "ABC" vs. "abc"?
+    assert_equal 'bbb', data[3]['name']
   end
 
 end

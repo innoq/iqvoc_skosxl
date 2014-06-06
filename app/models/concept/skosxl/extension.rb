@@ -48,7 +48,7 @@ module Concept
             Iqvoc::XLLabel.base_class.by_origin(new_origins).each do |label|
               if label.language != language.to_s
                 errors.add(:base,
-                    I18n.t("txt.controllers.versioned_concept.label_error") % label)
+                    I18n.t('txt.controllers.versioned_concept.label_error') % label)
               end
             end
           }

@@ -4,7 +4,7 @@ class Labeling::SKOSXL::HiddenLabel < Labeling::SKOSXL::Base
   self.rdf_predicate = 'hiddenLabel'
 
   def self.view_section(obj)
-    "hidden"
+    'hidden'
   end
 
 end

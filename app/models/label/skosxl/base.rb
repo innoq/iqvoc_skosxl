@@ -6,8 +6,8 @@ class Label::SKOSXL::Base < Label::Base
   include FirstLevelObjectValidations
 
   class_attribute :rdf_namespace, :rdf_class
-  self.rdf_namespace = "skosxl"
-  self.rdf_class = "Label"
+  self.rdf_namespace = 'skosxl'
+  self.rdf_class = 'Label'
 
   # ********** Validations
   validate :origin_has_to_be_escaped
@@ -85,7 +85,7 @@ class Label::SKOSXL::Base < Label::Base
   # ********** Relation Stuff
 
   @nested_relations.each do |relation|
-    accepts_nested_attributes_for relation, :allow_destroy => true, :reject_if => Proc.new {|attrs| attrs[:value].blank? }
+    accepts_nested_attributes_for relation, :allow_destroy => true, :reject_if => Proc.new { |attrs| attrs[:value].blank? }
   end
 
   # ********** Scopes
@@ -118,11 +118,11 @@ class Label::SKOSXL::Base < Label::Base
   # end
 
   def self.new_link_partial_name
-    "partials/label/skosxl/new_link_base"
+    'partials/label/skosxl/new_link_base'
   end
 
   def self.edit_link_partial_name
-    "partials/label/skosxl/edit_link_base"
+    'partials/label/skosxl/edit_link_base'
   end
 
   def notes_for_class(note_class)
@@ -162,7 +162,7 @@ class Label::SKOSXL::Base < Label::Base
   end
 
   def from_rdf(str)
-    raise "invalid rdf literal" unless str =~ /^"(.+)"(@(.+))$/
+    raise 'invalid rdf literal' unless str =~ /^"(.+)"(@(.+))$/
     self.value = $1
     self.language = $3
     self
@@ -198,7 +198,7 @@ class Label::SKOSXL::Base < Label::Base
 
   def origin_has_to_be_escaped
     if origin != Iqvoc::Origin.new(origin).to_s
-      errors.add :origin, I18n.t("txt.models.label.origin_invalid")
+      errors.add :origin, I18n.t('txt.models.label.origin_invalid')
     end
   end
 

@@ -6,8 +6,8 @@ class Label::Relation::Base < ActiveRecord::Base
 
   self.table_name ='label_relations'
 
-  belongs_to :domain, :class_name => "Label::Base"
-  belongs_to :range,  :class_name => "Label::Base"
+  belongs_to :domain, :class_name => 'Label::Base'
+  belongs_to :range,  :class_name => 'Label::Base'
 
   def self.by_domain(domain)
     where(:domain_id => domain)
@@ -25,7 +25,7 @@ class Label::Relation::Base < ActiveRecord::Base
     # includes(:range) & Iqvoc::XLLabel.base_class.editor_selectable
     # Doesn't work correctly (kills label_relations.type condition :-( )
     includes(:range).
-    where("labels.published_at IS NOT NULL OR (labels.published_at IS NULL AND labels.published_version_id IS NULL) ")
+    where('labels.published_at IS NOT NULL OR (labels.published_at IS NULL AND labels.published_version_id IS NULL) ')
   end
 
   def self.range_in_edit_mode
@@ -33,7 +33,7 @@ class Label::Relation::Base < ActiveRecord::Base
   end
 
   def self.view_section(obj)
-    "relations"
+    'relations'
   end
 
   def self.view_section_sort_key(obj)
@@ -41,11 +41,11 @@ class Label::Relation::Base < ActiveRecord::Base
   end
 
   def self.partial_name(obj)
-    "partials/label/relation/base"
+    'partials/label/relation/base'
   end
 
   def self.edit_partial_name(obj)
-    "partials/label/relation/edit_base"
+    'partials/label/relation/edit_base'
   end
 
   def self.only_one_allowed?

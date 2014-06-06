@@ -27,7 +27,7 @@ module LabelsHelper
 
   def render_label_association(hash, label, association_class, further_options = {})
     return unless association_class.partial_name(label)
-    ((hash[association_class.view_section(label)] ||= {})[association_class.view_section_sort_key(label)] ||= "") <<
+    ((hash[association_class.view_section(label)] ||= {})[association_class.view_section_sort_key(label)] ||= '') <<
       render(association_class.partial_name(label), further_options.merge(:label => label, :klass => association_class))
   end
 

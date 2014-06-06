@@ -64,11 +64,11 @@ class Labeling::SKOSXL::Base < Labeling::Base
   end
 
   def self.partial_name(obj)
-    "partials/labeling/skosxl/base"
+    'partials/labeling/skosxl/base'
   end
 
   def self.edit_partial_name(obj)
-    "partials/labeling/skosxl/edit_base"
+    'partials/labeling/skosxl/edit_base'
   end
 
   def self.build_from_rdf(rdf_subject, rdf_predicate, rdf_object)

@@ -20,18 +20,18 @@ class Labels::VersionsController < ApplicationController
             handle_virtuoso_exception(e.message)
           end
           if new_version.has_concept_or_label_relations?
-            flash[:success] = t("txt.controllers.versioning.published")
+            flash[:success] = t('txt.controllers.versioning.published')
             redirect_to label_path(:id => new_version)
           else
-            flash[:error] = t("txt.controllers.versioning.published_with_warning")
+            flash[:error] = t('txt.controllers.versioning.published_with_warning')
             redirect_to label_path(:id => new_version)
           end
         else
-          flash[:error] = t("txt.controllers.versioning.merged_publishing_error")
+          flash[:error] = t('txt.controllers.versioning.merged_publishing_error')
           redirect_to label_path(:published => 0, :id => new_version)
         end
       else
-        flash[:error] = t("txt.controllers.versioning.merged_delete_error")
+        flash[:error] = t('txt.controllers.versioning.merged_delete_error')
         redirect_to label_path(:published => 0, :id => new_version)
       end
     end
@@ -49,7 +49,7 @@ class Labels::VersionsController < ApplicationController
       new_version = current_label.branch(current_user)
       new_version.save!
     end
-    flash[:success] = t("txt.controllers.versioning.branched")
+    flash[:success] = t('txt.controllers.versioning.branched')
     redirect_to edit_label_path(:published => 0, :id => new_version, :check_associations_in_editing_mode => true)
   end
 
@@ -62,7 +62,7 @@ class Labels::VersionsController < ApplicationController
     new_version.lock_by_user(current_user.id)
     new_version.save!
 
-    flash[:success] = t("txt.controllers.versioning.locked")
+    flash[:success] = t('txt.controllers.versioning.locked')
     redirect_to edit_label_path(:published => 0, :id => new_version)
   end
 
@@ -75,7 +75,7 @@ class Labels::VersionsController < ApplicationController
     new_version.unlock
     new_version.save!
 
-    flash[:success] = t("txt.controllers.versioning.unlocked")
+    flash[:success] = t('txt.controllers.versioning.unlocked')
     redirect_to label_path(:published => 0, :id => new_version)
   end
 
@@ -85,10 +85,10 @@ class Labels::VersionsController < ApplicationController
     authorize! :check_consistency, label
 
     if label.publishable?
-      flash[:success] = t("txt.controllers.versioning.consistency_check_success")
+      flash[:success] = t('txt.controllers.versioning.consistency_check_success')
       redirect_to label_path(:published => 0, :id => label)
     else
-      flash[:error] = t("txt.controllers.versioning.consistency_check_error")
+      flash[:error] = t('txt.controllers.versioning.consistency_check_error')
       redirect_to edit_label_path(:published => 0, :id => label, :full_consistency_check => 1)
     end
   end
@@ -100,7 +100,7 @@ class Labels::VersionsController < ApplicationController
 
     label.to_review
     label.save!
-    flash[:success] = t("txt.controllers.versioning.to_review_success")
+    flash[:success] = t('txt.controllers.versioning.to_review_success')
     redirect_to label_path(:published => 0, :id => label)
   end
 

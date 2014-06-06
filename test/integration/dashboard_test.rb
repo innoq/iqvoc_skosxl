@@ -23,7 +23,7 @@ class DashboardTest < ActionDispatch::IntegrationTest
       language: 'en', value: 'Forest', published_at: nil)
   end
 
-  test "labels appearing in dashboard" do
+  test 'labels appearing in dashboard' do
     assert !@label.published?
     login('administrator')
 
@@ -33,11 +33,11 @@ class DashboardTest < ActionDispatch::IntegrationTest
     assert_equal label_path(@label, :lang => 'de', :format => 'html'), current_path
   end
 
-  test "new label link in dashboard" do
+  test 'new label link in dashboard' do
     login('administrator')
 
     visit dashboard_path(:lang => 'de', :format => 'html')
-    click_link_or_button("de")
+    click_link_or_button('de')
     assert_equal new_label_path(:lang => 'de', :format => 'html'), current_path
   end
 

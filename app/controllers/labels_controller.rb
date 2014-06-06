@@ -8,14 +8,14 @@ class LabelsController < ApplicationController
     if params[:language] # NB: this is not the same as :lang, which is supplied via route
       scope = scope.by_language(params[:language])
     end
-    @labels = scope.published.order("LOWER(value)").all
+    @labels = scope.published.order('LOWER(value)').all
 
     respond_to do |format|
       format.html do
-        redirect_to :action => "index", :format => "txt"
+        redirect_to :action => 'index', :format => 'txt'
       end
       format.text do
-        render :content_type => "text/plain",
+        render :content_type => 'text/plain',
             :text => @labels.map { |label| "#{label.origin}: #{label.value}" }.join("\n")
       end
       format.json do
@@ -49,7 +49,7 @@ class LabelsController < ApplicationController
 
   def new
     authorize! :create, Iqvoc::XLLabel.base_class
-    raise "You have to specify a language parameter!" if params[:language].blank?
+    raise 'You have to specify a language parameter!' if params[:language].blank?
     data = {:language => params[:language]}
     data.merge(:value => params[:value]) if params[:value]
     @label = Iqvoc::XLLabel.base_class.new(data)
@@ -60,14 +60,14 @@ class LabelsController < ApplicationController
     @label = Iqvoc::XLLabel.base_class.new(label_params)
     if @label.valid?
       if @label.save
-        flash[:success] = I18n.t("txt.controllers.versioned_label.success")
+        flash[:success] = I18n.t('txt.controllers.versioned_label.success')
         redirect_to label_path(:published => 0, :id => @label.origin)
       else
-        flash.now[:error] = I18n.t("txt.controllers.versioned_label.error")
+        flash.now[:error] = I18n.t('txt.controllers.versioned_label.error')
         render :new
       end
     else
-      flash.now[:error] = I18n.t("txt.controllers.versioned_label.error")
+      flash.now[:error] = I18n.t('txt.controllers.versioned_label.error')
       render :new
     end
   end
@@ -99,10 +99,10 @@ class LabelsController < ApplicationController
     respond_to do |format|
       format.html do
         if @label.update_attributes(label_params)
-          flash[:success] = I18n.t("txt.controllers.versioned_label.update_success")
+          flash[:success] = I18n.t('txt.controllers.versioned_label.update_success')
           redirect_to label_path(:published => 0, :id => @label)
         else
-          flash.now[:error] = I18n.t("txt.controllers.versioned_label.update_error")
+          flash.now[:error] = I18n.t('txt.controllers.versioned_label.update_error')
           render :action => :edit
         end
       end
@@ -114,10 +114,10 @@ class LabelsController < ApplicationController
     authorize! :destroy, @new_label
 
     if @new_label.destroy
-      flash[:success] = I18n.t("txt.controllers.label_versions.delete")
+      flash[:success] = I18n.t('txt.controllers.label_versions.delete')
       redirect_to dashboard_path
     else
-      flash[:error] = I18n.t("txt.controllers.label_versions.delete_error")
+      flash[:error] = I18n.t('txt.controllers.label_versions.delete_error')
       redirect_to label_path(:published => 0, :id => @new_label)
     end
   end

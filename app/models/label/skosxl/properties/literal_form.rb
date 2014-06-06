@@ -1,4 +1,4 @@
-require "iqvoc/rdfapi"
+require 'iqvoc/rdfapi'
 
 class Label::SKOSXL::Properties::LiteralForm
   class_attribute :rdf_namespace, :rdf_predicate
@@ -13,7 +13,7 @@ class Label::SKOSXL::Properties::LiteralForm
 
     lang = $3
     value = begin
-      JSON.parse(%Q{["#{$1}"]})[0].gsub("\\n", "\n") # Trick to decode \uHHHHH chars
+      JSON.parse(%Q{["#{$1}"]})[0].gsub('\\n', "\n") # Trick to decode \uHHHHH chars
     rescue JSON::ParserError
       $1
     end

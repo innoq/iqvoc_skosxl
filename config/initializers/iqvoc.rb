@@ -14,11 +14,11 @@ module SkosXlExporterExtensions
   include LabelsHelper
 
   def add_skos_xl_labels(document)
-    @logger.info "Exporting xl labels..."
+    @logger.info 'Exporting xl labels...'
 
     offset = 0
     while true
-      labels = Iqvoc::XLLabel.base_class.published.published.order("id").limit(100).offset(offset)
+      labels = Iqvoc::XLLabel.base_class.published.published.order('id').limit(100).offset(offset)
       limit = labels.size < 100 ? labels.size : 100
       break if labels.size == 0
 

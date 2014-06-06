@@ -17,14 +17,13 @@ require File.expand_path('test_helper', File.dirname(__FILE__))
 require 'capybara/rails'
 require 'capybara/dsl'
 require 'capybara/poltergeist'
-require 'webmock'
 require File.expand_path('authentication', File.dirname(__FILE__))
 
 Capybara.javascript_driver = :poltergeist
 
-WebMock.allow_net_connect! # required for integration tests
-
-class ActionDispatch::IntegrationTest
-  include Capybara::DSL
-  include Authentication
+module ActionDispatch
+  class IntegrationTest
+    include Capybara::DSL
+    include Authentication
+  end
 end

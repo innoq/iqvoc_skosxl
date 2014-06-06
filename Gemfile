@@ -20,5 +20,4 @@ end
 group :test do
   gem 'capybara'
   gem 'poltergeist', '~> 1.5.0'
-  gem 'webmock'
 end

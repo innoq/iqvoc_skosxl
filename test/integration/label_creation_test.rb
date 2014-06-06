@@ -21,7 +21,7 @@ class LabelCreationTest < ActionDispatch::IntegrationTest
     login 'administrator'
   end
 
-  test "label creation" do
+  test 'label creation' do
     visit new_label_path(lang: 'de', language: 'de')
     assert page.has_content? 'Neues Label'
     fill_in 'Vorlageform', with: 'Testlabel'

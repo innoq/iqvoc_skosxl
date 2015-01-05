@@ -20,14 +20,19 @@ class LabelTest < ActiveSupport::TestCase
     duplicate = Iqvoc::XLLabel.base_class.new(
       language: 'en', value: 'Forest', published_at: 3.days.ago)
     refute duplicate.save
-    duplicate.published_at = nil
+
+    duplicate.value = 'Forest2'
     assert duplicate.save
   end
 
-  test 'language interpolation for label origin' do
-    @current_label = Iqvoc::XLLabel.base_class.create(
+  test 'label origin generation' do
+    l1 = Iqvoc::XLLabel.base_class.create(
       language: 'en', value: 'Forest', published_at: 3.days.ago)
-    assert_equal 'forest-en', @current_label.origin
+    assert_match /_[0-9a-z]{16}/, l1.origin
+
+    l2 = Iqvoc::XLLabel.base_class.create(
+      language: 'en', value: 'Forest', origin: 'forest', published_at: 3.days.ago)
+    assert_equal 'forest', l2.origin
   end
 
   test 'should create two labels with equal values but different languages' do
@@ -36,7 +41,7 @@ class LabelTest < ActiveSupport::TestCase
     l2 = Iqvoc::XLLabel.base_class.new(
       language: 'en', value: 'Forest', published_at: 3.days.ago)
     assert l2.save
-    assert_equal 'forest-en', l2.origin
+    assert_match /_[0-9a-z]{16}/, l2.origin
   end
 
   test 'should validate origin for escaping' do
@@ -44,7 +49,7 @@ class LabelTest < ActiveSupport::TestCase
       language: 'en', value: 'Forest', published_at: 3.days.ago)
     assert label.publishable?
 
-    label.origin = 'FoÖ/Bär'
+    label.origin = 'foo-bar'
     assert_equal 'foo-bar', label.origin
     assert label.publishable?
 

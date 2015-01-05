@@ -11,9 +11,9 @@ class Label::SKOSXL::Base < Label::Base
 
   # ********** Hooks
 
-  before_validation do |label|
+  after_initialize do |label|
     if label.origin.blank?
-      label.origin = Iqvoc::Origin.new("#{value}-#{language}").to_s
+      label.origin = Iqvoc::Origin.new.to_s
     end
   end
 
@@ -130,11 +130,6 @@ class Label::SKOSXL::Base < Label::Base
   def relations_for_class(relation_class)
     relation_class = relation_class.name if relation_class < ActiveRecord::Base # Use the class name string
     relations.select{ |rel| rel.class.name == relation_class }
-  end
-
-  def origin=(val)
-    # escape origin in any case
-    write_attribute :origin, Iqvoc::Origin.new(val).to_s
   end
 
   def build_rdf_subject(&block)

@@ -5,13 +5,15 @@ module Label
 
       included do
         validates :origin, presence: true
-
+        validates :origin, uniqueness: { scope: :rev }
         validate :origin_has_to_be_escaped
+
+        validates :value, uniqueness: { scope: [:language, :rev] }
         validate :value_must_be_given
       end
 
       def origin_has_to_be_escaped
-        if origin != Iqvoc::Origin.new(origin).to_s
+        unless Iqvoc::Origin.new(origin).valid?
           errors.add :origin, I18n.t('txt.models.label.origin_invalid')
         end
       end

@@ -9,7 +9,7 @@
     </div>
   <% elsif defined?(label) %>
     <h2><%= klass.model_name.human %> <%= t("txt.common.of") %></h2>
-    <div class="relation">
+    <div class="relation-body">
       <%= item_listing(label.concepts_for_labeling_class(klass)) do |c|
         link_to c.to_s, concept_path(:id => c)
       end

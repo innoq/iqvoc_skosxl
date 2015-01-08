@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/innoq/iqvoc.git
-  revision: d79b3b36a650e1056af46d1be0fbd874be2306d5
+  revision: 7f30de3dd968a304689b74ef7868949be5c2855b
   specs:
     iqvoc (4.8.0)
       apipie-rails

@@ -54,7 +54,7 @@ class LabelTest < ActiveSupport::TestCase
     assert_equal 'foo-bar', label.origin
     assert label.publishable?
 
-    label.origin = Iqvoc::Origin.new('FoÖ/Bär').to_s
+    label.origin = Origin.new('FoÖ/Bär').to_s
     assert label.publishable?
   end
 end

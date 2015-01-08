@@ -14,7 +14,7 @@ module Label
       end
 
       def origin_has_to_be_escaped
-        unless Iqvoc::Origin.new(origin).valid?
+        unless Origin.new(origin).valid?
           errors.add :base, I18n.t('txt.models.label.origin_invalid')
         end
       end

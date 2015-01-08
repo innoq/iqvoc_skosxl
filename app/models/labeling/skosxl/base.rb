@@ -75,7 +75,7 @@ class Labeling::SKOSXL::Base < Labeling::Base
       raise "#{self.name}#build_from_rdf: Subject (#{rdf_subject}) must be a Concept."
     end
 
-    predicate_class = Iqvoc::RDFAPI::PREDICATE_DICTIONARY[rdf_predicate] || self
+    predicate_class = RDFAPI::PREDICATE_DICTIONARY[rdf_predicate] || self
     predicate_class.create do |klass|
       klass.owner = rdf_subject
       klass.target = rdf_object

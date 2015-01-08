@@ -13,7 +13,7 @@ class Label::SKOSXL::Base < Label::Base
 
   after_initialize do |label|
     if label.origin.blank?
-      label.origin = Iqvoc::Origin.new.to_s
+      label.origin = Origin.new.to_s
     end
   end
 
@@ -69,7 +69,7 @@ class Label::SKOSXL::Base < Label::Base
     define_method("inline_#{relation_class_name.to_relation_name}=".to_sym) do |value|
       # write to instance variable and write it on after_save
       (@inline_assigned_relations ||= {})[relation_class_name] = value.
-        split(/\r\n|, */).map(&:strip).reject(&:blank?).uniq # XXX: use Iqvoc::InlineDataHelper?
+        split(/\r\n|, */).map(&:strip).reject(&:blank?).uniq
     end
   end
 

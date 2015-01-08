@@ -1,7 +1,6 @@
 # encoding: UTF-8
 
 require File.expand_path('../../test_helper', __FILE__)
-require 'iqvoc/skos_importer'
 
 class SkosImporterTest < ActiveSupport::TestCase
   TEST_DATA = File.open(File.expand_path('../../fixtures/hobbies.nt', __FILE__))
@@ -14,7 +13,7 @@ class SkosImporterTest < ActiveSupport::TestCase
       self.rdf_predicate = 'test-relation'
     end
 
-    @importer = Iqvoc::SkosImporter.new(TEST_DATA, 'http://hobbies.com/')
+    @importer = SkosImporter.new(TEST_DATA, 'http://hobbies.com/')
     @importer.second_level_object_classes << TestRelation
   end
 

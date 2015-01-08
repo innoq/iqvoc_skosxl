@@ -44,8 +44,8 @@ ActiveSupport.on_load :rdf_export_before_save do
 end
 
 ActiveSupport.on_load :skos_importer do
-  Iqvoc::SkosImporter.prepend_first_level_object_classes(Iqvoc::XLLabel.base_class)
-  Iqvoc::SkosImporter.second_level_object_classes +=
+  SkosImporter.prepend_first_level_object_classes(Iqvoc::XLLabel.base_class)
+  SkosImporter.second_level_object_classes +=
     [Label::SKOSXL::Properties::LiteralForm] +
     Iqvoc::XLLabel.note_classes +
     Iqvoc::XLLabel.relation_classes +

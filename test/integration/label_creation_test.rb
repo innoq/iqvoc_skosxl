@@ -31,7 +31,7 @@ class LabelCreationTest < ActionDispatch::IntegrationTest
     assert page.has_content? 'Instanz ist konsistent.'
   end
 
-  test 'inkonsistent label creation' do
+  test 'inconsistent label creation' do
     visit new_label_path(lang: 'de', language: 'de')
     assert page.has_content? 'Neues Label'
     fill_in 'Vorlageform', with: ''

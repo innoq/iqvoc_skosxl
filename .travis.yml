@@ -21,3 +21,5 @@ branches:
 notifications:
   email:
   - iqvoc@innoq.com
+addons:
+  postgresql: "9.3"

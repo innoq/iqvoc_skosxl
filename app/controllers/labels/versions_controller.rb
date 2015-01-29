@@ -96,8 +96,11 @@ class Labels::VersionsController < ApplicationController
     label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last!
 
     authorize! :send_to_review, label
-
     label.to_review
+
+    authorize! :unlock, label
+    label.unlock
+
     label.save!
     flash[:success] = t('txt.controllers.versioning.to_review_success')
     redirect_to label_path(published: 0, id: label)

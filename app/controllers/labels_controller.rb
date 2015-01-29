@@ -57,7 +57,10 @@ class LabelsController < ApplicationController
 
   def create
     authorize! :create, Iqvoc::XLLabel.base_class
+
     @label = Iqvoc::XLLabel.base_class.new(label_params)
+    @label.lock_by_user(current_user.id)
+
     if @label.valid?
       if @label.save
         flash[:success] = I18n.t('txt.controllers.versioned_label.success')

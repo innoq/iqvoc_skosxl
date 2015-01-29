@@ -75,7 +75,7 @@ class ConceptLabelLanguageTest < ActionDispatch::IntegrationTest
     click_button 'Speichern'
     visit dashboard_path(lang: 'de', format: 'html')
     page.find('td a').click
-    page.click_link_or_button 'In Bearbeitung versetzen'
+    page.click_link_or_button 'Bearbeitung fortsetzen'
 
     # NB: label languages do not match relation languages
     fill_in 'labeling_skosxl_pref_labels_en',

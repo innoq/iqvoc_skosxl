@@ -2,19 +2,22 @@ source 'https://rubygems.org'
 
 gem 'iqvoc', '~> 4.8.0', :github => 'innoq/iqvoc'
 
+platforms :ruby do
+  gem 'mysql2'
+  gem 'sqlite3'
+  gem 'pg'
+end
+
+platforms :jruby do
+  gem 'activerecord-jdbcsqlite3-adapter'
+  gem 'activerecord-jdbcmysql-adapter'
+  gem 'activerecord-jdbcpostgresql-adapter', '~> 1.3.13'
+end
+
 group :development, :test do
   gem 'awesome_print'
   gem 'spring'
   gem 'pry-rails'
-
-  platforms :ruby do
-    gem 'mysql2'
-    gem 'sqlite3'
-  end
-  platforms :jruby do
-    gem 'activerecord-jdbcsqlite3-adapter'
-    gem 'activerecord-jdbcmysql-adapter'
-  end
 end
 
 group :test do

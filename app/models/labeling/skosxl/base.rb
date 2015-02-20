@@ -36,23 +36,29 @@ class Labeling::SKOSXL::Base < Labeling::Base
     query_str = build_query_string(params)
 
     scope = includes(:target).order("LOWER(#{Label::Base.table_name}.value)").references(:labels, :concepts)
-
     if params[:query].present?
-      scope = scope.merge(Label::Base.by_query_value(query_str).by_language(params[:languages].to_a).published)
+      labels = Label::Base.by_query_value(query_str).by_language(params[:languages].to_a).published
+      scope = scope.merge(labels)
     else
       scope = scope.merge(Label::Base.by_language(params[:languages].to_a).published)
     end
 
     if params[:collection_origin].present?
-      scope = scope.includes(owner: { collection_members: :collection })
-      scope = scope.merge(Collection::Base.where(origin: params[:collection_origin]))
+      collection = Collection::Base.where(origin: params[:collection_origin]).last
+      if collection
+        scope = scope.includes(owner: { collection_members: :collection })
+        scope = scope.where("#{Collection::Member::Base.table_name}.collection_id" => collection.id)
+      else
+        raise "Collection with Origin #{params[:collection_origin]} not found!"
+      end
     end
 
-    # Check that the included concept is in published state:
-    scope = scope.includes(:owner).merge(Iqvoc::Concept.base_class.published)
-
-    unless params[:collection_origin].blank?
-      #
+    # apply search entity type
+    case params[:for]
+    when 'concept'
+      scope = scope.includes(:owner).merge(Iqvoc::Concept.base_class.published)
+    when 'collection'
+      scope = scope.includes(:owner).merge(Iqvoc::Collection.base_class.published)
     end
 
     scope.map { |result| SearchResult.new(result) }

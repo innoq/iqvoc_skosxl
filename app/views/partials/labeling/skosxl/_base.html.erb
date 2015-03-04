@@ -3,7 +3,7 @@
     <h2><%= klass.model_name.human(:count => 2) %> <small><%= "#{t("languages.#{lang}", :default => lang.to_s)}" %></small></h2>
     <div class="relation-body">
       <%= item_listing(concept.labels_for_labeling_class_and_language(klass, lang.to_s)) do |label|
-        link_to label.value, label_path(:id => label)
+        link_to label.value, label_path(:id => label), class: label.published? ? '' : 'unpublished'
       end
     %>
     </div>
@@ -11,7 +11,7 @@
     <h2><%= klass.model_name.human %> <%= t("txt.common.of") %></h2>
     <div class="relation-body">
       <%= item_listing(label.concepts_for_labeling_class(klass)) do |c|
-        link_to c.to_s, concept_path(:id => c)
+        link_to c.to_s, concept_path(:id => c), class: c.published? ? '' : 'unpublished'
       end
     %>
     </div>

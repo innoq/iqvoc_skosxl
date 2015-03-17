@@ -1,7 +1,11 @@
 <div class="relation panel">
   <h2><%= klass.model_name.human(:count => 2) %></h2>
   <div class="relation-body">
-    <%= item_listing(label.related_labels_for_relation_class(klass)) do |label|
+    <%-
+      items = label.related_labels_for_relation_class(klass)
+      items = items.select { |item| can?(:read, item) }
+    -%>
+    <%= item_listing(items) do |label|
       link_to label.value, label_path(:id => label)
     end
   %>

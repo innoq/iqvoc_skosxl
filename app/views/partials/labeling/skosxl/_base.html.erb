@@ -2,7 +2,11 @@
   <% if defined?(concept) %>
     <h2><%= klass.model_name.human(:count => 2) %> <small><%= "#{t("languages.#{lang}", :default => lang.to_s)}" %></small></h2>
     <div class="relation-body">
-      <%= item_listing(concept.labels_for_labeling_class_and_language(klass, lang.to_s)) do |label|
+      <%-
+        items = concept.labels_for_labeling_class_and_language(klass, lang.to_s)
+        items = items.select { |item| can?(:read, item) }
+      -%>
+      <%= item_listing(items) do |label|
         link_to label.value, label_path(:id => label), class: label.published? ? '' : 'unpublished'
       end
     %>
@@ -10,7 +14,11 @@
   <% elsif defined?(label) %>
     <h2><%= klass.model_name.human %> <%= t("txt.common.of") %></h2>
     <div class="relation-body">
-      <%= item_listing(label.concepts_for_labeling_class(klass)) do |c|
+      <%-
+        items = label.concepts_for_labeling_class(klass)
+        items = items.select { |item| can?(:read, item) }
+      -%>
+      <%= item_listing(items) do |c|
         link_to c.to_s, concept_path(:id => c), class: c.published? ? '' : 'unpublished'
       end
     %>

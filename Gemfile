@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'iqvoc', '~> 4.9.0', :github => 'innoq/iqvoc'
+gem 'iqvoc', '~> 4.9.0', :github => 'innoq/iqvoc', branch: 'master'
 
 platforms :ruby do
   gem 'mysql2'

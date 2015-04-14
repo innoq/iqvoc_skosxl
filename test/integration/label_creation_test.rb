@@ -29,6 +29,18 @@ class LabelCreationTest < ActionDispatch::IntegrationTest
     assert page.has_content? 'Das Label wurde erstellt.'
     click_link_or_button 'Konsistenz prüfen'
     assert page.has_content? 'Instanz ist konsistent.'
+    click_link_or_button 'Veröffentlichen'
+    assert page.has_content? 'Instanz wurde erfolgreich veröffentlicht.'
+    assert page.has_content? 'Testlabel'
+
+    # modify created version
+    click_link_or_button 'Neue Version erstellen'
+    fill_in 'Vorlageform', with: 'Testlabel_modified'
+    click_link_or_button 'Speichern'
+    assert page.has_content? 'Das Label wurde aktualisiert.'
+    assert page.has_content? 'Testlabel_modified'
+    click_link_or_button 'Veröffentlichen'
+    assert page.has_content? 'Instanz wurde erfolgreich veröffentlicht.'
   end
 
   test 'inconsistent label creation' do

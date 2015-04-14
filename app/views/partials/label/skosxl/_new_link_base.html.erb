@@ -1,5 +1,1 @@
-<span class="list-group-item">
-<%= icon(:edit) %> <%= t("txt.views.labels.new") %> (<% Iqvoc::Concept::labeling_class_names.values.flatten.map(&:to_s).uniq.each do |language| %>
-  <%= link_to language.to_s, new_label_path(:published => 0, :language => language), :class => 'inline-language-selector' %>
-<% end %>)
-</span>
+<%= sidebar_item :icon => 'edit', :text => t('txt.views.labels.new'), :path => new_label_path(published: 0) %>

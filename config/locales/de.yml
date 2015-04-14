@@ -7,3 +7,4 @@ de:
     models:
       label:
         origin_invalid: enthält ungültige Zeichen.
+        referenced_concepts_invalid: Referenzierte Konzepte werden durch diese Änderung invalide. Bitte Labelzuordnung am Konzept aufheben.

@@ -6,7 +6,8 @@
   <%= sidebar_item :icon => 'share', :text => 'RDF/XML', :path => rdf_url(label.origin, :format => :rdf, :published => published_param, :lang => nil), :id => 'rdf_link_xml' %>
   <%= sidebar_item :icon => 'share', :text => 'RDF/Turtle', :path => rdf_url(label.origin, :format => :ttl, :published => published_param, :lang => nil), :id => 'rdf_link_ttl' %>
   <%= sidebar_item :icon => 'share', :text => 'RDF/NTriples', :path => rdf_url(label.origin, :format => :nt, :published => published_param, :lang => nil), :id => 'rdf_link_nt' %>
+
   <%= sidebar_header 'Links' %>
-  <%#= sidebar_item :icon => 'zoom-in', :text => 'Visualization', :path => '#visualization', :'data-toggle' => 'modal' %>
+  <%= sidebar_item :icon => 'link', :text => t('txt.models.label.uri'), :path => rdf_url(label.origin, :format => nil, :published => published_param, :lang => nil) %>
   <%= render Iqvoc::XLLabel.base_class.new_link_partial_name %>
 <% end %>

@@ -6,4 +6,5 @@ de:
           concepts: Konzepte
     models:
       label:
+        uri: Label-URI
         origin_invalid: enthält ungültige Zeichen.

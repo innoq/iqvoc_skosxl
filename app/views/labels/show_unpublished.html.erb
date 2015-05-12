@@ -30,7 +30,7 @@
       label_path(:published => 0, :id => @label.origin),
       :method => :delete,
       :confirm => I18n.t("txt.views.versioning.delete_confirm"),
-      :class => 'btn btn-default' %>
+      :class => 'btn btn-danger' %>
   <% else %>
     <%= button_to t("txt.views.versioning.unlock"),
       label_versions_unlock_path(:origin => @label.origin),

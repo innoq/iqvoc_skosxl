@@ -6,5 +6,6 @@ en:
           concepts: Concepts
     models:
       label:
+        uri: Label URI
         origin_invalid: Origin contains invalid characters.
         referenced_concepts_invalid: Some referenced concepts become invalid. Please remove label from referenced concepts first.

@@ -16,7 +16,7 @@ class LabelsController < ApplicationController
       end
       format.text do
         render content_type: 'text/plain',
-            text: @labels.map { |label| "#{label.origin}: #{label.value}" }.join("\n")
+          text: @labels.map { |label| "#{label.origin}: #{label.value}" }.join("\n")
       end
       format.json do
         response = []
@@ -28,20 +28,23 @@ class LabelsController < ApplicationController
   end
 
   def show
-    if params[:published] == '1' || !params[:published]
-      published = true
-      @label = Iqvoc::XLLabel.base_class.by_origin(params[:id]).published.last
+    scope = Iqvoc::XLLabel.base_class.by_origin(params[:id]).with_associations
+
+    @published = params[:published] == '1' || !params[:published]
+    if @published
+      scope = scope.published
       @new_label_version = Iqvoc::XLLabel.base_class.by_origin(params[:id]).unpublished.last
-    elsif params[:published] == '0'
-      published = false
-      @label = Iqvoc::XLLabel.base_class.by_origin(params[:id]).unpublished.last!
+    else
+      scope = scope.unpublished
     end
+
+    @label = scope.last!
 
     authorize! :read, @label
 
     respond_to do |format|
       format.html do
-        published ? render('show_published') : render('show_unpublished')
+        @published ? render('show_published') : render('show_unpublished')
       end
       format.ttl
     end

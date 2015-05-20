@@ -37,14 +37,14 @@ module Concept
       def labelings_by_id(relation_name, language)
         (@labelings_by_id && @labelings_by_id[relation_name] && @labelings_by_id[relation_name][language]) ||
           self.send(relation_name).by_label_language(language).
-              map { |l| l.target.origin }.join(InlineDataHelper::JOINER)
+              map { |l| l.target.origin if l.target.published?}.join(InlineDataHelper::JOINER)
       end
 
       def valid_label_language
         (@labelings_by_id || {}).each { |labeling_class_name, origin_mappings|
           origin_mappings.each { |language, new_origins|
             new_origins = new_origins.split(InlineDataHelper::SPLITTER)
-            Iqvoc::XLLabel.base_class.by_origin(new_origins).each do |label|
+            Iqvoc::XLLabel.base_class.by_origin(new_origins).published.each do |label|
               if label.language != language.to_s
                 errors.add(:base,
                     I18n.t('txt.controllers.versioned_concept.label_error') % label)

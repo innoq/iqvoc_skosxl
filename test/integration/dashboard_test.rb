@@ -36,7 +36,7 @@ class DashboardTest < ActionDispatch::IntegrationTest
     login('administrator')
 
     visit dashboard_path(lang: 'de', format: 'html')
-    click_link_or_button('de')
+    click_link_or_button('Neues Label')
     assert_equal new_label_path(lang: 'de', format: 'html'), current_path
   end
 end

@@ -8,3 +8,4 @@ de:
       label:
         uri: Label-URI
         origin_invalid: enthält ungültige Zeichen.
+        referenced_concepts_invalid: Referenzierte Konzepte werden durch diese Änderung invalide. Bitte Labelzuordnung am Konzept aufheben.

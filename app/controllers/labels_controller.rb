@@ -52,10 +52,7 @@ class LabelsController < ApplicationController
 
   def new
     authorize! :create, Iqvoc::XLLabel.base_class
-    raise 'You have to specify a language parameter!' if params[:language].blank?
-    data = {language: params[:language]}
-    data.merge(value: params[:value]) if params[:value]
-    @label = Iqvoc::XLLabel.base_class.new(data)
+    @label = Iqvoc::XLLabel.base_class.new
   end
 
   def create

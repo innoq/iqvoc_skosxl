@@ -61,6 +61,7 @@ class Labeling::SKOSXL::Base < Labeling::Base
       scope = scope.includes(:owner).merge(Iqvoc::Collection.base_class.published)
     end
 
+    scope = yield(scope) if block_given?
     scope.map { |result| SearchResult.new(result) }
   end
 

@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/innoq/iqvoc.git
-  revision: f4696733ec292af51f4a03b8fc579952c7406a24
+  revision: 8789070795a7e35507007375c5e54d7a660297ed
   branch: master
   specs:
     iqvoc (4.9.0)
@@ -360,3 +360,6 @@ DEPENDENCIES
   poltergeist (~> 1.5.0)
   pry-rails
   sqlite3
+
+BUNDLED WITH
+   1.10.3

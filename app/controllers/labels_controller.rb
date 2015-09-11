@@ -99,6 +99,9 @@ class LabelsController < ApplicationController
     @label = Iqvoc::XLLabel.base_class.by_origin(params[:id]).unpublished.last!
     authorize! :update, @label
 
+    # set to_review to false if someone edits a label
+    label_params["to_review"] = "false"
+
     respond_to do |format|
       format.html do
         if @label.update_attributes(label_params)

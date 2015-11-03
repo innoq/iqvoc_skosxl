@@ -1,0 +1,13 @@
+<% if label = result.result_object %>
+<li class="search-result" data-rdf-namespace="<%= result.rdf_namespace %>" data-rdf-value="<%= result.value %>" data-rdf-language="<%= result.language %>">
+  <%= link_to_object(label, result.value, :class => 'search-result-link') %>
+  <dl class="search-result-meta">
+    <dt class="search-result-key"><%= t('txt.views.search_results.type') %></dt>
+    <dd class="search-result-value" data-key="<%= t('txt.views.search_results.type') %>"><%= result.model_name.human %></dd>
+    <% if result.language %>
+    <dt class="search-result-key"><%= t('txt.views.search_results.language') %></dt>
+    <dd class="search-result-value" data-key="<%= t('txt.views.search_results.language') %>"><%= result.language %></dd>
+    <% end %>
+  </dl>
+</li>
+<% end %>

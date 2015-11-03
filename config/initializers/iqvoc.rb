@@ -3,6 +3,7 @@ silence_warnings do
 end
 
 Iqvoc.searchable_class_names = {
+    'Label::SKOSXL::Base' => 'xllabels',
     'Labeling::SKOSXL::Base' => 'labels',
     'Labeling::SKOSXL::PrefLabel' => 'pref_labels',
     'Labeling::SKOSXL::AltLabel' => 'alt_labels'

@@ -101,18 +101,39 @@ class Label::SKOSXL::Base < Label::Base
 
   # ********** Methods
 
-  # def self.single_query(params = {})
-  #   query_str = build_query_string(params)
-  #
-  #   by_query_value(query_str).
-  #   by_language(params[:languages].to_a).
-  #   published.
-  #   order("LOWER(#{Label::Base.table_name}.value)")
-  # end
+  def self.single_query(params = {})
+    query_str = build_query_string(params)
 
-  # def self.search_result_partial_name
-  #   'partials/labeling/skosxl/search_result'
-  # end
+    scope = by_query_value(query_str).
+      by_language(params[:languages].to_a).includes(:concepts).references(:concepts)
+      published.
+      order("LOWER(#{Label::Base.table_name}.value)")
+
+    if params[:collection_origin].present?
+      collection = Collection::Base.where(origin: params[:collection_origin]).last
+      if collection
+        scope = scope.includes(concepts: [ collections: { collection_members: :collection } ])
+        scope = scope.where("#{Collection::Member::Base.table_name}.collection_id" => collection.id)
+      else
+        raise "Collection with Origin #{params[:collection_origin]} not found!"
+      end
+    end
+
+    # apply search entity type
+    case params[:for]
+    when 'concept'
+      scope = scope.includes(:concepts).merge(Iqvoc::Concept.base_class.published)
+    when 'collection'
+      scope = scope.includes(:concepts).merge(Iqvoc::Collection.base_class.published)
+    end
+
+    scope = yield(scope) if block_given?
+    scope.map { |result| SearchResult.new(result) }
+  end
+
+  def self.search_result_partial_name
+    'partials/label/skosxl/search_result'
+  end
 
   def self.new_link_partial_name
     'partials/label/skosxl/new_link_base'

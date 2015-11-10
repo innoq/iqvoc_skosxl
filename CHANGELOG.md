@@ -1,4 +1,4 @@
-## [2.6.1]
+## [2.7.0]
 
   * Added: add XL-Label search
   * Added: automatic change note creation

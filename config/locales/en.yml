@@ -4,6 +4,9 @@ en:
       layouts:
         sections:
           concepts: Concepts
+      instance_configuration:
+        settings:
+          languages_further_labelings_Labeling::SKOSXL::AltLabel: Languages for alternative labels
     models:
       label:
         uri: Label URI

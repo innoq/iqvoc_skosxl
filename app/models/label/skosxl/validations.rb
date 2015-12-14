@@ -28,7 +28,7 @@ module Label
           # pref labels without the current published one
           labels = concept.pref_labels.reject{ |l| l == published_label }
 
-          unless labels.map(&:language).map(&:to_s).include?(Iqvoc::Concept.pref_labeling_languages.first.to_s)
+          unless labels.map(&:language).map(&:to_s).include?(::Iqvoc::Concept.pref_labeling_languages.first.to_s)
             errors.add :base, I18n.t('txt.models.label.referenced_concepts_invalid')
           end
         end

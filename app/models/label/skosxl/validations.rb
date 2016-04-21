@@ -9,8 +9,6 @@ module Label
         validate :origin_has_to_be_escaped
 
         validate :referenced_published_concepts_has_to_be_valid, if: :validatable_for_publishing?
-        validates :value, uniqueness: { scope: [:language, :rev] },
-          if: :validatable_for_publishing?
         validates :value, presence: true, if: :validatable_for_publishing?
       end
 

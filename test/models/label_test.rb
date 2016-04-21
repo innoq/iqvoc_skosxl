@@ -14,15 +14,13 @@ class LabelTest < ActiveSupport::TestCase
       active: true)
   end
 
-  test 'should not create two similar labels' do
+  test 'should create two similar labels' do
     @current_label = Iqvoc::XLLabel.base_class.create(
       language: 'en', value: 'Forest', published_at: 3.days.ago)
+
     duplicate = Iqvoc::XLLabel.base_class.new(
       language: 'en', value: 'Forest')
     assert duplicate.save
-    refute duplicate.publishable?
-
-    duplicate.value = 'Forest2'
     assert duplicate.publishable?
   end
 

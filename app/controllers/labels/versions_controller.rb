@@ -6,31 +6,33 @@ class Labels::VersionsController < ApplicationController
     authorize! :merge, new_version
 
     ActiveRecord::Base.transaction do
-      if current_label.blank? || current_label.destroy
-        new_version.publish
-        new_version.unlock
-        if new_version.publishable?
-          new_version.save
-          begin
-           # TODO if RdfStore.update(new_version.rdf_uri, label_url(:id => new_version, :format => :ttl))
-           #   new_version.update_attribute(:rdf_updated_at, 1.seconds.since)
-           # end
-          rescue Exception => e
-            handle_virtuoso_exception(e.message)
-          end
-          if new_version.has_concept_or_label_relations?
-            flash[:success] = t('txt.controllers.versioning.published')
-            redirect_to label_path(id: new_version)
-          else
-            flash[:error] = t('txt.controllers.versioning.published_with_warning')
-            redirect_to label_path(id: new_version)
-          end
-        else
-          flash[:error] = t('txt.controllers.versioning.merged_publishing_error')
+      new_version.publish
+      new_version.unlock
+      if new_version.publishable?
+        new_version.save
+        begin
+         # TODO if RdfStore.update(new_version.rdf_uri, label_url(:id => new_version, :format => :ttl))
+         #   new_version.update_attribute(:rdf_updated_at, 1.seconds.since)
+         # end
+        rescue Exception => e
+          handle_virtuoso_exception(e.message)
+        end
+
+        if current_label && !current_label.destroy
+          flash[:error] = t('txt.controllers.versioning.merged_delete_error')
           redirect_to label_path(published: 0, id: new_version)
         end
+
+        if new_version.has_concept_or_label_relations?
+          flash[:success] = t('txt.controllers.versioning.published')
+          redirect_to label_path(id: new_version)
+        else
+          flash[:error] = t('txt.controllers.versioning.published_with_warning')
+          redirect_to label_path(id: new_version)
+        end
+
       else
-        flash[:error] = t('txt.controllers.versioning.merged_delete_error')
+        flash[:error] = t('txt.controllers.versioning.merged_publishing_error')
         redirect_to label_path(published: 0, id: new_version)
       end
     end

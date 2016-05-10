@@ -19,7 +19,7 @@ module Label
       end
 
       def pref_label_language
-        if language != Iqvoc::Concept.pref_labeling_languages.first.to_s && concepts_for_labeling_class(Iqvoc::Concept::pref_labeling_class).any?
+        if language != ::Iqvoc::Concept.pref_labeling_languages.first.to_s && concepts_for_labeling_class(::Iqvoc::Concept::pref_labeling_class).any?
           errors.add :base, I18n.t('txt.models.label.pref_label_language')
         end
       end

@@ -42,5 +42,6 @@
 
   <div class="well">
     <%= f.submit t("txt.common.save"), :class => 'btn btn-primary' %>
+    <%= link_to t("txt.common.cancel"), label_path(:id => label, :published => 0), :class => "btn btn-default" %>
   </div>
 <% end %>

@@ -35,9 +35,9 @@ class LabelsOrderTest < ActionDispatch::IntegrationTest
     data = JSON.parse(@response.body)
 
     assert_response :success
-    assert_equal 'aaa', data[0]['name']
-    assert_equal 'abc', data[1]['name']
-    assert_equal 'ABC', data[2]['name'] # XXX: do we care about order of "ABC" vs. "abc"?
-    assert_equal 'bbb', data[3]['name']
+    assert_equal 'aaa (en)', data[0]['name'] # hacky test fix "(en)" will be injected by javascript widget
+    assert_equal 'abc (en)', data[1]['name']
+    assert_equal 'ABC (en)', data[2]['name'] # XXX: do we care about order of "ABC" vs. "abc"?
+    assert_equal 'bbb (en)', data[3]['name']
   end
 end

@@ -1,3 +1,8 @@
+## [2.8.0]
+
+  * Fixed: several bugs (i18n, sorting)
+  * Fixed: several UI glitches
+
 ## [2.7.0]
 
   * Added: add XL-Label search

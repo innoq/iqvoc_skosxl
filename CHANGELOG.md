@@ -1,3 +1,7 @@
+## [2.8.1]
+
+  * Fixed: multiple origin delimitation in label relation edit form
+
 ## [2.8.0]
 
   * Fixed: several bugs (i18n, sorting)

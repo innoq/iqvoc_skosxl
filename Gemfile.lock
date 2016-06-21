@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/innoq/iqvoc.git
-  revision: 872456feda103f7f3df4e771ab1ba608a985cac6
+  revision: 9d308319f98735b34375501cb226628d0abbca2b
   branch: master
   specs:
     iqvoc (4.10.0)
@@ -367,4 +367,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   1.11.2
+   1.12.4

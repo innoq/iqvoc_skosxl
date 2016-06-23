@@ -60,6 +60,11 @@ class Label::SKOSXL::Base < Label::Base
       class_name: relation_class_name,
       dependent: :destroy
 
+    has_many "#{relation_class_name.to_relation_name}_of".to_sym,
+      foreign_key: 'range_id',
+      class_name: relation_class_name,
+      dependent: :destroy
+
     # Serialized setters and getters (\r\n or , separated)
     define_method("inline_#{relation_class_name.to_relation_name}".to_sym) do
       (@inline_assigned_relations && @inline_assigned_relations[relation_class_name]) ||

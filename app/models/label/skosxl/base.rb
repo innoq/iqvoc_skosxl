@@ -169,9 +169,11 @@ class Label::SKOSXL::Base < Label::Base
     labelings.select{ |l| l.class.name == labeling_class.to_s }.map(&:owner)
   end
 
-  def related_labels_for_relation_class(relation_class)
+  def related_labels_for_relation_class(relation_class, only_published = true)
     relation_class = relation_class.name if relation_class < ActiveRecord::Base # Use the class name string
-    relations.select{ |rel| rel.class.name == relation_class }.map(&:range)
+    relations.select { |rel| rel.class.name == relation_class }
+             .map(&:range)
+             .select { |l| l.published? || !only_published }
   end
 
   def notes_for_class(note_class)

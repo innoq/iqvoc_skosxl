@@ -27,3 +27,6 @@ notifications:
   - iqvoc@innoq.com
 addons:
   postgresql: "9.3"
+matrix:
+  allow_failures:
+    - rvm: ruby-head

@@ -19,13 +19,25 @@ class Label::SKOSXL::Base < Label::Base
 
   after_save do |label|
     # Handle save or destruction of inline relations for use with widgets
-    (@inline_assigned_relations ||= {}).each do |relation_class_name, origins|
-      # Remove all associated labelings of the given type
-      label.send(relation_class_name.to_relation_name).destroy_all
+    (@inline_assigned_relations ||= {}).each do |relation_class_name, new_origins|
+      # Remove all existing associated labelings of the given type
+      existing_origins = label.send(relation_class_name.to_relation_name).map { |r| r.range.origin }.uniq
+      Iqvoc::XLLabel.base_class.by_origin(existing_origins).each do |l|
+        if relation_class_name.constantize.bidirectional?
+          label.send(relation_class_name.to_relation_name).destroy_with_bidirectional_relation(l)
+        else
+          relation = label.send(relation_class_name.to_relation_name).find_by(range: l)
+          relation.destroy if relation
+        end
+      end
 
       # Recreate relations reflecting the widget's parameters
-      Iqvoc::XLLabel.base_class.by_origin(origins).each do |l|
-        label.send(relation_class_name.to_relation_name).create(range: l)
+      Iqvoc::XLLabel.base_class.by_origin(new_origins).each do |l|
+        if relation_class_name.constantize.bidirectional?
+          label.send(relation_class_name.to_relation_name).create_with_bidirectional_relation(l)
+        else
+          label.send(relation_class_name.to_relation_name).create(range: l)
+        end
       end
     end
   end
@@ -58,6 +70,7 @@ class Label::SKOSXL::Base < Label::Base
     has_many relation_class_name.to_relation_name,
       foreign_key: 'domain_id',
       class_name: relation_class_name,
+      extend: Label::Relation::BidirectionalRelationExtension,
       dependent: :destroy
 
     has_many "#{relation_class_name.to_relation_name}_of".to_sym,

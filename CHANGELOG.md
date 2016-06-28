@@ -1,3 +1,7 @@
+## [2.8.2]
+
+  * Fixed: initial created change note creation
+
 ## [2.8.1]
 
   * Fixed: multiple origin delimitation in label relation edit form

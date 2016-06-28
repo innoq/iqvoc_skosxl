@@ -53,6 +53,10 @@ class LabelsController < ApplicationController
   def new
     authorize! :create, Iqvoc::XLLabel.base_class
     @label = Iqvoc::XLLabel.base_class.new
+
+    Iqvoc::XLLabel.note_class_names.each do |note_class_name|
+      @label.send(note_class_name.to_relation_name).build if @label.send(note_class_name.to_relation_name).empty?
+    end
   end
 
   def create

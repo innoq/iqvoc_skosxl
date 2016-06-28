@@ -53,6 +53,20 @@ class LabelsController < ApplicationController
   def new
     authorize! :create, Iqvoc::XLLabel.base_class
     @label = Iqvoc::XLLabel.base_class.new
+
+    # initial created-ChangeNote creation
+    @label.send(Iqvoc::change_note_class_name.to_relation_name).new do |change_note|
+      change_note.value = I18n.t('txt.views.versioning.initial_version')
+      change_note.language = I18n.locale.to_s
+      change_note.annotations_attributes = [
+        { namespace: 'dct', predicate: 'creator', value: current_user.name },
+        { namespace: 'dct', predicate: 'created', value: DateTime.now.to_s }
+      ]
+    end
+
+    Iqvoc::XLLabel.note_class_names.each do |note_class_name|
+      @label.send(note_class_name.to_relation_name).build if @label.send(note_class_name.to_relation_name).empty?
+    end
   end
 
   def create

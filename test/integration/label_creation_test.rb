@@ -33,6 +33,13 @@ class LabelCreationTest < ActionDispatch::IntegrationTest
     assert page.has_content? 'Instanz wurde erfolgreich veröffentlicht.'
     assert page.has_content? 'Testlabel'
 
+    # check initial created-ChangeNote
+    within('#note_skos_change_notes') do
+      assert page.has_css?('.translation', count: 1)
+      assert page.has_content? 'Initiale Version'
+      assert page.has_content? 'dct:created'
+    end
+
     # modify created version
     click_link_or_button 'Neue Version erstellen'
     fill_in 'Vorlageform', with: 'Testlabel_modified'
@@ -41,6 +48,14 @@ class LabelCreationTest < ActionDispatch::IntegrationTest
     assert page.has_content? 'Testlabel_modified'
     click_link_or_button 'Veröffentlichen'
     assert page.has_content? 'Instanz wurde erfolgreich veröffentlicht.'
+
+    # check ChangeNote (initial+modified)
+    within('#note_skos_change_notes') do
+      assert page.has_css?('.translation', count: 2)
+      assert page.has_content? 'Initiale Version'
+      assert page.has_content? 'dct:created'
+      assert page.has_content? 'dct:modified'
+    end
   end
 
   test 'inconsistent label creation' do

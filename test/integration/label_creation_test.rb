@@ -34,7 +34,8 @@ class LabelCreationTest < ActionDispatch::IntegrationTest
     assert page.has_content? 'Testlabel'
 
     # check initial created-ChangeNote
-    within('#note_skos_change_notes') do
+    change_note_relation_name = Iqvoc::change_note_class_name.to_relation_name
+    within("\##{change_note_relation_name}") do
       assert page.has_css?('.translation', count: 1)
       assert page.has_content? 'Initiale Version'
       assert page.has_content? 'dct:created'
@@ -50,7 +51,7 @@ class LabelCreationTest < ActionDispatch::IntegrationTest
     assert page.has_content? 'Instanz wurde erfolgreich veröffentlicht.'
 
     # check ChangeNote (initial+modified)
-    within('#note_skos_change_notes') do
+    within("\##{change_note_relation_name}") do
       assert page.has_css?('.translation', count: 2)
       assert page.has_content? 'Initiale Version'
       assert page.has_content? 'dct:created'

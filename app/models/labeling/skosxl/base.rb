@@ -61,6 +61,33 @@ class Labeling::SKOSXL::Base < Labeling::Base
       scope = scope.includes(:owner).merge(Iqvoc::Collection.base_class.published)
     end
 
+    # change note filtering
+    if params[:change_note_date_from].present? || params[:change_note_date_to].present?
+      change_note_relation = Iqvoc.change_note_class_name.to_relation_name
+      concepts = Concept::Base.base_class.published
+                              .includes(change_note_relation.to_sym => :annotations)
+                              .references(change_note_relation)
+                              .references('note_annotations')
+
+      # change note type filtering
+      concepts = case params[:change_note_type]
+                 when 'created'
+                   concepts.where('note_annotations.predicate = ?', 'created')
+                 when 'modified'
+                   concepts.where('note_annotations.predicate = ?', 'modified')
+                 else
+                   concepts # no change note type assigned
+                 end
+
+      date_from = DateTime.parse(params[:change_note_date_from]).beginning_of_day if params[:change_note_date_from].present?
+      concepts = concepts.where('note_annotations.created_at >= ?', date_from) if date_from
+
+      date_to = DateTime.parse(params[:change_note_date_to]).end_of_day if params[:change_note_date_to].present?
+      concepts = concepts.where('note_annotations.created_at <= ?', date_to) if date_to
+
+      scope = scope.includes(:owner).merge(concepts)
+    end
+
     scope = yield(scope) if block_given?
     scope.map { |result| SearchResult.new(result) }
   end

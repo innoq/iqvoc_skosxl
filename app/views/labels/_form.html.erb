@@ -33,9 +33,11 @@
     </fieldset>
   <% end %>
 
-  
+
   <% Iqvoc::XLLabel.note_classes.each do |note_class| %>
-    <%= render note_class.edit_partial_name(label), :owner_klass => label, :assoc_klass => note_class, :f => f %>
+    <% unless note_class.edit_partial_name(label).nil? %>
+      <%= render note_class.edit_partial_name(label), :owner_klass => label, :assoc_klass => note_class, :f => f %>
+    <% end %>
   <% end %>
 
   <hr />

@@ -12,3 +12,4 @@ en:
         uri: Label URI
         origin_invalid: Origin contains invalid characters.
         pref_label_language: There must be a prefered label in thesaurus main language.
+        referenced_concepts_invalid: Some referenced concepts become invalid. Please remove label from referenced concepts first.

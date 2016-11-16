@@ -77,6 +77,10 @@ class Labeling::SKOSXL::Base < Labeling::Base
     'partials/labeling/skosxl/edit_base'
   end
 
+  def self.only_one_allowed?
+    false
+  end
+
   def self.build_from_rdf(rdf_subject, rdf_predicate, rdf_object)
     unless rdf_subject.is_a?(Concept::Base)
       raise "#{self.name}#build_from_rdf: Subject (#{rdf_subject}) must be a Concept."

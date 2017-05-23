@@ -13,11 +13,11 @@ Gem::Specification.new do |s|
   s.license     = 'Apache License 2.0'
   s.description = 'iQvoc - a SKOS(-XL) vocabulary management system built on the Semantic Web'
 
-  s.add_dependency 'iqvoc', '~> 4.10.0'
+  s.add_dependency 'iqvoc', '~> 4.11.0'
   s.add_development_dependency 'bundler', '~> 1.6'
 
   s.files = %w(README.md Gemfile Gemfile.lock Rakefile iqvoc_skosxl.gemspec) +
-      Dir.glob('{app,config,db,public,lib,test}/**/*')
+            Dir.glob('{app,config,db,public,lib,test}/**/*')
   s.test_files = s.files.grep(%r{^test/})
   s.require_paths = ['lib']
 end

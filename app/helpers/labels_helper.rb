@@ -2,7 +2,7 @@ module LabelsHelper
   def render_label_rdf(document, label)
     document << label.build_rdf_subject do |c|
 
-      c.Schema::expires(label.expired_at) if label.expired_at
+      c.Schema::expires(label.expired_at.to_s) if label.expired_at
 
       c.Owl::deprecated(true) if label.expired_at and label.expired_at <= Date.new
 

@@ -76,7 +76,7 @@ class Labeling::SKOSXL::Base < Labeling::Base
                  when 'modified'
                    concepts.where('note_annotations.predicate = ?', 'modified')
                  else
-                   concepts
+                   concepts.where('note_annotations.predicate = ? OR note_annotations.predicate = ?', 'created', 'modified')
                  end
 
       if params[:change_note_date_from].present?

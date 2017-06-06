@@ -76,14 +76,26 @@ class Labeling::SKOSXL::Base < Labeling::Base
                  when 'modified'
                    concepts.where('note_annotations.predicate = ?', 'modified')
                  else
-                   concepts # no change note type assigned
+                   concepts
                  end
 
-      date_from = DateTime.parse(params[:change_note_date_from]).beginning_of_day if params[:change_note_date_from].present?
-      concepts = concepts.where('note_annotations.created_at >= ?', date_from) if date_from
+      if params[:change_note_date_from].present?
+        if DateTime.parse(params[:change_note_date_from])
+          date_from = params[:change_note_date_from]
+          concepts = concepts.where('note_annotations.value >= ?', date_from)
+        else
+          #TODO: exception
+        end
+      end
 
-      date_to = DateTime.parse(params[:change_note_date_to]).end_of_day if params[:change_note_date_to].present?
-      concepts = concepts.where('note_annotations.created_at <= ?', date_to) if date_to
+      if params[:change_note_date_to].present?
+        if DateTime.parse(params[:change_note_date_to])
+          date_to = params[:change_note_date_to]
+          concepts = concepts.where('note_annotations.value <= ?', date_to)
+        else
+          #TODO: exception
+        end
+      end
 
       scope = scope.includes(:owner).merge(concepts)
     end

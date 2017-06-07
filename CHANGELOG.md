@@ -1,3 +1,7 @@
+## [2.9.1]
+
+  * Fixed: Export SKOS : NoMethodError : add_skos_xl_labels (#10)
+
 ## [2.8.2]
 
   * Fixed: initial created change note creation

@@ -80,19 +80,21 @@ class Labeling::SKOSXL::Base < Labeling::Base
                  end
 
       if params[:change_note_date_from].present?
-        if DateTime.parse(params[:change_note_date_from])
+        begin
+          DateTime.parse(params[:change_note_date_from])
           date_from = params[:change_note_date_from]
           concepts = concepts.where('note_annotations.value >= ?', date_from)
-        else
+        rescue ArgumentError
           #TODO: exception
         end
       end
 
       if params[:change_note_date_to].present?
-        if DateTime.parse(params[:change_note_date_to])
+        begin
+          DateTime.parse(params[:change_note_date_to])
           date_to = params[:change_note_date_to]
           concepts = concepts.where('note_annotations.value <= ?', date_to)
-        else
+        rescue ArgumentError
           #TODO: exception
         end
       end

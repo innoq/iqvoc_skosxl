@@ -145,6 +145,47 @@ class Label::SKOSXL::Base < Label::Base
       scope = scope.includes(:concepts).merge(Iqvoc::Collection.base_class.published)
     end
 
+
+    # change note filtering
+    if params[:change_note_date_from].present? || params[:change_note_date_to].present?
+      change_note_relation = Iqvoc.change_note_class_name.to_relation_name
+
+      scope = scope.includes(change_note_relation.to_sym => :annotations)
+                   .references(change_note_relation)
+                   .references('note_annotations')
+
+
+      # change note type filtering
+      scope = case params[:change_note_type]
+              when 'created'
+                scope.where('note_annotations.predicate = ?', 'created')
+              when 'modified'
+                scope.where('note_annotations.predicate = ?', 'modified')
+              else
+                scope.where('note_annotations.predicate = ? OR note_annotations.predicate = ?', 'created', 'modified')
+              end
+
+      if params[:change_note_date_from].present?
+        begin
+          DateTime.parse(params[:change_note_date_from])
+          date_from = params[:change_note_date_from]
+          scope = scope.where('note_annotations.value >= ?', date_from)
+        rescue ArgumentError
+          Rails.Logger.error "Invalid date was entered for search"
+        end
+      end
+
+      if params[:change_note_date_to].present?
+        begin
+          DateTime.parse(params[:change_note_date_to])
+          date_to = params[:change_note_date_to]
+          scope = scope.where('note_annotations.value <= ?', date_to)
+        rescue ArgumentError
+          Rails.Logger.error "Invalid date was entered for search"
+        end
+      end
+    end
+
     scope = yield(scope) if block_given?
     scope.map { |result| SearchResult.new(result) }
   end

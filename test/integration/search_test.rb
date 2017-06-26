@@ -18,7 +18,7 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '../integration_test
 
 class SearchTest < ActionDispatch::IntegrationTest
 
-  test 'date filter' do
+  test 'filtering concepts by change note date' do
     login 'administrator'
 
     visit new_label_path(lang: 'en', format: 'html', published: 0)

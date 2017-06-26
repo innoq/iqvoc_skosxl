@@ -173,7 +173,7 @@ class Label::SKOSXL::Base < Label::Base
           date_from = params[:change_note_date_from]
           scope = scope.where('note_annotations.value >= ?', date_from)
         rescue ArgumentError
-          Rails.Logger.error "Invalid date was entered for search"
+          Rails.logger.error "Invalid date was entered for search"
         end
       end
 
@@ -183,7 +183,7 @@ class Label::SKOSXL::Base < Label::Base
           date_to = params[:change_note_date_to]
           scope = scope.where('note_annotations.value <= ?', date_to)
         rescue ArgumentError
-          Rails.Logger.error "Invalid date was entered for search"
+          Rails.logger.error "Invalid date was entered for search"
         end
       end
     end

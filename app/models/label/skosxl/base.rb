@@ -122,10 +122,12 @@ class Label::SKOSXL::Base < Label::Base
   def self.single_query(params = {})
     query_str = build_query_string(params)
 
-    scope = by_query_value(query_str).
-      by_language(params[:languages].to_a).includes(:concepts).references(:concepts)
-      published.
-      order("LOWER(#{Label::Base.table_name}.value)")
+    scope = self.by_query_value(query_str)
+                .by_language(params[:languages].to_a)
+                .includes(:concepts)
+                .references(:concepts)
+                .published
+                .order("LENGTH(#{Label::Base.table_name}.value)")
 
     if params[:collection_origin].present?
       collection = Collection::Base.where(origin: params[:collection_origin]).last

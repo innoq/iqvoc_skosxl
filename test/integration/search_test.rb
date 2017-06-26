@@ -53,4 +53,65 @@ class SearchTest < ActionDispatch::IntegrationTest
     assert page.find('.search-results').has_content?('Air')
   end
 
+  test 'filtering xl-labels by change note date' do
+    apple_label = Iqvoc::XLLabel.base_class.create!(language: 'de', value: 'Apple', origin: 'apple', published_at: Time.now)
+    apple_label.note_skos_change_notes.create!(language: 'de').tap do |note|
+      note.annotations.create!(namespace: 'dct', predicate: 'creator', value: 'Arnulf Beckenbauer')
+      note.annotations.create!(namespace: 'dct', predicate: 'created', value: '2017-06-01')
+    end
+
+    banana_label = Iqvoc::XLLabel.base_class.create!(language: 'de', value: 'Banana', origin: 'banana', published_at: Time.now)
+    banana_label.note_skos_change_notes.create!(language: 'de').tap do |note|
+      note.annotations.create!(namespace: 'dct', predicate: 'creator', value: 'Arnulf Beckenbauer')
+      note.annotations.create!(namespace: 'dct', predicate: 'modified', value: '2017-06-10')
+    end
+
+    peach_label = Iqvoc::XLLabel.base_class.create!(language: 'de', value: 'Peach', origin: 'peach', published_at: Time.now)
+    peach_label.note_skos_change_notes.create!(language: 'de').tap do |note|
+      note.annotations.create!(namespace: 'dct', predicate: 'creator', value: 'Arnulf Beckenbauer')
+      note.annotations.create!(namespace: 'dct', predicate: 'created', value: '2017-06-11')
+    end
+
+    visit search_path(lang: 'en', format: 'html')
+    find('#t').select 'XL Labels'
+
+    # should find Apple and Banana labels
+    fill_in 'change_note_date_from', with: '2017-06-01'
+    fill_in 'change_note_date_to', with: '2017-06-10'
+    click_button('Search')
+    assert_equal 2, page.find('ul.search-results').all('li').count
+    assert page.find('.search-results').has_content?('Apple')
+    assert page.find('.search-results').has_content?('Banana')
+    refute page.find('.search-results').has_content?('Peach')
+
+    # should find Apple label
+    fill_in 'change_note_date_from', with: '2017-06-01'
+    fill_in 'change_note_date_to', with: '2017-06-02'
+    click_button('Search')
+    page.has_content? 'Search results (1)'
+    assert_equal 1, page.find('ul.search-results').all('li').count
+    assert page.find('.search-results').has_content?('Apple')
+    refute page.find('.search-results').has_content?('Banana')
+    refute page.find('.search-results').has_content?('Peach')
+
+    # should find Banana label
+    fill_in 'change_note_date_from', with: '2017-06-10'
+    fill_in 'change_note_date_to', with: '2017-06-10'
+    click_button('Search')
+    assert_equal 1, page.find('ul.search-results').all('li').count
+    assert page.find('.search-results').has_content?('Banana')
+    refute page.find('.search-results').has_content?('Apple')
+    refute page.find('.search-results').has_content?('Peach')
+
+    # should find Apple & Peach label (the only ones with created change note)
+    fill_in 'change_note_date_from', with: '2017-06-01'
+    fill_in 'change_note_date_to', with: '2017-07-01'
+    find('#change_note_type').select 'creation date'
+    click_button('Search')
+    assert_equal 2, page.find('ul.search-results').all('li').count
+    assert page.find('.search-results').has_content?('Apple')
+    assert page.find('.search-results').has_content?('Peach')
+    refute page.find('.search-results').has_content?('Banana')
+  end
+
 end

@@ -58,6 +58,18 @@ class ConceptTest < ActiveSupport::TestCase
     assert alt_label.publishable?
   end
 
+  test 'additional unpublished label revision do not prevent published' do
+    dog = RDFAPI.devour 'Dog', 'a', 'skos:Concept'
+    dog.pref_labels << Iqvoc::XLLabel.base_class.create(
+      language: 'en', value: 'Dog', published_at: 3.days.ago)
+    dog.alt_labels << Iqvoc::XLLabel.base_class.create(
+      language: 'en', value: 'Hound', published_at: nil)
+
+    assert dog.save
+    assert dog.publishable?
+    assert dog.publish
+  end
+
   test 'concepts pref label language change' do
     dog = RDFAPI.devour 'Dog', 'a', 'skos:Concept'
     refute dog.publishable?

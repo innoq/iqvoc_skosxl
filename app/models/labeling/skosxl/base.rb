@@ -35,9 +35,14 @@ class Labeling::SKOSXL::Base < Labeling::Base
   def self.single_query(params = {})
     query_str = build_query_string(params)
 
-    scope = includes(:target).order("LOWER(#{Label::Base.table_name}.value)").references(:labels, :concepts)
+    scope = self.includes(:target)
+                .references(:labels, :concepts)
+                .order("LENGTH(#{Label::Base.table_name}.value)")
+
     if params[:query].present?
-      labels = Label::Base.by_query_value(query_str).by_language(params[:languages].to_a).published
+      labels = Label::Base.by_query_value(query_str)
+                          .by_language(params[:languages].to_a)
+                          .published
       scope = scope.merge(labels)
     else
       scope = scope.merge(Label::Base.by_language(params[:languages].to_a).published)
@@ -85,7 +90,7 @@ class Labeling::SKOSXL::Base < Labeling::Base
           date_from = params[:change_note_date_from]
           concepts = concepts.where('note_annotations.value >= ?', date_from)
         rescue ArgumentError
-          Rails.Logger.error "Invalid date was entered for search"
+          Rails.logger.error "Invalid date was entered for search"
         end
       end
 
@@ -95,7 +100,7 @@ class Labeling::SKOSXL::Base < Labeling::Base
           date_to = params[:change_note_date_to]
           concepts = concepts.where('note_annotations.value <= ?', date_to)
         rescue ArgumentError
-          Rails.Logger.error "Invalid date was entered for search"
+          Rails.logger.error "Invalid date was entered for search"
         end
       end
 

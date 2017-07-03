@@ -134,8 +134,9 @@ class LabelsController < ApplicationController
     authorize! :destroy, @new_label
 
     if @new_label.destroy
+      published_label = Iqvoc::XLLabel.base_class.published.by_origin(@new_label.origin).first
       flash[:success] = I18n.t('txt.controllers.label_versions.delete')
-      redirect_to dashboard_path
+      redirect_to published_label.present? ? label_path(id: published_label.origin) : dashboard_path
     else
       flash[:error] = I18n.t('txt.controllers.label_versions.delete_error')
       redirect_to label_path(published: 0, id: @new_label)

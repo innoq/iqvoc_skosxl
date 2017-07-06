@@ -5,8 +5,8 @@ de:
         one: XL-Label
         other: XL-Labels
       label/relation/skosxl/base:
-        one: Label-Relation
-        other: Label-Relationen
+        one: Begriffsbeziehung
+        other: Begriffsbeziehungen
       labeling/skosxl/base:
         one: Label
         other: Labels

@@ -40,26 +40,28 @@ class Labels::VersionsController < ApplicationController
 
   def branch
     current_label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).published.last!
-    if Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last
-      raise "There is already an unpublished version for Label '#{params[:origin]}'"
-    end
 
-    authorize! :branch, current_label
-    new_version = nil
-    ActiveRecord::Base.transaction do
-      new_version = current_label.branch(current_user)
-      new_version.save!
-      Iqvoc.change_note_class.create! do |note|
-        note.owner = new_version
-        note.language = I18n.locale.to_s
-        note.annotations_attributes = [
-          { namespace: 'dct', predicate: 'creator', value: current_user.name },
-          { namespace: 'dct', predicate: 'modified', value: DateTime.now.to_s }
-        ]
+    if draft_label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last
+      flash[:info] = t('txt.controllers.versioning.branch_error')
+      redirect_to label_path(published: 0, id: draft_label)
+    else
+      authorize! :branch, current_label
+      new_version = nil
+      ActiveRecord::Base.transaction do
+        new_version = current_label.branch(current_user)
+        new_version.save!
+        Iqvoc.change_note_class.create! do |note|
+          note.owner = new_version
+          note.language = I18n.locale.to_s
+          note.annotations_attributes = [
+            { namespace: 'dct', predicate: 'creator', value: current_user.name },
+            { namespace: 'dct', predicate: 'modified', value: DateTime.now.to_s }
+          ]
+        end
       end
+      flash[:success] = t('txt.controllers.versioning.branched')
+      redirect_to edit_label_path(published: 0, id: new_version, check_associations_in_editing_mode: true)
     end
-    flash[:success] = t('txt.controllers.versioning.branched')
-    redirect_to edit_label_path(published: 0, id: new_version, check_associations_in_editing_mode: true)
   end
 
   def lock

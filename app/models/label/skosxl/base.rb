@@ -251,10 +251,6 @@ class Label::SKOSXL::Base < Label::Base
     origin
   end
 
-  def published?
-    return published_at.present?
-  end
-
   def has_concept_or_label_relations?
     # Check if one of the additional association methods return elements
     Iqvoc::XLLabel.additional_association_classes.each do |association_class, foreign_key|

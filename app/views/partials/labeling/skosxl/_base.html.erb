@@ -1,6 +1,6 @@
 <%= content_tag :div, :class => "relation translation panel", :lang => (lang if defined?(concept)) do %>
   <% if defined?(concept) %>
-    <h2><%= klass.model_name.human(:count => 2) %> <small><%= "#{t("languages.#{lang}", :default => lang.to_s)}" %></small></h2>
+    <h2><%= klass.model_name.human(:count => 2) %> <small><%= "#{t("languages.#{lang}", :default => lang.to_s)}" %></small> <%= klass%></h2>
     <div class="relation-body">
       <%-
         items = concept.labels_for_labeling_class_and_language(klass, lang.to_s)
@@ -19,7 +19,11 @@
         items = items.select { |item| can?(:read, item) }
       -%>
       <%= item_listing(items) do |c|
-        link_to c.to_s, concept_path(:id => c), class: c.published? ? '' : 'unpublished'
+        if c.published?
+          link_to c.to_s, concept_path(:id => c)
+        else
+          link_to c.to_s, concept_path(:id => c, published: 0), class: 'unpublished'
+        end
       end
     %>
     </div>

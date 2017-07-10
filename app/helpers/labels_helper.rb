@@ -63,7 +63,7 @@ module LabelsHelper
       desc += " #{t('txt.views.concepts.expired_at', date: l(label.expired_at, format: :long))} "
     end
 
-    title = label.value || label.origin
+    title = label.value .present? ? label.value : label.origin
 
     page_header title: title.to_s, desc: desc.html_safe
   end

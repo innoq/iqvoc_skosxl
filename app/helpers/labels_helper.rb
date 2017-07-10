@@ -35,7 +35,7 @@ module LabelsHelper
 
     res['main'][10] = render 'labels/value_and_language', label: label
 
-    res['main'][1000] = render 'labels/details', label: label
+    res['main'][400] = render 'labels/details', label: label
 
     Iqvoc::Concept.labeling_classes.keys.each do |labeling_class|
       render_label_association(res, label, labeling_class)

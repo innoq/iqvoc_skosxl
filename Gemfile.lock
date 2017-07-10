@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/innoq/iqvoc.git
-  revision: 5be15a001b950a3a2d878ca4f8b705f8bb51fedc
-  branch: grouped_labelings
+  revision: 4ad12922d4188e52cb4a744ca19bc77cff4629c9
+  branch: master
   specs:
     iqvoc (4.11.1)
       apipie-rails (~> 0.3.5)

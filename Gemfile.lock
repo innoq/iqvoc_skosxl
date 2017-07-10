@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/innoq/iqvoc.git
-  revision: b35998ab2d45b4895eee10be8dbfb65dcff86d0c
-  branch: master
+  revision: 5be15a001b950a3a2d878ca4f8b705f8bb51fedc
+  branch: grouped_labelings
   specs:
     iqvoc (4.11.1)
       apipie-rails (~> 0.3.5)
@@ -17,7 +17,7 @@ GIT
       faraday (= 0.9.0)
       faraday_middleware
       font-awesome-rails (~> 4.2.0)
-      iq_rdf (>= 0.1.15)
+      iq_rdf (>= 0.1.16)
       iq_triplestorage
       json
       kaminari (~> 0.16.3)
@@ -130,7 +130,7 @@ GEM
       tilt
     htmlentities (4.3.4)
     i18n (0.8.4)
-    iq_rdf (0.1.15)
+    iq_rdf (0.1.16)
       activesupport
       builder
       bundler

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'iqvoc', '~> 4.11.0', github: 'innoq/iqvoc', branch: 'master'
+gem 'iqvoc', '~> 4.11.0', github: 'innoq/iqvoc', branch: 'grouped_labelings'
 
 platforms :ruby do
   gem 'mysql2'

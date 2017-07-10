@@ -33,7 +33,7 @@ module LabelsHelper
   def label_view_data(label)
     res = {'main' => {}}
 
-    res['main'][10] = render 'labels/value_and_language', label: label
+    res['main'][10] = render 'labels/language', label: label
 
     res['main'][400] = render 'labels/details', label: label
 

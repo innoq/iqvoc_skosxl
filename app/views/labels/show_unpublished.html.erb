@@ -35,11 +35,13 @@
       label_versions_lock_path(:origin => @label.origin), :class => 'btn btn-default' %>
   <% end %>
 
-  <%= button_to t("txt.views.versioning.delete"),
-    label_path(:published => 0, :id => @label.origin),
-    :method => :delete,
-    :confirm => I18n.t("txt.views.versioning.delete_confirm"),
-    :class => 'btn btn-danger' %>
+  <% if can?(:destroy, @label) %>
+    <%= button_to t("txt.views.versioning.delete"),
+      label_path(:published => 0, :id => @label.origin),
+      :method => :delete,
+      :confirm => I18n.t("txt.views.versioning.delete_confirm"),
+      :class => 'btn btn-danger' %>
+  <% end %>
 </div>
 
 <%= render 'layouts/sections', :sections => Iqvoc::XLLabel.view_sections, :data => label_view_data(@label) %>

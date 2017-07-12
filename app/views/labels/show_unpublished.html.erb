@@ -30,7 +30,7 @@
     <%= link_to t("txt.views.versioning.edit_mode"),
       edit_label_path(:published => 0, :id => @label.origin),
       :class => 'btn btn-default' if can?(:update, @label) %>
-  <% else %>
+  <% elsif can?(:lock, @label) %>
     <%= button_to t("txt.views.versioning.to_edit_mode"),
       label_versions_lock_path(:origin => @label.origin), :class => 'btn btn-default' %>
   <% end %>

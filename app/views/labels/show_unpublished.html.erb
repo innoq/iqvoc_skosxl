@@ -23,22 +23,23 @@
     :class => 'btn btn-default' %>
   <% end %>
 
-  <% unless @label.locked? %>
-    <%= button_to t("txt.views.versioning.to_edit_mode"),
-      label_versions_lock_path(:origin => @label.origin), :class => 'btn btn-default' %>
-    <%= button_to t("txt.views.versioning.delete"),
-      label_path(:published => 0, :id => @label.origin),
-      :method => :delete,
-      :confirm => I18n.t("txt.views.versioning.delete_confirm"),
-      :class => 'btn btn-danger' %>
-  <% else %>
+  <% if @label.locked? %>
     <%= button_to t("txt.views.versioning.unlock"),
       label_versions_unlock_path(:origin => @label.origin),
       :class => 'btn btn-default' if can?(:unlock, @label) %>
     <%= link_to t("txt.views.versioning.edit_mode"),
       edit_label_path(:published => 0, :id => @label.origin),
       :class => 'btn btn-default' if can?(:update, @label) %>
+  <% else %>
+    <%= button_to t("txt.views.versioning.to_edit_mode"),
+      label_versions_lock_path(:origin => @label.origin), :class => 'btn btn-default' %>
   <% end %>
+
+  <%= button_to t("txt.views.versioning.delete"),
+    label_path(:published => 0, :id => @label.origin),
+    :method => :delete,
+    :confirm => I18n.t("txt.views.versioning.delete_confirm"),
+    :class => 'btn btn-danger' %>
 </div>
 
 <%= render 'layouts/sections', :sections => Iqvoc::XLLabel.view_sections, :data => label_view_data(@label) %>

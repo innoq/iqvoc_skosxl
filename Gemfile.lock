@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/innoq/iqvoc.git
-  revision: 267cb37831e383d179c413ca5f838dce2cc121d7
+  revision: d43912a64f10537ead8b48b6317be0913b322016
   branch: master
   specs:
     iqvoc (4.11.1)

@@ -27,9 +27,9 @@
       -%>
       <%= item_listing(items) do |c|
         if c.published?
-          link_to c.to_s, concept_path(:id => c)
+          link_to c.to_s, send(c.class_path, id: c)
         else
-          link_to c.to_s, concept_path(:id => c, published: 0), class: 'unpublished'
+          link_to c.to_s, send(c.class_path, id: c, published: 0), class: 'unpublished'
         end
       end
     %>

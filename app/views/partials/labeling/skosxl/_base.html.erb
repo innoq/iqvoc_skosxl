@@ -7,7 +7,7 @@
         <span class="language_flap"><%= lang %></span>
         <div class="note_content">
           <%-
-            items = concept.labels_for_labeling_class_and_language(klass, lang.to_s)
+            items = concept.labels_for_labeling_class_and_language(klass, lang.to_s, false)
             items = items.select { |item| can?(:read, item) }
           -%>
           <%= item_listing(items) do |label|

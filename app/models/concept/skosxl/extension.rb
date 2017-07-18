@@ -36,8 +36,10 @@ module Concept
 
       def labelings_by_id(relation_name, language)
         (@labelings_by_id && @labelings_by_id[relation_name] && @labelings_by_id[relation_name][language]) ||
-          self.send(relation_name).by_label_language(language).
-              map { |l| l.target.origin if l.target.published?}.join(InlineDataHelper::JOINER)
+          self.send(relation_name)
+              .by_label_language(language)
+              .map { |l| l.target.origin }
+              .join(InlineDataHelper::JOINER)
       end
 
       def valid_label_language

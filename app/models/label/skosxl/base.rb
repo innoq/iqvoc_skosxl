@@ -47,8 +47,8 @@ class Label::SKOSXL::Base < Label::Base
   @nested_relations = [] # Will be marked as nested attributes later
 
   has_many :labelings, class_name: 'Labeling::Base', foreign_key: 'target_id', dependent: :destroy
-  has_many :concepts, through: :labelings, source: :owner
   include_to_deep_cloning(:labelings)
+  has_many :concepts, through: :labelings, source: :owner
 
   has_many :relations, foreign_key: 'domain_id', class_name: 'Label::Relation::Base', dependent: :destroy
   # Which references are pointing to this label?

@@ -4,11 +4,14 @@ class LabelsController < ApplicationController
   def index
     authorize! :read, Iqvoc::XLLabel.base_class
 
-    scope = Iqvoc::XLLabel.base_class.by_query_value("%#{params[:query]}%")
+    scope = Iqvoc::XLLabel.base_class
+                          .editor_selectable
+                          .by_query_value("%#{params[:query]}%")
+
     if params[:language] # NB: this is not the same as :lang, which is supplied via route
       scope = scope.by_language(params[:language])
     end
-    @labels = scope.published.order('LENGTH(value)').all
+    @labels = scope.order('LENGTH(value)').all
 
     respond_to do |format|
       format.html do

@@ -15,6 +15,7 @@ platforms :jruby do
 end
 
 group :development, :test do
+  gem 'quiet_assets'
   gem 'awesome_print'
   gem 'pry-rails'
 end

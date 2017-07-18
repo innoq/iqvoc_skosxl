@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/innoq/iqvoc.git
-  revision: d43912a64f10537ead8b48b6317be0913b322016
+  revision: 11bd988f3e1cc48a82e7170a77f7916af8b27017
   branch: master
   specs:
     iqvoc (4.11.1)
@@ -197,6 +197,8 @@ GEM
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     public_suffix (2.0.5)
+    quiet_assets (1.1.0)
+      railties (>= 3.1, < 5.0)
     rack (1.6.8)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -337,6 +339,7 @@ DEPENDENCIES
   pg
   poltergeist (~> 1.5.0)
   pry-rails
+  quiet_assets
   sqlite3
 
 BUNDLED WITH

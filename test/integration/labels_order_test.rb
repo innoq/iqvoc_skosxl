@@ -17,8 +17,8 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), '../integration_test_helper')
 
 class LabelsOrderTest < ActionDispatch::IntegrationTest
-  test 'label order is not case-sensitive' do
-    names = ['aaa', 'bbb', 'abc', 'ABC']
+  test 'label order' do
+    names = ['haltestelle', 'test12', 'test1', 'test']
     lang = 'en'
     # create a few labels
     names.each_with_index do |name, index|
@@ -35,9 +35,9 @@ class LabelsOrderTest < ActionDispatch::IntegrationTest
     data = JSON.parse(@response.body)
 
     assert_response :success
-    assert_equal 'aaa (en)', data[0]['name'] # hacky test fix "(en)" will be injected by javascript widget
-    assert_equal 'abc (en)', data[1]['name']
-    assert_equal 'ABC (en)', data[2]['name'] # XXX: do we care about order of "ABC" vs. "abc"?
-    assert_equal 'bbb (en)', data[3]['name']
+    assert_equal 'test (en)', data[0]['name'] # hacky test fix "(en)" will be injected by javascript widget
+    assert_equal 'test1 (en)', data[1]['name']
+    assert_equal 'test12 (en)', data[2]['name'] # XXX: do we care about order of "ABC" vs. "abc"?
+    assert_equal 'haltestelle (en)', data[3]['name']
   end
 end

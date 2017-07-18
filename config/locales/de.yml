@@ -1,6 +1,8 @@
 de:
   txt:
     views:
+      versioning:
+        duplicate: Duplizieren
       layouts:
         sections:
           concepts: Konzepte
@@ -9,6 +11,7 @@ de:
           languages_further_labelings_Labeling::SKOSXL::AltLabel: Sprachen für alternative Labels
     models:
       label:
+        copy: Kopie
         uri: Label-URI
         origin_invalid: enthält ungültige Zeichen.
         pref_label_language: "Es muss ein bevorzugtes Label in der Hauptsprache des Thesaurus vorliegen."

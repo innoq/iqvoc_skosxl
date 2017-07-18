@@ -143,6 +143,34 @@ class LabelsController < ApplicationController
     end
   end
 
+  def duplicate
+    authorize! :create, Iqvoc::XLLabel.base_class
+    @new_label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).published.first.dup_with_deep_cloning({except: [:origin, :rev, :published_version_id, :published_at, :expired_at, :to_review, :pos005, :auto_classify], include: [:inflectionals, :notes, :labelings]})
+
+    @new_label.origin = Origin.new.to_s
+    @new_label.locked_by = current_user.id
+    @new_label.value += " [#{t('txt.models.label.copy')}]"
+
+    @new_label.notes = @new_label.notes.to_a.delete_if { |n| n.type != Note::SKOS::EditorialNote.to_s }
+
+    @new_label.save!
+
+    # initial created-ChangeNote creation
+    @new_label.send(Iqvoc::change_note_class_name.to_relation_name).new do |change_note|
+      change_note.value = I18n.t('txt.views.versioning.initial_version')
+      change_note.language = I18n.locale.to_s
+      change_note.annotations_attributes = [
+        { namespace: 'dct', predicate: 'creator', value: current_user.name },
+        { namespace: 'dct', predicate: 'created', value: DateTime.now.to_s }
+      ]
+    end
+
+    Iqvoc::XLLabel.note_class_names.each do |note_class_name|
+      @new_label.send(note_class_name.to_relation_name).build if @new_label.send(note_class_name.to_relation_name).empty?
+    end
+
+  end
+
   private
 
   def label_params

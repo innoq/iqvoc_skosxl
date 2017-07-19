@@ -293,17 +293,6 @@ class Label::SKOSXL::Base < Label::Base
     end
   end
 
-  def build_change_note(value, user, predicate)
-    send(Iqvoc::change_note_class_name.to_relation_name).new do |change_note|
-      change_note.value = value
-      change_note.language = I18n.locale.to_s
-      change_note.annotations_attributes = [
-        { namespace: 'dct', predicate: 'creator', value: user.name },
-        { namespace: 'dct', predicate: predicate, value: DateTime.now.to_s }
-      ]
-    end
-  end
-
   def build_notes
     Iqvoc::XLLabel.note_class_names.each do |note_class_name|
       send(note_class_name.to_relation_name).build if send(note_class_name.to_relation_name).empty?

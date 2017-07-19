@@ -131,7 +131,13 @@ class LabelsController < ApplicationController
 
   def duplicate
     authorize! :create, Iqvoc::XLLabel.base_class
-    @new_label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).published.first.duplicate(current_user)
+    label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).published.first
+    if Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last
+      flash[:error] = t('txt.controllers.label.duplicate_error')
+      redirect_to label_path(published: 1, id: label)
+    end
+
+    @new_label = label.duplicate(current_user)
     @new_label.build_notes
   end
 

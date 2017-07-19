@@ -1,5 +1,8 @@
 en:
   txt:
+    controllers:
+      label:
+        duplicate_error: There must not be any unpublished version for duplication.
     views:
       versioning:
         duplicate: Duplicate

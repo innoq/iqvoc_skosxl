@@ -1,5 +1,8 @@
 de:
   txt:
+    controllers:
+      label:
+        duplicate_error: Zum Duplizieren darf es keine unveröffentlichte Revision geben.
     views:
       versioning:
         duplicate: Duplizieren

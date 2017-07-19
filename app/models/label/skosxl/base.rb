@@ -269,12 +269,12 @@ class Label::SKOSXL::Base < Label::Base
   end
 
   # initial created-ChangeNote creation
-  def build_initial_change_note
+  def build_initial_change_note(user)
     send(Iqvoc::change_note_class_name.to_relation_name).new do |change_note|
       change_note.value = I18n.t('txt.views.versioning.initial_version')
       change_note.language = I18n.locale.to_s
       change_note.annotations_attributes = [
-        { namespace: 'dct', predicate: 'creator', value: current_user.name },
+        { namespace: 'dct', predicate: 'creator', value: user.name },
         { namespace: 'dct', predicate: 'created', value: DateTime.now.to_s }
       ]
     end

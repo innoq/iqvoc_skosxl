@@ -53,7 +53,7 @@ class LabelsController < ApplicationController
   def new
     authorize! :create, Iqvoc::XLLabel.base_class
     @label = Iqvoc::XLLabel.base_class.new
-    @label.build_initial_change_note
+    @label.build_initial_change_note(current_user)
     @label.build_notes
   end
 

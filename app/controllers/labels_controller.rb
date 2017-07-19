@@ -131,7 +131,7 @@ class LabelsController < ApplicationController
 
   def duplicate
     authorize! :create, Iqvoc::XLLabel.base_class
-    @new_label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).published.first.clone(current_user)
+    @new_label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).published.first.duplicate(current_user)
     @new_label.build_notes
   end
 

@@ -268,7 +268,7 @@ class Label::SKOSXL::Base < Label::Base
     }
   end
 
-  def clone(user)
+  def duplicate(user)
     clone = dup_with_deep_cloning({except: [:origin, :rev, :published_version_id, :published_at, :expired_at, :to_review, :pos005, :auto_classify], include: [:inflectionals, :notes, :labelings]})
 
     clone.origin = Origin.new.to_s

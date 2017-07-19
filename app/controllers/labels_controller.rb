@@ -131,15 +131,7 @@ class LabelsController < ApplicationController
 
   def duplicate
     authorize! :create, Iqvoc::XLLabel.base_class
-    @new_label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).published.first.dup_with_deep_cloning({except: [:origin, :rev, :published_version_id, :published_at, :expired_at, :to_review, :pos005, :auto_classify], include: [:inflectionals, :notes, :labelings]})
-
-    @new_label.origin = Origin.new.to_s
-    @new_label.locked_by = current_user.id
-    @new_label.value += " [#{t('txt.models.label.copy')}]"
-
-    @new_label.notes = @new_label.notes.to_a.delete_if { |n| n.type != Note::SKOS::EditorialNote.to_s }
-    @new_label.build_initial_change_note
-    @new_label.save!
+    @new_label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).published.first.clone(current_user)
     @new_label.build_notes
   end
 

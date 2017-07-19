@@ -267,4 +267,22 @@ class Label::SKOSXL::Base < Label::Base
       label_relations: Label::Relation::Base.by_domain(id).range_in_edit_mode
     }
   end
+
+  # initial created-ChangeNote creation
+  def build_initial_change_note
+    send(Iqvoc::change_note_class_name.to_relation_name).new do |change_note|
+      change_note.value = I18n.t('txt.views.versioning.initial_version')
+      change_note.language = I18n.locale.to_s
+      change_note.annotations_attributes = [
+        { namespace: 'dct', predicate: 'creator', value: current_user.name },
+        { namespace: 'dct', predicate: 'created', value: DateTime.now.to_s }
+      ]
+    end
+  end
+
+  def build_notes
+    Iqvoc::XLLabel.note_class_names.each do |note_class_name|
+      send(note_class_name.to_relation_name).build if send(note_class_name.to_relation_name).empty?
+    end
+  end
 end

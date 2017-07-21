@@ -25,9 +25,8 @@ branches:
   # only:
   # - master
 notifications:
-  email: true
   slack:
-    secure: GE6qFWxa4EJCOp3nkPoCEkC6d7Uq4VyD13Y9G2vxvGJtb8NZfQNJwf5ZdadHuHI6t8Yob4nX8s8m7wgi9uKX/xwiIkZG8Los9bE940oTOuMwYskV4wEHsKpNO9CbGN2B5VUTx0FSPmQZBBJk1xqG4mX9k0ONhcxo4m8b6UTks6c=
+    secure: BV57m62fh2vWcMQuAZ/6qyYunf6rzv5p2TauVIwLBuIRWdCZcj6KWBMlJI4sxvfMyiHNAdBT7QGezAAkqJjCrj+SO4DnQDrhyXRc2gwfRq0WN2y8aRzAvxrHPEy17uM8n207KdPJSnIyJ6GeqI0Z93COKaWY9V3CEuAudFGvEjo=
     on_success: change
     on_failure: always
     on_pull_requests: false

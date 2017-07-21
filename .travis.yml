@@ -27,9 +27,12 @@ branches:
 notifications:
   email: true
   slack:
-    secure: gj0DGf9tUSBfLmjpjvwRuKiUojmWCtP4gfve3vEL1uZ0uzfjNAlibj4jxHO8w2/SNS4PcZ930batya4XoC5/rS19524pZ5brt++p4Xu295spoEqMVoeK+unl1L6ZrazvO5gJkraAqftxiJ2njwJ8OwJS33psXRLb/bZWcLAMb3A=
+    secure: PpXWnueo/Ov3adqvkQL9Y2sOopYPX1UltKdDijhgGxhVo780pHj3Wb7bElvX5EKcJ6kjwDJkVqV7rnLu6kpd0MrHEoNk9txyg/7abSatFjUaTmtL6LB30lLagpiM9CAs+cn/Zutw6DZ7Q/s6s3Yk1MvZlqCUFyqOYtoMTl1Fk1g=
+    on_success: change
+    on_failure: always
+    on_pull_requests: false
 addons:
-  postgresql: "9.3"
+  postgresql: '9.3'
 matrix:
   allow_failures:
     - rvm: ruby-head

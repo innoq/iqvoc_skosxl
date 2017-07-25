@@ -8,7 +8,7 @@ class LabelsController < ApplicationController
     if params[:language] # NB: this is not the same as :lang, which is supplied via route
       scope = scope.by_language(params[:language])
     end
-    @labels = scope.published.order('LOWER(value)').all
+    @labels = scope.published.order('LENGTH(value)').all
 
     respond_to do |format|
       format.html do

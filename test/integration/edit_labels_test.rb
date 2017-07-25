@@ -16,13 +16,13 @@
 
 require File.join(File.expand_path(File.dirname(__FILE__)), '../integration_test_helper')
 
-class EditConceptsTest < ActionDispatch::IntegrationTest
+class EditLabelsTest < ActionDispatch::IntegrationTest
   setup do
     @label = Iqvoc::XLLabel.base_class.create(
       language: 'en', value: 'Forest', published_at: 3.days.ago)
   end
 
-  test 'Create a new concept version' do
+  test 'Create a new label version' do
     assert @label.published?
     login('administrator')
 

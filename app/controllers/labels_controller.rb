@@ -1,5 +1,6 @@
 class LabelsController < ApplicationController
   skip_before_filter :require_user
+  before_action proc { |ctrl| (ctrl.action_has_layout = false) if ctrl.request.xhr? }
 
   def index
     authorize! :read, Iqvoc::XLLabel.base_class

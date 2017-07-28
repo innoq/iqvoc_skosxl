@@ -275,6 +275,11 @@ class Label::SKOSXL::Base < Label::Base
     clone.locked_by = user.id
     clone.value += " [#{I18n.t('txt.models.label.copy')}]"
 
+    clone.labelings.select { |l| l.type == "Labeling::SKOSXL::PrefLabel" }.each do |l|
+      clone.labelings.delete(l)
+      clone.labelings.append Labeling::SKOSXL::AltLabel.new(owner_id: l.owner_id)
+    end
+
     clone.build_initial_change_note(user)
     clone.save!
     clone

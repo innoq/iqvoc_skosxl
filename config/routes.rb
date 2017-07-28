@@ -14,5 +14,7 @@ Rails.application.routes.draw do
         :as => 'label_versions_to_review'
     get 'labels/versions/:origin/consistency_check' => 'labels/versions#consistency_check',
         :as => 'label_versions_consistency_check'
+    get 'labels/:origin/duplicate' => 'labels#duplicate',
+        :as => 'label_duplicate'
   end
 end

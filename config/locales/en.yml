@@ -1,6 +1,11 @@
 en:
   txt:
+    controllers:
+      label:
+        duplicate_error: There must not be any unpublished version for duplication.
     views:
+      versioning:
+        duplicate: Duplicate
       layouts:
         sections:
           concepts: Concepts
@@ -9,6 +14,7 @@ en:
           languages_further_labelings_Labeling::SKOSXL::AltLabel: Languages for alternative labels
     models:
       label:
+        copy: Copy
         uri: Label URI
         origin_invalid: Origin contains invalid characters.
         pref_label_language: There must be a prefered label in thesaurus main language.

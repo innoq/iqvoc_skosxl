@@ -47,8 +47,8 @@ class Label::SKOSXL::Base < Label::Base
   @nested_relations = [] # Will be marked as nested attributes later
 
   has_many :labelings, class_name: 'Labeling::Base', foreign_key: 'target_id', dependent: :destroy
-  has_many :concepts, through: :labelings, source: :owner
   include_to_deep_cloning(:labelings)
+  has_many :concepts, through: :labelings, source: :owner
 
   has_many :relations, foreign_key: 'domain_id', class_name: 'Label::Relation::Base', dependent: :destroy
   # Which references are pointing to this label?
@@ -266,5 +266,40 @@ class Label::SKOSXL::Base < Label::Base
     {
       label_relations: Label::Relation::Base.by_domain(id).range_in_edit_mode
     }
+  end
+
+  def duplicate(user)
+    clone = dup_with_deep_cloning({except: [:origin, :rev, :published_version_id, :published_at, :expired_at, :to_review], include: [:labelings]})
+
+    clone.origin = Origin.new.to_s
+    clone.locked_by = user.id
+    clone.value += " [#{I18n.t('txt.models.label.copy')}]"
+
+    clone.labelings.select { |l| l.type == "Labeling::SKOSXL::PrefLabel" }.each do |l|
+      clone.labelings.delete(l)
+      clone.labelings.append Labeling::SKOSXL::AltLabel.new(owner_id: l.owner_id)
+    end
+
+    clone.build_initial_change_note(user)
+    clone.save!
+    clone
+  end
+
+  # initial created-ChangeNote creation
+  def build_initial_change_note(user)
+    send(Iqvoc::change_note_class_name.to_relation_name).new do |change_note|
+      change_note.value = I18n.t('txt.views.versioning.initial_version')
+      change_note.language = I18n.locale.to_s
+      change_note.annotations_attributes = [
+        { namespace: 'dct', predicate: 'creator', value: user.name },
+        { namespace: 'dct', predicate: 'created', value: DateTime.now.to_s }
+      ]
+    end
+  end
+
+  def build_notes
+    Iqvoc::XLLabel.note_class_names.each do |note_class_name|
+      send(note_class_name.to_relation_name).build if send(note_class_name.to_relation_name).empty?
+    end
   end
 end

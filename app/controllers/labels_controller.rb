@@ -53,20 +53,8 @@ class LabelsController < ApplicationController
   def new
     authorize! :create, Iqvoc::XLLabel.base_class
     @label = Iqvoc::XLLabel.base_class.new
-
-    # initial created-ChangeNote creation
-    @label.send(Iqvoc::change_note_class_name.to_relation_name).new do |change_note|
-      change_note.value = I18n.t('txt.views.versioning.initial_version')
-      change_note.language = I18n.locale.to_s
-      change_note.annotations_attributes = [
-        { namespace: 'dct', predicate: 'creator', value: current_user.name },
-        { namespace: 'dct', predicate: 'created', value: DateTime.now.to_s }
-      ]
-    end
-
-    Iqvoc::XLLabel.note_class_names.each do |note_class_name|
-      @label.send(note_class_name.to_relation_name).build if @label.send(note_class_name.to_relation_name).empty?
-    end
+    @label.build_initial_change_note(current_user)
+    @label.build_notes
   end
 
   def create
@@ -104,9 +92,7 @@ class LabelsController < ApplicationController
       @label.publishable?
     end
 
-    Iqvoc::XLLabel.note_class_names.each do |note_class_name|
-      @label.send(note_class_name.to_relation_name).build if @label.send(note_class_name.to_relation_name).empty?
-    end
+    @label.build_notes
   end
 
   def update
@@ -141,6 +127,18 @@ class LabelsController < ApplicationController
       flash[:error] = I18n.t('txt.controllers.label_versions.delete_error')
       redirect_to label_path(published: 0, id: @new_label)
     end
+  end
+
+  def duplicate
+    authorize! :create, Iqvoc::XLLabel.base_class
+    label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).published.first
+    if Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last
+      flash[:error] = t('txt.controllers.label.duplicate_error')
+      redirect_to label_path(published: 1, id: label)
+    end
+
+    @new_label = label.duplicate(current_user)
+    @new_label.build_notes
   end
 
   private

@@ -6,7 +6,7 @@
           <%= label_relation.class.model_name.human %>
           <%= link_to(label_relation.range.value,
             label_path(:published => 0, :id => label_relation.range)) %>
-          <%= t("txt.common.editor") %> <%= user_details(concept_relation.target.locking_user) %>
+          <%= t("txt.common.editor") %> <%= user_details(label_relation.range.locking_user) %>
         </li>
       <% end %>
     </ul>

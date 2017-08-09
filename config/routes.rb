@@ -16,5 +16,6 @@ Rails.application.routes.draw do
         :as => 'label_versions_consistency_check'
     get 'labels/:origin/duplicate' => 'labels#duplicate',
         :as => 'label_duplicate'
+    get 'label_dashboard' => 'xl_dashboard#label_index', as: 'label_dashboard'
   end
 end

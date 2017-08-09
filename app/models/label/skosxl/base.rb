@@ -117,6 +117,12 @@ class Label::SKOSXL::Base < Label::Base
     unpublished_or_follow_up.includes(:locking_user)
   end
 
+  # ********** Class Methods
+
+  def self.dashboard_path
+    'label_dashboard_path'
+  end
+
   # ********** Methods
 
   def self.single_query(params = {})

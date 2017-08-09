@@ -9,6 +9,10 @@ module IqvocSkosxlHelper
     end
   end
 
+  def delete_button_text(label)
+    label.never_published? ? t("txt.views.versioning.delete") : t("txt.views.versioning.delete_copy")
+  end
+
   def search_result_label(label, concept)
     str = ActiveSupport::SafeBuffer.new
     str << label

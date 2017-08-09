@@ -26,7 +26,7 @@ class DashboardTest < ActionDispatch::IntegrationTest
     assert !@label.published?
     login('administrator')
 
-    visit dashboard_path(lang: 'de', format: 'html')
+    visit label_dashboard_path(lang: 'de', format: 'html')
     assert page.has_link?(@label.value.to_s), "Couldn't find Label link '#{@label.value.to_s}' in dashboards concepts + labels list"
     click_link_or_button(@label.value.to_s)
     assert_equal label_path(@label, lang: 'de', format: 'html'), current_path

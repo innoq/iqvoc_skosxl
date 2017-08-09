@@ -36,7 +36,8 @@
   <% end %>
 
   <% if can?(:destroy, @label) %>
-    <%= button_to t("txt.views.versioning.delete"),
+    <% button_text = @label.never_published? ? t("txt.views.versioning.delete") : t("txt.views.versioning.delete_copy") %>
+    <%= button_to button_text,
       label_path(:published => 0, :id => @label.origin),
       :method => :delete,
       :confirm => I18n.t("txt.views.versioning.delete_confirm"),

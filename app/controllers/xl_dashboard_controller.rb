@@ -36,7 +36,7 @@ class XlDashboardController < DashboardController
 
     @items = Kaminari.paginate_array(labels).page(params[:page])
 
-    render 'dashboard/index', locals: { active: Iqvoc.first_level_classes.index(Iqvoc::XLLabel.base_class) }
+    render 'dashboard/index', locals: { active_class: Iqvoc::XLLabel.base_class }
   end
 
 end

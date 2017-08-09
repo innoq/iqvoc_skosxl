@@ -26,9 +26,8 @@ class XlDashboardController < DashboardController
       labels = labels.to_a.sort_by { |c| c.state }
       labels = sort == 'DESC' ? labels.reverse : labels
     elsif params[:sort]
-      order_params = params[:sort]
       #FIXME: how to order by state in database?
-      order_params = sanatize_order order_params
+      order_params = sanatize_order params[:sort]
       order_params = order_params.gsub('locking_user', 'users.surname')
 
       labels = labels.includes(:locking_user).references(:locking_user).order(order_params)

@@ -123,6 +123,10 @@ class Label::SKOSXL::Base < Label::Base
     'label_dashboard_path'
   end
 
+  def class_path
+    'label_path'
+  end
+
   # ********** Methods
 
   def self.single_query(params = {})

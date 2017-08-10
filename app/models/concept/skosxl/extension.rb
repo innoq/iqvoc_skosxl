@@ -30,10 +30,6 @@ module Concept
         end
       end
 
-      def class_path
-        'concept_path'
-      end
-
       def labelings_by_id=(hash)
         @labelings_by_id = hash
       end

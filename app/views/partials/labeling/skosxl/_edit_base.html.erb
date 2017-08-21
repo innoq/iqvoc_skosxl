@@ -17,6 +17,6 @@
                 split(InlineDataHelper::SPLITTER)).sort_by(&:value)
             .map { |l| label_widget_data(l) }.to_json %>
 
-    <%= link_to 'New Label', concept_new_label_path, class: 'btn btn-default new-label-modal' %>
+    <%= link_to t("txt.views.labels.new"), concept_new_label_path, class: 'btn btn-default new-label-modal' %>
   <% end %>
 <% end %>

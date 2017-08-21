@@ -145,6 +145,35 @@ class LabelsController < ApplicationController
     @new_label.build_notes
   end
 
+  def new_from_concept
+    authorize! :create, Iqvoc::XLLabel.base_class
+    @label = Iqvoc::XLLabel.base_class.new
+
+    respond_to do |format|
+      format.html do
+        render layout: false
+      end
+    end
+  end
+
+  def create_from_concept
+    authorize! :create, Iqvoc::XLLabel.base_class
+
+    @label = Iqvoc::XLLabel.base_class.new(label_params)
+    @label.build_initial_change_note(current_user)
+    @label.lock_by_user(current_user.id)
+
+    if @label.save
+      #TODO: idea for solving this
+      #flash[:success] = I18n.t('txt.controllers.versioned_label.success')
+      render nothing: true, status: 201
+    else
+      #TODO: idea for solving this
+      #flash.now[:error] = I18n.t('txt.controllers.versioned_label.error')
+      render nothing: true, status: 400
+    end
+  end
+
   private
 
   def label_params

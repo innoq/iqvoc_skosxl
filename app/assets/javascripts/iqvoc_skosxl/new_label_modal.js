@@ -2,7 +2,7 @@ jQuery(document).ready(function() {
   $(".new-label-modal").click(function(ev) {
     ev.preventDefault();
 
-    var modal = $("#concept-teaser-modal");
+    var modal = $("#label-in-concept-modal");
     var target = $(this).attr("href");
     $('.navbar-fixed-bottom').hide()
 
@@ -12,7 +12,7 @@ jQuery(document).ready(function() {
     });
   });
 
-  $('#concept-teaser-modal').on('hidden.bs.modal', function () {
+  $('#label-in-concept-modal').on('hidden.bs.modal', function () {
     $('.navbar-fixed-bottom').show();
   });
 

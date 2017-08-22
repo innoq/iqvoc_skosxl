@@ -19,5 +19,7 @@ en:
         origin_invalid: Origin contains invalid characters.
         pref_label_language: There must be a prefered label in thesaurus main language.
         referenced_concepts_invalid: Some referenced concepts become invalid. Please remove label from referenced concepts first.
+      concept:
+        no_pref_label_error: "At least one published preferred label must be specified."
     common:
       referenced_labels: "Some referenced labels are currently being edited."

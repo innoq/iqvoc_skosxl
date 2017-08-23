@@ -1,0 +1,28 @@
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h1 class="modal-title"><%= t("txt.views.labels.new") %></h1>
+    </div>
+    <%= bootstrap_form_for @label,
+      :as => :label,
+      :url => concept_create_label_path,
+      :layout => :horizontal, remote: true do |f| %>
+      <div class="modal-body">
+        <fieldset id="label_base_data">
+          <legend><%= t("txt.common.attributes") %></legend>
+          <%= f.text_field :value %>
+
+          <%= f.select :language, Iqvoc.all_languages %>
+        </fieldset>
+      </div>
+
+      <div class="modal-footer">
+        <%= f.submit t("txt.common.save"), :class => 'btn btn-primary', onclick: "$('#concept-teaser-modal').modal('hide');" %>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><%= t("txt.common.cancel") %></button>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,14 +1,18 @@
 class LabelsController < ApplicationController
   skip_before_filter :require_user
+  before_action proc { |ctrl| (ctrl.action_has_layout = false) if ctrl.request.xhr? }
 
   def index
     authorize! :read, Iqvoc::XLLabel.base_class
 
-    scope = Iqvoc::XLLabel.base_class.by_query_value("%#{params[:query]}%")
+    scope = Iqvoc::XLLabel.base_class
+                          .editor_selectable
+                          .by_query_value("%#{params[:query]}%")
+
     if params[:language] # NB: this is not the same as :lang, which is supplied via route
       scope = scope.by_language(params[:language])
     end
-    @labels = scope.published.order('LENGTH(value)').all
+    @labels = scope.order('LENGTH(value)').all
 
     respond_to do |format|
       format.html do
@@ -139,6 +143,35 @@ class LabelsController < ApplicationController
 
     @new_label = label.duplicate(current_user)
     @new_label.build_notes
+  end
+
+  def new_from_concept
+    authorize! :create, Iqvoc::XLLabel.base_class
+    @label = Iqvoc::XLLabel.base_class.new
+
+    respond_to do |format|
+      format.html do
+        render layout: false
+      end
+    end
+  end
+
+  def create_from_concept
+    authorize! :create, Iqvoc::XLLabel.base_class
+
+    @label = Iqvoc::XLLabel.base_class.new(label_params)
+    @label.build_initial_change_note(current_user)
+    @label.lock_by_user(current_user.id)
+
+    if @label.save
+      #TODO: idea for solving this
+      #flash[:success] = I18n.t('txt.controllers.versioned_label.success')
+      render nothing: true, status: 201
+    else
+      #TODO: idea for solving this
+      #flash.now[:error] = I18n.t('txt.controllers.versioned_label.error')
+      render nothing: true, status: 400
+    end
   end
 
   private

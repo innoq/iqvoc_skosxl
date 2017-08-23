@@ -19,5 +19,7 @@ de:
         origin_invalid: enthält ungültige Zeichen.
         pref_label_language: "Es muss ein bevorzugtes Label in der Hauptsprache des Thesaurus vorliegen."
         referenced_concepts_invalid: Referenzierte Konzepte werden durch diese Änderung invalide. Bitte Labelzuordnung am Konzept aufheben.
+      concept:
+        no_pref_label_error: "Es muss mindestens ein veröffentlichtes, bevorzugtes Label angegeben werden."
     common:
       referenced_labels: "Einige referenzierte Labels befinden sich momentan in Bearbeitung."

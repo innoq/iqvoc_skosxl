@@ -16,5 +16,6 @@
                 klass.name.to_relation_name, language).
                 split(InlineDataHelper::SPLITTER)).sort_by(&:value)
             .map { |l| label_widget_data(l) }.to_json %>
+
   <% end %>
 <% end %>

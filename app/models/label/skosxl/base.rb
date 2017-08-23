@@ -12,9 +12,7 @@ class Label::SKOSXL::Base < Label::Base
   # ********** Hooks
 
   after_initialize do |label|
-    if label.origin.blank?
-      label.origin = Origin.new.to_s
-    end
+    label.origin = Origin.new.to_s if label.origin.blank?
   end
 
   after_save do |label|

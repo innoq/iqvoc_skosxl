@@ -37,13 +37,15 @@ class Labeling::SKOSXL::Base < Labeling::Base
 
     scope = self.includes(:target)
                 .references(:labels, :concepts)
-                .order("LENGTH(#{Label::Base.table_name}.value)")
 
     if params[:query].present?
-      labels = Label::Base.by_query_value(query_str)
-                          .by_language(params[:languages].to_a)
-                          .published
-      scope = scope.merge(labels)
+      ids = Label::Base.by_query_value(query_str)
+                .by_language(params[:languages].to_a)
+                .published.map { |r| r.id }
+
+      ids.append(Iqvoc::XLLabel.base_class.by_language(params[:languages].to_a).published.joins(:inflectionals).where("LOWER(inflectionals.value) LIKE ?", build_query_string(params).mb_chars.downcase.to_s).map { |l| l.id })
+
+      scope = scope.merge(Label::Base.where(id: ids))
     else
       scope = scope.merge(Label::Base.by_language(params[:languages].to_a).published)
     end
@@ -64,6 +66,10 @@ class Labeling::SKOSXL::Base < Labeling::Base
       scope = scope.includes(:owner).merge(Iqvoc::Concept.base_class.published)
     when 'collection'
       scope = scope.includes(:owner).merge(Iqvoc::Collection.base_class.published)
+    end
+
+    if params[:note].present?
+      scope = scope.joins(:target).joins(:notes).where('LOWER(notes.value) LIKE ?', "%#{params[:note].to_s.downcase}%")
     end
 
     # change note filtering
@@ -106,6 +112,8 @@ class Labeling::SKOSXL::Base < Labeling::Base
 
       scope = scope.includes(:owner).merge(concepts)
     end
+
+    #scope = scope.joins(:target).order("LENGTH(#{Label::Base.table_name}.value)")
 
     scope = yield(scope) if block_given?
     scope.map { |result| SearchResult.new(result) }

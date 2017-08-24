@@ -1,1 +1,1 @@
-<%= sidebar_item :icon => 'edit', :text => t('txt.views.labels.new'), :path => new_label_path(published: 0) %>
+<%= sidebar_item :icon => 'edit', :text => t('txt.views.labels.new'), :path => new_label_path(published: 0), :perms => [:create, Iqvoc::XLLabel.base_class] %>

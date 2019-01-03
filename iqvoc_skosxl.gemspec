@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = 'iQvoc - a SKOS(-XL) vocabulary management system built on the Semantic Web'
 
   s.add_dependency 'iqvoc', '>= 4.4.0', '~> 4.12'
-  s.add_development_dependency 'bundler', '~> 1.6'
+  s.add_development_dependency 'bundler'
 
   s.files = %w(README.md Gemfile Gemfile.lock Rakefile iqvoc_skosxl.gemspec) +
             Dir.glob('{app,config,db,public,lib,test}/**/*')

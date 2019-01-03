@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'iqvoc', '~> 4.12', github: 'innoq/iqvoc', branch: 'master'
 
 platforms :ruby do
-  gem 'mysql2'
+  gem 'mysql2', '~> 0.4.0'
   gem 'sqlite3'
   gem 'pg'
 end

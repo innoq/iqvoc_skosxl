@@ -31,6 +31,8 @@ class XlDashboardController < DashboardController
       order_params = order_params.gsub('locking_user', 'users.surname').gsub('updated_at', 'labels.updated_at')
 
       labels = labels.includes(:locking_user).references(:locking_user).order(order_params)
+    else
+      labels = labels.order('value')
     end
 
     @items = Kaminari.paginate_array(labels).page(params[:page])

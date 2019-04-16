@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/innoq/iqvoc.git
-  revision: c4623d78ae77d9da6603c5aaf7702e90f771b9b0
+  revision: 0ff065b8406d36afd491b604c72d11433bbfb1a6
   branch: master
   specs:
     iqvoc (4.12.0)
@@ -10,7 +10,7 @@ GIT
       bootstrap-sass (~> 3.4.1)
       bootstrap_form (~> 2.2.0)
       bundler
-      cancancan
+      cancancan (~> 2.3.0)
       carrierwave
       database_cleaner
       delayed_job_active_record (~> 4.1.1)
@@ -87,7 +87,7 @@ GEM
       sassc (>= 2.0.0)
     bootstrap_form (2.2.0)
     builder (3.2.3)
-    cancancan (3.0.0)
+    cancancan (2.3.0)
     capybara (2.18.0)
       addressable
       mini_mime (>= 0.1.3)

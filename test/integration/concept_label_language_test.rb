@@ -73,8 +73,6 @@ class ConceptLabelLanguageTest < ActionDispatch::IntegrationTest
     # create, then edit concept
     visit new_concept_path(lang: 'de', format: 'html')
     click_button 'Speichern'
-    visit dashboard_path(lang: 'de', format: 'html')
-    page.find('td a').click
     page.click_link_or_button 'Weiterbearbeiten'
 
     # NB: label languages do not match relation languages

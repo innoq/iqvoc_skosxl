@@ -17,7 +17,7 @@ jQuery(document).ready(function() {
 
   function queryLabels(target, value) {
     return new Promise(function(resolve, _reject) {
-      if (value === '' && value.length < 4) {
+      if (value === '' || value.length < 3) {
         resolve([])
         return;
       };

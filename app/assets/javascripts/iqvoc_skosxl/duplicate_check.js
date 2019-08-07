@@ -1,5 +1,5 @@
 jQuery(document).ready(function() {
-  $('#label_value').on('change', function () {
+  $('#label_value').on('keyup', IQVOC.debounce(function() {
     $this = $(this);
     var target = $this.data('query-url');
     var labelValue = this.value;
@@ -12,8 +12,8 @@ jQuery(document).ready(function() {
         setFeedback($this, labels);
       }
     });
-
-  });
+    }, 300)
+  );
 
   function queryLabels(target, value) {
     return new Promise(function(resolve, _reject) {

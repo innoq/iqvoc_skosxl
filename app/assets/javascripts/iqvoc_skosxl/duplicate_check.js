@@ -40,7 +40,10 @@ jQuery(document).ready(function() {
 
   function setWarningState($valueInput) {
     var formGroup = $valueInput.closest('.form-group');
-    $(formGroup).addClass('has-warning');
+    $(formGroup).addClass('has-warning has-feedback');
+
+    var warningSign = $('<span id="duplicate-warning" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true">')
+    $valueInput.after(warningSign);
   }
 
   function setFeedback($valueInput, labels) {
@@ -78,7 +81,10 @@ jQuery(document).ready(function() {
 
   function resetInput($valueInput) {
     var formGroup = $valueInput.closest('.form-group');;
-    $(formGroup).removeClass('has-warning');
+    $(formGroup).removeClass('has-warning has-feedback');
+
+    // remove sign and message from dom
     $(formGroup).find('.help-block').remove();
+    $(formGroup).find('#duplicate-warning').remove();
   }
 });

@@ -3,14 +3,10 @@ source 'https://rubygems.org'
 gem 'iqvoc', '~> 4.12.0', github: 'innoq/iqvoc', branch: 'master'
 
 platforms :ruby do
-  gem 'mysql2', '~> 0.4.0'
-  gem 'sqlite3'
   gem 'pg', '~> 0.21.0'
 end
 
 platforms :jruby do
-  gem 'activerecord-jdbcsqlite3-adapter'
-  gem 'activerecord-jdbcmysql-adapter'
   gem 'activerecord-jdbcpostgresql-adapter', '~> 1.3.13'
 end
 

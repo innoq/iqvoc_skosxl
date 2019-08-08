@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/innoq/iqvoc.git
-  revision: 03fa85de1548e1d538fb9259ac4e5607413c0b1d
+  revision: 67a0198f80cd06489f2f4db1174e02221dff3bcb
   branch: master
   specs:
-    iqvoc (4.12.0)
+    iqvoc (4.12.1)
       apipie-rails (~> 0.3.5)
       authlogic (~> 3.8.0)
       autoprefixer-rails (~> 6.5.1.1)

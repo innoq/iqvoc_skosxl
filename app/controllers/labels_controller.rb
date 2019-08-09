@@ -5,9 +5,10 @@ class LabelsController < ApplicationController
   def index
     authorize! :read, Iqvoc::XLLabel.base_class
 
+    search_string = search_string(params[:query], params[:mode])
     scope = Iqvoc::XLLabel.base_class
                           .editor_selectable
-                          .by_query_value("%#{params[:query]}%")
+                          .by_query_value(search_string)
 
     if params[:language] # NB: this is not the same as :lang, which is supplied via route
       scope = scope.by_language(params[:language])
@@ -178,5 +179,15 @@ class LabelsController < ApplicationController
 
   def label_params
     params.require(:label).permit!
+  end
+
+  def search_string(query, mode = 'contains')
+    if mode == 'exact_match'
+      "#{query}"
+    elsif mode == 'begins'
+      "#{query}%"
+    else
+      "%#{query}%"
+    end
   end
 end

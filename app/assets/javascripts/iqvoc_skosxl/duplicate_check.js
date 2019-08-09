@@ -25,7 +25,8 @@ jQuery(document).ready(function() {
       $.ajax({
         url: target,
         data: {
-          query: value
+          query: value,
+          mode: 'exact_match'
         }
       })
       .done(function(response) {

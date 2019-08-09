@@ -7,7 +7,7 @@
     <legend><%= t("txt.common.attributes") %></legend>
     <%= f.text_field :value, data: {
       'query-url': labels_path(:format => :json),
-      'data-entity-uri' => label_path(:id => '{id}'),
+      'entity-uri' => label_path(:id => '{id}'),
       'duplicate-message': t("txt.common.duplicate_labels")
     } %>
 

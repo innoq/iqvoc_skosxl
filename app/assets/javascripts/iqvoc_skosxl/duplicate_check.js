@@ -1,19 +1,23 @@
 jQuery(document).ready(function() {
-  $('#label_value').on('keyup', IQVOC.debounce(function() {
-    $this = $(this);
-    var target = $this.data('query-url');
-    var labelValue = this.value;
+  var $labelInput = $('#label_value');
+  var target = $labelInput.data('query-url');
+  var uriTemplate = $labelInput.data('entity-uri');
 
-    queryLabels(target, labelValue).then(function(labels) {
-      resetInput($this);
+  if (target && uriTemplate) {
+    $labelInput.on('keyup', IQVOC.debounce(function() {
+      var labelValue = this.value;
 
-      if (labels.length > 0) {
-        setWarningState($this);
-        setFeedback($this, labels);
-      }
-    });
-    }, 300)
-  );
+      queryLabels(target, labelValue).then(function(labels) {
+        resetInput($labelInput);
+
+        if (labels.length > 0) {
+          setWarningState($labelInput);
+          setFeedback($labelInput, labels, uriTemplate);
+        }
+      });
+      }, 300)
+    );
+  }
 
   function queryLabels(target, value) {
     return new Promise(function(resolve, _reject) {
@@ -46,8 +50,8 @@ jQuery(document).ready(function() {
     $valueInput.after(warningSign);
   }
 
-  function setFeedback($valueInput, labels) {
-    var duplicates = buildLabelList($valueInput, labels);
+  function setFeedback($valueInput, labels, uriTemplate) {
+    var duplicates = buildLabelList($valueInput, labels, uriTemplate);
     var message = $valueInput.data('duplicate-message');
     var feedback = $('<span class="help-block"></span>')
       .text(message)
@@ -56,10 +60,9 @@ jQuery(document).ready(function() {
     $valueInput.after(feedback);
   }
 
-  function buildLabelList($valueInput, labels) {
+  function buildLabelList($valueInput, labels, uriTemplate) {
     var ul = $('<ul class="list-inline"></ul>')
     var lis =  labels.map(function(label) {
-      var uriTemplate = $valueInput.data('data-entity-uri');
       return $('<li>').append(buildLabelLink(label, uriTemplate))
     });
 

@@ -29,7 +29,6 @@ jQuery(document).ready(function() {
         }
       })
       .done(function(response) {
-        console.log('response: ', response);
         resolve(response);
       })
       .fail(function() {

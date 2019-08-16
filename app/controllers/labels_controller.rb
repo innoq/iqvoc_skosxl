@@ -25,7 +25,11 @@ class LabelsController < ApplicationController
       end
       format.json do
         response = []
-        @labels.each { |label| response << label_widget_data(label) }
+        # group labels to avoid duplicates
+        # FIXME: filter in SQL directly
+        @labels.group_by { |l| l.origin }.each { |origin, labels|
+          response << label_widget_data(labels.first)
+        }
 
         render json: response
       end

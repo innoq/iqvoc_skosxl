@@ -23,3 +23,4 @@ en:
         no_pref_label_error: "At least one published preferred label must be specified."
     common:
       referenced_labels: "Some referenced labels are currently being edited."
+      duplicate_labels: "There are labels with a similar value: "

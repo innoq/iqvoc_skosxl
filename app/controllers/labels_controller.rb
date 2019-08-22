@@ -5,14 +5,15 @@ class LabelsController < ApplicationController
   def index
     authorize! :read, Iqvoc::XLLabel.base_class
 
+    search_string = search_string(params[:query], params[:mode])
     scope = Iqvoc::XLLabel.base_class
                           .editor_selectable
-                          .by_query_value("%#{params[:query]}%")
+                          .by_query_value(search_string)
 
     if params[:language] # NB: this is not the same as :lang, which is supplied via route
       scope = scope.by_language(params[:language])
     end
-    @labels = scope.order('LENGTH(value)').all
+    @labels = scope.order("LENGTH(#{Iqvoc::XLLabel.base_class.table_name}.value)").all
 
     respond_to do |format|
       format.html do
@@ -24,7 +25,11 @@ class LabelsController < ApplicationController
       end
       format.json do
         response = []
-        @labels.each { |label| response << label_widget_data(label) }
+        # group labels to avoid duplicates
+        # FIXME: filter in SQL directly
+        @labels.group_by { |l| l.origin }.each { |origin, labels|
+          response << label_widget_data(labels.first)
+        }
 
         render json: response
       end
@@ -178,5 +183,15 @@ class LabelsController < ApplicationController
 
   def label_params
     params.require(:label).permit!
+  end
+
+  def search_string(query, mode = 'contains')
+    if mode == 'exact_match'
+      "#{query}"
+    elsif mode == 'begins'
+      "#{query}%"
+    else
+      "%#{query}%"
+    end
   end
 end

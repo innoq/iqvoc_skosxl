@@ -5,7 +5,11 @@
 
   <fieldset id="label_base_data">
     <legend><%= t("txt.common.attributes") %></legend>
-    <%= f.text_field :value %>
+    <%= f.text_field :value, data: {
+      'query-url': labels_path(:format => :json),
+      'entity-uri' => label_path(:id => '{id}'),
+      'duplicate-message': t("txt.common.duplicate_labels")
+    } %>
 
     <%= f.select :language, Iqvoc.all_languages %>
 

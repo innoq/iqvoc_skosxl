@@ -15,5 +15,7 @@ public/export
 public/*/iqvoc
 
 tmp
+.idea
+*.iml
 
 .ruby-version

@@ -53,6 +53,7 @@ class Labels::VersionsController < ApplicationController
         Iqvoc.change_note_class.create! do |note|
           note.owner = new_version
           note.language = I18n.locale.to_s
+          note.position = (current_label.send(Iqvoc.change_note_class_name.to_relation_name).maximum(:position) || 0).succ
           note.annotations_attributes = [
             { namespace: 'dct', predicate: 'creator', value: current_user.name },
             { namespace: 'dct', predicate: 'modified', value: DateTime.now.to_s }

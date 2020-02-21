@@ -1,6 +1,8 @@
 ## [2.9.2] (unpublished)
 
   * Drop sqlite and mysql2 support: In future we recommend and support postgresql. Other DBMS may also work due activerecord abstraction, but will be not explicitly supported.
+  * add explicit note positioning 
+  * upgrade dependencies
 
 ## [2.9.1]
 

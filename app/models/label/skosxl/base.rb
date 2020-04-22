@@ -44,37 +44,65 @@ class Label::SKOSXL::Base < Label::Base
 
   @nested_relations = [] # Will be marked as nested attributes later
 
-  has_many :labelings, class_name: 'Labeling::Base', foreign_key: 'target_id', dependent: :destroy
+  has_many :labelings,
+           class_name: 'Labeling::Base',
+           foreign_key: 'target_id',
+           dependent: :destroy,
+           inverse_of: :target
   include_to_deep_cloning(:labelings)
-  has_many :concepts, through: :labelings, source: :owner
 
-  has_many :relations, foreign_key: 'domain_id', class_name: 'Label::Relation::Base', dependent: :destroy
-  # Which references are pointing to this label?
-  has_many :referenced_by_relations, foreign_key: 'range_id', class_name: 'Label::Relation::Base', dependent: :destroy
+  has_many :concepts,
+           through: :labelings,
+           source: :owner
+
+  has_many :relations,
+           foreign_key: 'domain_id',
+           class_name: 'Label::Relation::Base',
+           dependent: :destroy,
+           inverse_of: :domain
+
+           # Which references are pointing to this label?
+  has_many :referenced_by_relations,
+           foreign_key: 'range_id',
+           class_name: 'Label::Relation::Base',
+           dependent: :destroy,
+           inverse_of: :range
   include_to_deep_cloning(:relations, :referenced_by_relations)
 
-  has_many :notes, as: :owner, class_name: 'Note::Base', dependent: :destroy
-  has_many :annotations, through: :notes, source: :annotations
+  has_many :notes,
+           as: :owner,
+           class_name: 'Note::Base',
+           dependent: :destroy
+
+  has_many :annotations,
+           through: :notes,
+           source: :annotations
   include_to_deep_cloning(notes: :annotations)
 
   # ************** "Dynamic"/configureable relations
 
   Iqvoc::XLLabel.note_class_names.each do |note_class_name|
-    has_many note_class_name.to_relation_name, as: :owner, class_name: note_class_name, dependent: :destroy
+    has_many note_class_name.to_relation_name,
+             as: :owner,
+             class_name: note_class_name,
+             dependent: :destroy,
+             inverse_of: :owner
     @nested_relations << note_class_name.to_relation_name
   end
 
   Iqvoc::XLLabel.relation_class_names.each do |relation_class_name|
     has_many relation_class_name.to_relation_name,
-      foreign_key: 'domain_id',
-      class_name: relation_class_name,
-      extend: Label::Relation::BidirectionalRelationExtension,
-      dependent: :destroy
+             foreign_key: 'domain_id',
+             class_name: relation_class_name,
+             extend: Label::Relation::BidirectionalRelationExtension,
+             dependent: :destroy,
+             inverse_of: :domain
 
     has_many "#{relation_class_name.to_relation_name}_of".to_sym,
-      foreign_key: 'range_id',
-      class_name: relation_class_name,
-      dependent: :destroy
+             foreign_key: 'range_id',
+             class_name: relation_class_name,
+             dependent: :destroy,
+             inverse_of: :range
 
     # Serialized setters and getters (\r\n or , separated)
     define_method("inline_#{relation_class_name.to_relation_name}".to_sym) do
@@ -90,7 +118,10 @@ class Label::SKOSXL::Base < Label::Base
   end
 
   Iqvoc::XLLabel.additional_association_classes.each do |association_class, foreign_key|
-    has_many association_class.name.to_relation_name, class_name: association_class.name, foreign_key: foreign_key, dependent: :destroy
+    has_many association_class.name.to_relation_name,
+             class_name: association_class.name,
+             foreign_key: foreign_key,
+             dependent: :destroy
     include_to_deep_cloning(association_class.deep_cloning_relations)
     association_class.referenced_by(self)
   end

@@ -1,4 +1,4 @@
-class AddLabelRelations < ActiveRecord::Migration
+class AddLabelRelations < ActiveRecord::Migration[4.2]
   def self.up
     unless table_exists?('label_relations')
       create_table 'label_relations', force: true do |t|

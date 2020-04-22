@@ -1,5 +1,4 @@
 class LabelsController < ApplicationController
-  skip_before_filter :require_user
   before_action proc { |ctrl| (ctrl.action_has_layout = false) if ctrl.request.xhr? }
 
   def index
@@ -13,7 +12,7 @@ class LabelsController < ApplicationController
     if params[:language] # NB: this is not the same as :lang, which is supplied via route
       scope = scope.by_language(params[:language])
     end
-    @labels = scope.order("LENGTH(#{Iqvoc::XLLabel.base_class.table_name}.value)").all
+    @labels = scope.order(Arel.sql("LENGTH(#{Iqvoc::XLLabel.base_class.table_name}.value)")).all
 
     respond_to do |format|
       format.html do

@@ -1,4 +1,4 @@
-class ExtendLabel < ActiveRecord::Migration
+class ExtendLabel < ActiveRecord::Migration[4.2]
   FIELDS = [
     {'rev' => {type: :integer, options: {default: 1}}},
     {'published_version_id' => {type: :integer}},

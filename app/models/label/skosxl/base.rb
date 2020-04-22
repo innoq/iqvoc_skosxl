@@ -135,7 +135,7 @@ class Label::SKOSXL::Base < Label::Base
                 .includes(:concepts)
                 .references(:concepts)
                 .published
-                .order("LENGTH(#{Label::Base.table_name}.value)")
+                .order(Arel.sql("LENGTH(#{Label::Base.table_name}.value)"))
 
     if params[:collection_origin].present?
       collection = Collection::Base.where(origin: params[:collection_origin]).last
@@ -212,12 +212,12 @@ class Label::SKOSXL::Base < Label::Base
   end
 
   def notes_for_class(note_class)
-    note_class = note_class.name if note_class < ActiveRecord::Base # Use the class name string
+    note_class = note_class.name if note_class < ApplicationRecord # Use the class name string
     notes.select{ |note| note.class.name == note_class }
   end
 
   def relations_for_class(relation_class)
-    relation_class = relation_class.name if relation_class < ActiveRecord::Base # Use the class name string
+    relation_class = relation_class.name if relation_class < ApplicationRecord # Use the class name string
     relations.select{ |rel| rel.class.name == relation_class }
   end
 
@@ -228,19 +228,19 @@ class Label::SKOSXL::Base < Label::Base
   end
 
   def concepts_for_labeling_class(labeling_class)
-    labeling_class = labeling_class.name if labeling_class < ActiveRecord::Base # Use the class name string
+    labeling_class = labeling_class.name if labeling_class < ApplicationRecord # Use the class name string
     labelings.select{ |l| l.class.name == labeling_class.to_s }.map(&:owner)
   end
 
   def related_labels_for_relation_class(relation_class, only_published = true)
-    relation_class = relation_class.name if relation_class < ActiveRecord::Base # Use the class name string
+    relation_class = relation_class.name if relation_class < ApplicationRecord # Use the class name string
     relations.select { |rel| rel.class.name == relation_class }
              .map(&:range)
              .select { |l| l.published? || !only_published }
   end
 
   def notes_for_class(note_class)
-    note_class = note_class.name if note_class < ActiveRecord::Base # Use the class name string
+    note_class = note_class.name if note_class < ApplicationRecord # Use the class name string
     notes.select{ |note| note.class.name == note_class }
   end
 
@@ -276,7 +276,7 @@ class Label::SKOSXL::Base < Label::Base
   end
 
   def duplicate(user)
-    clone = dup_with_deep_cloning({except: [:origin, :rev, :published_version_id, :published_at, :expired_at, :to_review], include: [:labelings]})
+    clone = deep_clone(except: [:origin, :rev, :published_version_id, :published_at, :expired_at, :to_review], include: [:labelings])
 
     clone.origin = Origin.new.to_s
     clone.locked_by = user.id

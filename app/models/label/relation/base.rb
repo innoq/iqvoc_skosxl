@@ -1,4 +1,4 @@
-class Label::Relation::Base < ActiveRecord::Base
+class Label::Relation::Base < ApplicationRecord
   class_attribute :rdf_namespace, :rdf_predicate
   self.rdf_namespace = nil
   self.rdf_predicate = nil

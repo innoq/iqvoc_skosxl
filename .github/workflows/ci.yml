@@ -45,7 +45,7 @@ jobs:
 
       - name: Setup Database
         env:
-          DATABASE_URL: postgres://postgres:@localhost:5432/postgres
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
           RAILS_ENV: test
         run: |
           bundle exec rake db:create

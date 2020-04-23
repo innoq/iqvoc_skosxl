@@ -52,4 +52,6 @@ jobs:
           bundle exec rake db:migrate
 
       - name: Run Tests
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
         run: bin/rake test

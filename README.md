@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/innoq/iqvoc_skosxl.svg?branch=master)](https://travis-ci.org/innoq/iqvoc_skosxl)
+![CI](https://github.com/innoq/iqvoc_skosxl/workflows/CI/badge.svg?branch=master)
 
 # Iqvoc::SKOSXL
 

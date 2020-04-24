@@ -72,7 +72,8 @@ class Label::SKOSXL::Base < Label::Base
   has_many :notes,
            as: :owner,
            class_name: 'Note::Base',
-           dependent: :destroy
+           dependent: :destroy,
+           inverse_of: :owner
 
   has_many :annotations,
            through: :notes,

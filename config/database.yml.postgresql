@@ -1,23 +1,23 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: iqvoc_skosxl_development
+  database: <%= ENV["POSTGRES_DB"] || 'iqvoc_skosxl_development' %>
   pool: 5
-  username: postgres
-  password:
+  username: <%= ENV["POSTGRES_USER"] || 'postgres' %>
+  password: <%= ENV["POSTGRES_PASSWORD"] || 'postgres' %>
 
 test:
   adapter: postgresql
   encoding: unicode
-  database: iqvoc_skosxl_test
+  database: <%= ENV["POSTGRES_DB"] || 'iqvoc_skosxl_test' %>
   pool: 5
-  username: postgres
-  password:
+  username: <%= ENV["POSTGRES_USER"] || 'postgres' %>
+  password: <%= ENV["POSTGRES_PASSWORD"] || 'postgres' %>
 
 production:
   adapter: postgresql
   encoding: unicode
-  database: iqvoc_skosxl_production
+  database: <%= ENV["POSTGRES_DB"] || 'iqvoc_skosxl_production' %>
   pool: 5
-  username: postgres
-  password:
+  username: <%= ENV["POSTGRES_USER"] || 'postgres' %>
+  password: <%= ENV["POSTGRES_PASSWORD"] || 'postgres' %>

@@ -45,13 +45,11 @@ jobs:
 
       - name: Setup Database
         env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
           RAILS_ENV: test
         run: |
+          cp config/database.yml.postgres config/database.yml
           bundle exec rake db:create
           bundle exec rake db:migrate
 
       - name: Run Tests
-        env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
         run: bin/rake test

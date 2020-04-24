@@ -47,7 +47,7 @@ jobs:
         env:
           RAILS_ENV: test
         run: |
-          cp config/database.yml.postgres config/database.yml
+          cp config/database.yml.postgresql config/database.yml
           bundle exec rake db:create
           bundle exec rake db:migrate
 

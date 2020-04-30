@@ -122,7 +122,7 @@ class Label::SKOSXL::Base < Label::Base
     has_many association_class.name.to_relation_name,
              class_name: association_class.name,
              foreign_key: foreign_key,
-             dependent: :destroy
+             dependent: :destroy # TODO: add inverse_of???
     include_to_deep_cloning(association_class.deep_cloning_relations)
     association_class.referenced_by(self)
   end

@@ -1,7 +1,8 @@
 require_dependency Iqvoc.root.join('app/controllers/rdf_controller').to_s
 
-class RdfController
-  def show_with_labels
+# TODO: move out of /controllers
+module RdfControllerLabelExtension
+  def show
     scope = params[:published] == '0' ? Iqvoc::XLLabel.base_class.unpublished : Iqvoc::XLLabel.base_class.published
     if @label = scope.by_origin(params[:id]).with_associations.last
       respond_to do |format|
@@ -14,9 +15,9 @@ class RdfController
         }
       end
     else
-      show_without_labels
+      super
     end
   end
-
-  alias_method_chain(:show, :labels)
 end
+
+RdfController.prepend(RdfControllerLabelExtension)

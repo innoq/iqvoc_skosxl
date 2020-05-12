@@ -5,8 +5,9 @@ on: [push, pull_request]
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
-        ruby: ['2.5']
+        ruby: ['2.5', '2.6']
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -48,8 +49,8 @@ jobs:
           RAILS_ENV: test
         run: |
           cp config/database.yml.postgresql config/database.yml
-          bundle exec rake db:create
-          bundle exec rake db:migrate
+          bin/rails db:create
+          bin/rails db:migrate
 
       - name: Run Tests
-        run: bin/rake test
+        run: bin/rails test

@@ -44,37 +44,66 @@ class Label::SKOSXL::Base < Label::Base
 
   @nested_relations = [] # Will be marked as nested attributes later
 
-  has_many :labelings, class_name: 'Labeling::Base', foreign_key: 'target_id', dependent: :destroy
+  has_many :labelings,
+           class_name: 'Labeling::Base',
+           foreign_key: 'target_id',
+           dependent: :destroy,
+           inverse_of: :target
   include_to_deep_cloning(:labelings)
-  has_many :concepts, through: :labelings, source: :owner
 
-  has_many :relations, foreign_key: 'domain_id', class_name: 'Label::Relation::Base', dependent: :destroy
-  # Which references are pointing to this label?
-  has_many :referenced_by_relations, foreign_key: 'range_id', class_name: 'Label::Relation::Base', dependent: :destroy
+  has_many :concepts,
+           through: :labelings,
+           source: :owner
+
+  has_many :relations,
+           foreign_key: 'domain_id',
+           class_name: 'Label::Relation::Base',
+           dependent: :destroy,
+           inverse_of: :domain
+
+           # Which references are pointing to this label?
+  has_many :referenced_by_relations,
+           foreign_key: 'range_id',
+           class_name: 'Label::Relation::Base',
+           dependent: :destroy,
+           inverse_of: :range
   include_to_deep_cloning(:relations, :referenced_by_relations)
 
-  has_many :notes, as: :owner, class_name: 'Note::Base', dependent: :destroy
-  has_many :annotations, through: :notes, source: :annotations
+  has_many :notes,
+           as: :owner,
+           class_name: 'Note::Base',
+           dependent: :destroy,
+           inverse_of: :owner
+
+  has_many :annotations,
+           through: :notes,
+           source: :annotations
   include_to_deep_cloning(notes: :annotations)
 
   # ************** "Dynamic"/configureable relations
 
   Iqvoc::XLLabel.note_class_names.each do |note_class_name|
-    has_many note_class_name.to_relation_name, as: :owner, class_name: note_class_name, dependent: :destroy
+    has_many note_class_name.to_relation_name,
+             as: :owner,
+             class_name: note_class_name,
+             dependent: :destroy,
+             inverse_of: :owner
     @nested_relations << note_class_name.to_relation_name
   end
 
   Iqvoc::XLLabel.relation_class_names.each do |relation_class_name|
     has_many relation_class_name.to_relation_name,
-      foreign_key: 'domain_id',
-      class_name: relation_class_name,
-      extend: Label::Relation::BidirectionalRelationExtension,
-      dependent: :destroy
+             foreign_key: 'domain_id',
+             class_name: relation_class_name,
+             extend: Label::Relation::BidirectionalRelationExtension,
+             dependent: :destroy,
+             inverse_of: :domain
 
     has_many "#{relation_class_name.to_relation_name}_of".to_sym,
-      foreign_key: 'range_id',
-      class_name: relation_class_name,
-      dependent: :destroy
+             foreign_key: 'range_id',
+             class_name: relation_class_name,
+             dependent: :destroy,
+             inverse_of: :range
 
     # Serialized setters and getters (\r\n or , separated)
     define_method("inline_#{relation_class_name.to_relation_name}".to_sym) do
@@ -90,7 +119,10 @@ class Label::SKOSXL::Base < Label::Base
   end
 
   Iqvoc::XLLabel.additional_association_classes.each do |association_class, foreign_key|
-    has_many association_class.name.to_relation_name, class_name: association_class.name, foreign_key: foreign_key, dependent: :destroy
+    has_many association_class.name.to_relation_name,
+             class_name: association_class.name,
+             foreign_key: foreign_key,
+             dependent: :destroy # TODO: add inverse_of???
     include_to_deep_cloning(association_class.deep_cloning_relations)
     association_class.referenced_by(self)
   end
@@ -135,7 +167,7 @@ class Label::SKOSXL::Base < Label::Base
                 .includes(:concepts)
                 .references(:concepts)
                 .published
-                .order("LENGTH(#{Label::Base.table_name}.value)")
+                .order(Arel.sql("LENGTH(#{Label::Base.table_name}.value)"))
 
     if params[:collection_origin].present?
       collection = Collection::Base.where(origin: params[:collection_origin]).last
@@ -212,12 +244,12 @@ class Label::SKOSXL::Base < Label::Base
   end
 
   def notes_for_class(note_class)
-    note_class = note_class.name if note_class < ActiveRecord::Base # Use the class name string
+    note_class = note_class.name if note_class < ApplicationRecord # Use the class name string
     notes.select{ |note| note.class.name == note_class }
   end
 
   def relations_for_class(relation_class)
-    relation_class = relation_class.name if relation_class < ActiveRecord::Base # Use the class name string
+    relation_class = relation_class.name if relation_class < ApplicationRecord # Use the class name string
     relations.select{ |rel| rel.class.name == relation_class }
   end
 
@@ -228,19 +260,19 @@ class Label::SKOSXL::Base < Label::Base
   end
 
   def concepts_for_labeling_class(labeling_class)
-    labeling_class = labeling_class.name if labeling_class < ActiveRecord::Base # Use the class name string
+    labeling_class = labeling_class.name if labeling_class < ApplicationRecord # Use the class name string
     labelings.select{ |l| l.class.name == labeling_class.to_s }.map(&:owner)
   end
 
   def related_labels_for_relation_class(relation_class, only_published = true)
-    relation_class = relation_class.name if relation_class < ActiveRecord::Base # Use the class name string
+    relation_class = relation_class.name if relation_class < ApplicationRecord # Use the class name string
     relations.select { |rel| rel.class.name == relation_class }
              .map(&:range)
              .select { |l| l.published? || !only_published }
   end
 
   def notes_for_class(note_class)
-    note_class = note_class.name if note_class < ActiveRecord::Base # Use the class name string
+    note_class = note_class.name if note_class < ApplicationRecord # Use the class name string
     notes.select{ |note| note.class.name == note_class }
   end
 
@@ -276,7 +308,7 @@ class Label::SKOSXL::Base < Label::Base
   end
 
   def duplicate(user)
-    clone = dup_with_deep_cloning({except: [:origin, :rev, :published_version_id, :published_at, :expired_at, :to_review], include: [:labelings]})
+    clone = deep_clone(except: [:origin, :rev, :published_version_id, :published_at, :expired_at, :to_review], include: [:labelings])
 
     clone.origin = Origin.new.to_s
     clone.locked_by = user.id

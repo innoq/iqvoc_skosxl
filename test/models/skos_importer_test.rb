@@ -6,7 +6,7 @@ class SkosImporterTest < ActiveSupport::TestCase
   TEST_DATA = File.open(File.expand_path('../../fixtures/hobbies.nt', __FILE__))
 
   setup do
-    Iqvoc.rdf_namespaces['test'] = 'http://foo.bar/xl#'
+    Iqvoc.rdf_namespaces[:test] = 'http://foo.bar/xl#'
 
     class TestRelation < Label::Relation::SKOSXL::Base
       self.rdf_namespace = 'test'

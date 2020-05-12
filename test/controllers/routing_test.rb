@@ -10,7 +10,11 @@ class RoutingTest < ActionController::TestCase
   end
 
   test 'routing' do
-    get :show, lang: 'en', format: 'html', id: @label.origin
+    get :show, params: {
+      lang: 'en',
+      format: 'html',
+      id: @label.origin
+    }
     assert_response :success
   end
 end

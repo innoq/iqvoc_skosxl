@@ -170,11 +170,11 @@ class LabelsController < ApplicationController
     if @label.save
       #TODO: idea for solving this
       #flash[:success] = I18n.t('txt.controllers.versioned_label.success')
-      render nothing: true, status: 201
+      head :created
     else
       #TODO: idea for solving this
       #flash.now[:error] = I18n.t('txt.controllers.versioned_label.error')
-      render nothing: true, status: 400
+      head :bad_request
     end
   end
 

@@ -15,24 +15,24 @@
   <% end %>
   <%= button_to t("txt.views.versioning.consistency_check"),
     label_versions_consistency_check_path(:origin => @label.origin),
-    :method => :get, :class => 'btn btn-default' %>
+    :method => :get, :class => 'btn btn-outline-secondary' %>
 
   <% if (not @label.in_review?) && @label.locked_by == @current_user.id %>
     <%= button_to t("txt.common.to_review"),
     label_versions_to_review_path(:origin => @label.origin),
-    :class => 'btn btn-default' %>
+    :class => 'btn btn-outline-secondary' %>
   <% end %>
 
   <% if @label.locked? %>
     <%= button_to t("txt.views.versioning.unlock"),
       label_versions_unlock_path(:origin => @label.origin),
-      :class => 'btn btn-default' if can?(:unlock, @label) %>
+      :class => 'btn btn-outline-secondary' if can?(:unlock, @label) %>
     <%= link_to t("txt.views.versioning.edit_mode"),
       edit_label_path(:published => 0, :id => @label.origin),
-      :class => 'btn btn-default' if can?(:update, @label) %>
+      :class => 'btn btn-outline-secondary' if can?(:update, @label) %>
   <% elsif can?(:lock, @label) %>
     <%= button_to t("txt.views.versioning.to_edit_mode"),
-      label_versions_lock_path(:origin => @label.origin), :class => 'btn btn-default' %>
+      label_versions_lock_path(:origin => @label.origin), :class => 'btn btn-outline-secondary' %>
   <% end %>
 
   <% if can?(:destroy, @label) %>

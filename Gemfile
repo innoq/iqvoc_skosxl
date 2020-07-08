@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'iqvoc', '~> 4.12.2', github: 'innoq/iqvoc', branch: 'master'
+gem 'iqvoc', '~> 4.12.2', github: 'innoq/iqvoc', branch: 'bootstrap-v4'
 
 platforms :ruby do
   gem 'pg'

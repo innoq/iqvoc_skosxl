@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/innoq/iqvoc.git
-  revision: f3c631090bcf54abf1499b09c766847566ea1490
-  branch: bootstrap-v4
+  revision: 56a581270c0a41c8f7fad9694591944256a8db22
+  branch: master
   specs:
     iqvoc (4.12.2)
       apipie-rails
@@ -22,7 +22,6 @@ GIT
       iq_triplestorage
       json
       kaminari (~> 1.2.0)
-      kaminari-bootstrap (~> 3.0.1)
       linkeddata
       maruku
       nokogiri
@@ -189,9 +188,6 @@ GEM
     kaminari-activerecord (1.2.1)
       activerecord
       kaminari-core (= 1.2.1)
-    kaminari-bootstrap (3.0.1)
-      kaminari (>= 0.13.0)
-      rails
     kaminari-core (1.2.1)
     ld-patch (3.1.0)
       ebnf (~> 1.2)
@@ -244,7 +240,7 @@ GEM
     mini_portile2 (2.4.0)
     minitest (5.14.1)
     msgpack (1.3.3)
-    multi_json (1.14.1)
+    multi_json (1.15.0)
     multipart-post (2.1.1)
     net-http-persistent (3.1.0)
       connection_pool (~> 2.2)
@@ -310,7 +306,7 @@ GEM
       rdf (~> 3.1)
     rdf-json (3.1.0)
       rdf (~> 3.1)
-    rdf-microdata (3.1.0)
+    rdf-microdata (3.1.1)
       htmlentities (~> 4.3)
       nokogiri (~> 1.10)
       rdf (~> 3.1)
@@ -321,7 +317,7 @@ GEM
       sxp (~> 1.1)
     rdf-normalize (0.4.0)
       rdf (~> 3.1)
-    rdf-rdfa (3.1.1)
+    rdf-rdfa (3.1.2)
       haml (~> 5.1)
       htmlentities (~> 4.3)
       rdf (~> 3.1, >= 3.1.2)
@@ -333,7 +329,7 @@ GEM
       rdf (~> 3.1)
       rdf-rdfa (~> 3.1)
       rdf-xsd (~> 3.1)
-    rdf-reasoner (0.6.1)
+    rdf-reasoner (0.6.2)
       rdf (~> 3.1, >= 3.1.2)
       rdf-vocab (~> 3.1, >= 3.1.5)
       rdf-xsd (~> 3.1)
@@ -353,7 +349,7 @@ GEM
     rdf-turtle (3.1.1)
       ebnf (~> 1.2)
       rdf (~> 3.1, >= 3.1.2)
-    rdf-vocab (3.1.5)
+    rdf-vocab (3.1.7)
       rdf (~> 3.1, >= 3.1.2)
     rdf-xsd (3.1.0)
       rdf (~> 3.1)

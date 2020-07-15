@@ -27,7 +27,7 @@
 <%= render 'layouts/label_in_concept_modal' %>
 <%= render 'layouts/navigation' %>
 
-<div class="container">
+<main role="main" class="container">
   <div class="row">
     <div class="<%= content_for?(:sidebar) ? "col-md-9" : "col-md-12" %>" id="content">
       <%= yield :page_header %>
@@ -39,8 +39,10 @@
       <%= yield %>
     </div>
     <% if content_for?(:sidebar) %>
-    <div class="col-md-3" id="sidebar">
-      <%= yield :sidebar %>
+    <div class="col-md-3">
+      <div id="sidebar">
+        <%= yield :sidebar %>
+      </div>
     </div>
     <% end %>
   </div>

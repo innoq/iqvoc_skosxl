@@ -16,6 +16,9 @@ en:
       labeling/skosxl/alt_label:
         one: Alternative Label
         other: Alternative Labels
+      labeling/skosxl/hidden_label:
+        one:   Hidden label
+        other: Hidden labels
 
     attributes:
       label/skosxl/base:

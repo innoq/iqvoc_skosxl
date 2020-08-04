@@ -16,6 +16,9 @@ de:
       labeling/skosxl/alt_label:
         one: Alternatives Label
         other: Alternative Labels
+      labeling/skosxl/hidden_label:
+        one:   "Verstecktes Label"
+        other: "Versteckte Labels"
 
     attributes:
       label/skosxl/base:

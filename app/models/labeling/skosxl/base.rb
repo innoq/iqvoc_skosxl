@@ -37,15 +37,16 @@ class Labeling::SKOSXL::Base < Labeling::Base
 
     scope = self.includes(:target)
                 .references(:labels, :concepts)
+                .joins(:target)
                 .order(Arel.sql("LENGTH(#{Label::Base.table_name}.value)"))
 
     if params[:query].present?
-      labels = Label::Base.by_query_value(query_str)
+      labels = label_class.by_query_value(query_str)
                           .by_language(params[:languages].to_a)
                           .published
       scope = scope.merge(labels)
     else
-      scope = scope.merge(Label::Base.by_language(params[:languages].to_a).published)
+      scope = scope.merge(label_class.by_language(params[:languages].to_a).published)
     end
 
     if params[:collection_origin].present?

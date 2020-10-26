@@ -38,7 +38,7 @@ class Labeling::SKOSXL::Base < Labeling::Base
     scope = self.includes(:target)
                 .references(:labels, :concepts)
                 .joins(:target)
-                .order(Arel.sql("LENGTH(#{Label::Base.table_name}.value)"))
+                .order(Arel.sql("LENGTH(#{Label::Base.table_name}.value), #{Label::Base.table_name}.value ASC"))
 
     if params[:query].present?
       labels = label_class.by_query_value(query_str)

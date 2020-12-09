@@ -54,7 +54,7 @@ class LabelsController < ApplicationController
       format.html do
         @published ? render('show_published') : render('show_unpublished')
       end
-      format.ttl
+      format.any(:rdf, :ttl, :nt)
     end
   end
 

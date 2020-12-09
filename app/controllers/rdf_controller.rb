@@ -9,9 +9,9 @@ module RdfControllerLabelExtension
         format.html {
           redirect_to label_url(id: @label.origin, published: params[:published])
         }
-        format.any {
+        format.any(:rdf, :ttl, :nt) {
           authorize! :read, @label
-          render 'show_label'
+          render 'labels/show'
         }
       end
     else

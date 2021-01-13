@@ -1,0 +1,32 @@
+{
+  "name": "iqvoc_skosxl",
+  "version": "2.9.2",
+  "description": "SKOS-XL extension for iQvoc vocabulary management system built on the Semantic Web",
+  "files": [
+    "app/assets/**/*"
+  ],
+  "scripts": {
+    "watch": "faucet --watch",
+    "compile": "faucet --compact --fingerprint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/innoq/iqvoc_skosxl.git"
+  },
+  "author": "",
+  "license": "Apache License 2.0",
+  "bugs": {
+    "url": "https://github.com/innoq/iqvoc_skosxl/issues"
+  },
+  "homepage": "https://github.com/innoq/iqvoc_skosxl#readme",
+  "devDependencies": {
+    "faucet-pipeline-js": "^2.1.7",
+    "faucet-pipeline-jsmin": "^2.1.7",
+    "faucet-pipeline-sass": "^1.4.0",
+    "faucet-pipeline-static": "^1.2.0"
+  },
+  "dependencies": {
+    "es6-promise": "^4.2.8",
+    "iqvoc": "github:innoq/iqvoc#faucet"
+  }
+}

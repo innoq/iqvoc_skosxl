@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'iqvoc', '~> 4.12.2', github: 'innoq/iqvoc', branch: 'master'
+gem 'iqvoc', '~> 4.12.2', github: 'innoq/iqvoc', branch: 'faucet'
 
 platforms :ruby do
   gem 'pg'

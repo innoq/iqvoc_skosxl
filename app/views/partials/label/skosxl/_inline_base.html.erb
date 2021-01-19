@@ -1,0 +1,1 @@
+<%= link_to(label.value, label_path(:id => label, :published => ((!label.published? && !label.published_version_id) ? 0 : nil)), :class => label.published? ? '' : 'unpublished') %>

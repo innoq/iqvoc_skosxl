@@ -11,11 +11,7 @@
             items = items.select { |item| can?(:read, item) }
           -%>
           <%= item_listing(items) do |label|
-            if label.published?
-              link_to label.value, label_path(:id => label)
-            else
-              link_to label.value, label_path(:id => label, published: 0), class: 'unpublished'
-            end
+            render(label.class.inline_partial_name, label: label)
           end %>
         </div>
       </div>
@@ -29,12 +25,8 @@
         items = label.concepts_for_labeling_class(klass)
         items = items.select { |item| can?(:read, item) }
       -%>
-      <%= item_listing(items) do |c|
-        if c.published?
-          link_to c.to_s, send(c.class_path, id: c)
-        else
-          link_to c.to_s, send(c.class_path, id: c, published: 0), class: 'unpublished'
-        end
+      <%= item_listing(items) do |concept|
+        render(concept.class.inline_partial_name, concept: concept)
       end
     %>
     </div>

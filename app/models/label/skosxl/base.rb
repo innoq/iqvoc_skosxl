@@ -235,6 +235,10 @@ class Label::SKOSXL::Base < Label::Base
     'partials/label/skosxl/search_result'
   end
 
+  def self.inline_partial_name
+    'partials/label/skosxl/inline_base'
+  end
+
   def self.new_link_partial_name
     'partials/label/skosxl/new_link_base'
   end

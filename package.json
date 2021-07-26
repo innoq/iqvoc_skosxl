@@ -27,6 +27,6 @@
   },
   "dependencies": {
     "es6-promise": "^4.2.8",
-    "iqvoc": "github:innoq/iqvoc#faucet"
+    "iqvoc": "github:innoq/iqvoc"
   }
 }

@@ -1,4 +1,4 @@
-jQuery(document).ready(function() {
+jQuery(document).ready(function($) {
   $(".new-label-modal").click(function(ev) {
     ev.preventDefault();
 

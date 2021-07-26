@@ -1,4 +1,4 @@
-jQuery(document).ready(function() {
+jQuery(document).ready(function($) {
   var $labelInput = $('#label_value');
   var target = $labelInput.data('query-url');
   var uriTemplate = $labelInput.data('entity-uri');
@@ -75,7 +75,7 @@ jQuery(document).ready(function() {
       uri = uri.concat('?published=0');
     }
 
-    labelLink = $('<a>', {
+    var labelLink = $('<a>', {
       text: label.name,
       href: uri
     });

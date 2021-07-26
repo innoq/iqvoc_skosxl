@@ -12,6 +12,7 @@ config/initializers/secret_token.rb
 log
 
 public/export
+public/assets
 public/*/iqvoc
 
 tmp
@@ -19,3 +20,4 @@ tmp
 *.iml
 
 .ruby-version
+node_modules

@@ -16,10 +16,10 @@
 require File.expand_path('test_helper', File.dirname(__FILE__))
 require 'capybara/rails'
 require 'capybara/dsl'
-require 'capybara/poltergeist'
+require 'capybara/cuprite'
 require Iqvoc.root.join('test', 'authentication')
 
-Capybara.javascript_driver = :poltergeist
+Capybara.javascript_driver = :cuprite
 
 module ActionDispatch
   class IntegrationTest

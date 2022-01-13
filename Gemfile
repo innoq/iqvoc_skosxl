@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'iqvoc', '~> 4.12.2', github: 'innoq/iqvoc', branch: 'master'
+gem 'iqvoc', '~> 4.13.0', github: 'innoq/iqvoc', branch: 'master'
 
 platforms :ruby do
   gem 'pg'
@@ -19,5 +19,5 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'poltergeist'
+  gem 'cuprite'
 end

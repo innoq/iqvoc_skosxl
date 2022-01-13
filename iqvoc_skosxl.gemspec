@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.license     = 'Apache License 2.0'
   s.description = 'iQvoc - a SKOS(-XL) vocabulary management system built on the Semantic Web'
 
-  s.add_dependency 'iqvoc', '>= 4.4.0', '~> 4.12.0'
+  s.add_dependency 'iqvoc', '>= 4.4.0', '~> 4.13.0'
   s.add_development_dependency 'bundler'
 
   s.files = %w(README.md Gemfile Gemfile.lock Rakefile iqvoc_skosxl.gemspec) +

@@ -1,6 +1,6 @@
 {
   "name": "iqvoc_skosxl",
-  "version": "2.9.2",
+  "version": "2.10.0",
   "description": "SKOS-XL extension for iQvoc vocabulary management system built on the Semantic Web",
   "files": [
     "app/assets/**/*"

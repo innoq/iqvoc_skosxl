@@ -60,12 +60,21 @@ class Labeling::SKOSXL::Base < Labeling::Base
     end
 
     # apply search entity type
-    case params[:for]
-    when 'concept'
-      scope = scope.includes(:owner).merge(Iqvoc::Concept.base_class.published)
-    when 'collection'
-      scope = scope.includes(:owner).merge(Iqvoc::Collection.base_class.published)
-    end
+    scope = case params[:for]
+            when 'concept'
+              scope.includes(:owner).merge(Iqvoc::Concept.base_class.published)
+            when 'collection'
+              scope.includes(:owner).merge(Iqvoc::Collection.base_class.published)
+            else
+              # no additional conditions
+              scope.includes(:owner)
+            end
+
+    scope = if params[:include_expired]
+              scope.merge(Concept::Base.not_expired).or(scope.merge(Concept::Base.expired))
+            else
+              scope.merge(Concept::Base.not_expired)
+            end
 
     # change note filtering
     if params[:change_note_date_from].present? || params[:change_note_date_to].present?

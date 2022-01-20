@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/innoq/iqvoc.git
-  revision: 24da6588760aad0e23b74881434855c99ff42ed8
+  revision: ba1f6de500b2ab95d5ca73073d94122adc369d92
   branch: master
   specs:
     iqvoc (4.13.0)
@@ -28,7 +28,8 @@ GIT
       rack-mini-profiler
       rails (>= 5.2.0, < 6.0)
       rails_autolink
-      rdf-vocab
+      rdf (~> 3.1.0)
+      rdf-vocab (~> 3.1.0)
       scrypt
       uglifier (>= 1.3.0)
 
@@ -94,8 +95,8 @@ GEM
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
     bindex (0.8.1)
-    bootsnap (1.9.4)
-      msgpack (~> 1.0)
+    bootsnap (1.10.1)
+      msgpack (~> 1.2)
     bootstrap_form (4.5.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -128,10 +129,10 @@ GEM
     database_cleaner (1.8.5)
     deep_cloneable (3.2.0)
       activerecord (>= 3.1.0, < 8)
-    delayed_job (4.1.9)
-      activesupport (>= 3.0, < 6.2)
-    delayed_job_active_record (4.1.6)
-      activerecord (>= 3.0, < 6.2)
+    delayed_job (4.1.10)
+      activesupport (>= 3.0, < 8.0)
+    delayed_job_active_record (4.1.7)
+      activerecord (>= 3.0, < 8.0)
       delayed_job (>= 3.0, < 5)
     ebnf (2.2.1)
       amazing_print (~> 1.2)
@@ -155,7 +156,7 @@ GEM
       cliver (~> 0.3)
       concurrent-ruby (~> 1.1)
       websocket-driver (>= 0.6, < 0.8)
-    ffi (1.15.4)
+    ffi (1.15.5)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -178,7 +179,7 @@ GEM
       bundler
     iq_triplestorage (0.2.2)
     json (2.6.1)
-    json-canonicalization (0.2.1)
+    json-canonicalization (0.3.0)
     json-ld (3.1.10)
       htmlentities (~> 4.3)
       json-canonicalization (~> 0.2)
@@ -239,7 +240,7 @@ GEM
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     logger (1.5.0)
-    loofah (2.12.0)
+    loofah (2.13.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -250,8 +251,8 @@ GEM
     mini_magick (4.11.0)
     mini_mime (1.1.2)
     mini_portile2 (2.6.1)
-    minitest (5.14.4)
-    msgpack (1.4.2)
+    minitest (5.15.0)
+    msgpack (1.4.3)
     multi_json (1.15.0)
     multipart-post (2.1.1)
     net-http-persistent (4.0.1)
@@ -367,7 +368,7 @@ GEM
       rdf (~> 3.1)
       rexml (~> 3.2)
     regexp_parser (1.7.0)
-    request_store (1.5.0)
+    request_store (1.5.1)
       rack (>= 1.4)
     rexml (3.2.5)
     ruby-vips (2.1.4)
@@ -412,7 +413,7 @@ GEM
     sxp (1.1.0)
       rdf (~> 3.1)
     temple (0.8.2)
-    thor (1.1.0)
+    thor (1.2.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
     tzinfo (1.2.9)

@@ -73,7 +73,7 @@ class ConceptLabelLanguageTest < ActionDispatch::IntegrationTest
     # create, then edit concept
     visit new_concept_path(lang: 'de', format: 'html')
     click_button 'Speichern'
-    page.click_link_or_button 'Weiterbearbeiten'
+    page.click_link_or_button 'Bearbeiten'
 
     # NB: label languages do not match relation languages
     fill_in 'labeling_skosxl_pref_labels_en',

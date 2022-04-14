@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/innoq/iqvoc.git
-  revision: 4a7cb6cf5e6af91ec9a21303f0f6e173bd4b3d80
+  revision: f3790cd274a713cb54a5645141ca6cb38641ad92
   branch: master
   specs:
     iqvoc (4.13.0)
@@ -266,12 +266,12 @@ GEM
       method_source (~> 0.9.0)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    public_suffix (4.0.6)
+    public_suffix (4.0.7)
     puma (5.6.4)
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3)
-    rack-mini-profiler (2.3.3)
+    rack-mini-profiler (3.0.0)
       rack (>= 1.2.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)

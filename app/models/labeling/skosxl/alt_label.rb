@@ -5,4 +5,12 @@ class Labeling::SKOSXL::AltLabel < Labeling::SKOSXL::Base
   def self.view_section_sort_key(obj)
     60
   end
+
+  def build_search_result_rdf(document, result)
+    result.Sdc::link(IqRdf.build_uri(owner.origin))
+    # also render prefLabel literal and uri to alt labelings
+    result.send(Labeling::SKOSXL::PrefLabel.rdf_namespace.camelcase).send(Labeling::SKOSXL::PrefLabel.rdf_predicate, IqRdf.build_uri(owner.pref_label.origin))
+    result.Skos.send(Labeling::SKOS::PrefLabel.rdf_predicate, owner.pref_label.value, lang: owner.pref_label.language)
+    build_rdf(document, result)
+  end
 end

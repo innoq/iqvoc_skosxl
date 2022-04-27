@@ -41,7 +41,7 @@ class SearchTest < ActionDispatch::IntegrationTest
     click_button 'Save'
     click_link_or_button 'Publish'
 
-    Note::Annotated::Base.where(predicate: "created").second.update_attributes(value: (DateTime.now - 10.days).to_s)
+    Note::Annotated::Base.where(predicate: "created").second.update(value: (DateTime.now - 10.days).to_s)
 
     visit search_path(lang: 'en', format: 'html')
     find('#t').select 'Labels'

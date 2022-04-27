@@ -112,7 +112,7 @@ class LabelsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        if @label.update_attributes(label_params)
+        if @label.update(label_params)
           flash[:success] = I18n.t('txt.controllers.versioned_label.update_success')
           redirect_to label_path(published: 0, id: @label)
         else

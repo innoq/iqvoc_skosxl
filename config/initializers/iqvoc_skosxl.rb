@@ -1,1 +1,1 @@
-require 'iqvoc_skosxl'
+require 'iqvoc/xllabel'

@@ -30,5 +30,9 @@ module Iqvoc::SKOSXL
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    #
+
+    # This has to be here because iqvoc_skosxl.rb needs to know if it runs as app or as engine
+    require 'iqvoc_skosxl'
   end
 end

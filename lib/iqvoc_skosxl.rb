@@ -1,3 +1,6 @@
+require 'iqvoc/xllabel'
+require 'iqvoc/skosxl/version'
+
 module IqvocSKOSXL
   unless Iqvoc.const_defined?(:SKOSXL) && Iqvoc::SKOSXL.const_defined?(:Application)
     require File.join(File.dirname(__FILE__), '../config/engine')

@@ -185,12 +185,14 @@ class LabelsController < ApplicationController
   end
 
   def search_string(query, mode = 'contains')
+    input = query.strip
+
     if mode == 'exact_match'
-      "#{query}"
+      "#{input}"
     elsif mode == 'begins'
-      "#{query}%"
+      "#{input}%"
     else
-      "%#{query}%"
+      "%#{input}%"
     end
   end
 end

@@ -4,8 +4,8 @@ jQuery(document).ready(function($) {
   var uriTemplate = $labelInput.data('entity-uri');
 
   if (target && uriTemplate) {
-    $labelInput.on('keyup', IQVOC.debounce(function() {
-      var labelValue = this.value;
+    $labelInput.on('input', IQVOC.debounce(function() {
+      var labelValue = this.value.trim();
 
       queryLabels(target, labelValue).then(function(labels) {
         resetInput($labelInput);

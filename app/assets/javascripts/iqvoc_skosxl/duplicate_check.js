@@ -30,7 +30,7 @@ jQuery(document).ready(function($) {
         url: target,
         data: {
           query: value,
-          mode: 'exact_match'
+          // mode: 'exact_match'
         }
       })
       .done(function(response) {

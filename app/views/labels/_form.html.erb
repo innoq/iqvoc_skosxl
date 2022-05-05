@@ -11,7 +11,8 @@
                      data: {
                        'query-url': labels_path(:format => :json),
                        'entity-uri' => label_path(:id => '{id}'),
-                       'duplicate-message': t("txt.common.duplicate_labels")
+                       'duplicate-message': t("txt.common.duplicate_labels"),
+                       'duplicate-check-mode': Iqvoc.config['label_duplicate_check_mode'] || 'exact_match',
                      } %>
 
     <%= f.select :language, Iqvoc.all_languages %>

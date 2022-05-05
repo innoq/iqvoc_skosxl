@@ -14,7 +14,8 @@ module IqvocSKOSXL
       cfg.deregister_setting("#{prefix}Labeling::SKOS::AltLabel") # iQvoc core default
       cfg.register_settings({
         'title' => 'iQvoc SKOS-XL',
-        "#{prefix}Labeling::SKOSXL::AltLabel" => ['en', 'de']
+        "#{prefix}Labeling::SKOSXL::AltLabel" => ['en', 'de'],
+        "label_duplicate_check_mode" => "contains"
       })
     end
 

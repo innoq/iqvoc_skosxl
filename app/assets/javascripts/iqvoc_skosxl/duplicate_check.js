@@ -2,12 +2,13 @@ jQuery(document).ready(function($) {
   var $labelInput = $('#label_value');
   var target = $labelInput.data('query-url');
   var uriTemplate = $labelInput.data('entity-uri');
+  var mode = $labelInput.data('duplicate-check-mode')
 
   if (target && uriTemplate) {
     $labelInput.on('input', IQVOC.debounce(function() {
       var labelValue = this.value.trim();
 
-      queryLabels(target, labelValue).then(function(labels) {
+      queryLabels(target, labelValue, mode).then(function(labels) {
         resetInput($labelInput);
 
         if (labels.length > 0) {
@@ -19,18 +20,18 @@ jQuery(document).ready(function($) {
     );
   }
 
-  function queryLabels(target, value) {
+  function queryLabels(target, value, mode) {
     return new Promise(function(resolve, _reject) {
       if (value === '' || value.length < 3) {
         resolve([])
         return;
-      };
+      }
 
       $.ajax({
         url: target,
         data: {
           query: value,
-          // mode: 'exact_match'
+          mode: searchMode(mode),
         }
       })
       .done(function(response) {
@@ -40,6 +41,15 @@ jQuery(document).ready(function($) {
         resolve([]); // return empty result on failure
       })
     });
+  }
+
+  function searchMode(mode) {
+    const MODES = ['begins', 'exact_match', 'contains']
+    if (MODES.includes(mode)) {
+      return mode
+    } else {
+      return 'contains'
+    }
   }
 
   function setWarningState($valueInput) {

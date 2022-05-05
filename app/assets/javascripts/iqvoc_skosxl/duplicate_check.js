@@ -73,7 +73,7 @@ jQuery(document).ready(function($) {
   function buildLabelList($valueInput, labels, uriTemplate) {
     var ul = $('<ul class="list-inline"></ul>')
     var lis =  labels.map(function(label) {
-      return $('<li>').append(buildLabelLink(label, uriTemplate))
+      return $('<li class="list-inline-item mr-1">').append(buildLabelLink(label, uriTemplate))
     });
 
     return ul.append(lis);
@@ -86,6 +86,7 @@ jQuery(document).ready(function($) {
     }
 
     var labelLink = $('<a>', {
+      class: "badge badge-secondary",
       text: label.name,
       href: uri
     });

@@ -5,7 +5,7 @@ jQuery(document).ready(function($) {
   var mode = $labelInput.data('duplicate-check-mode')
 
   if (target && uriTemplate) {
-    $labelInput.on('input keyup', IQVOC.debounce(function() {
+    $labelInput.on('input', IQVOC.debounce(function() {
       var labelValue = this.value.trim();
 
       queryLabels(target, labelValue, mode).then(function(labels) {
@@ -63,7 +63,7 @@ jQuery(document).ready(function($) {
   function setFeedback($valueInput, labels, uriTemplate) {
     var duplicates = buildLabelList($valueInput, labels, uriTemplate);
     var message = $valueInput.data('duplicate-message');
-    var feedback = $('<span class="form-text text-muted"></span>')
+    var feedback = $('<span id="feedback" class="form-text text-muted"></span>')
       .text(message)
       .append(duplicates);
 
@@ -98,7 +98,7 @@ jQuery(document).ready(function($) {
     $(formGroup).removeClass('has-warning has-feedback');
 
     // remove sign and message from dom
-    $(formGroup).find('.help-block').remove();
+    $(formGroup).find('#feedback').remove();
     $(formGroup).find('#duplicate-warning').remove();
   }
 });

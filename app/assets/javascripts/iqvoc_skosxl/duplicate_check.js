@@ -5,7 +5,7 @@ jQuery(document).ready(function($) {
   var mode = $labelInput.data('duplicate-check-mode')
 
   if (target && uriTemplate) {
-    $labelInput.on('input', IQVOC.debounce(function() {
+    $labelInput.on('input keyup', IQVOC.debounce(function() {
       var labelValue = this.value.trim();
 
       queryLabels(target, labelValue, mode).then(function(labels) {

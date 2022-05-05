@@ -63,7 +63,7 @@ jQuery(document).ready(function($) {
   function setFeedback($valueInput, labels, uriTemplate) {
     var duplicates = buildLabelList($valueInput, labels, uriTemplate);
     var message = $valueInput.data('duplicate-message');
-    var feedback = $('<span class="help-block"></span>')
+    var feedback = $('<span class="form-text text-muted"></span>')
       .text(message)
       .append(duplicates);
 

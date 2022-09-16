@@ -4,7 +4,7 @@ module LabelsHelper
 
       c.Schema::expires(label.expired_at.to_s) if label.expired_at
 
-      c.Owl::deprecated(true) if label.expired_at and label.expired_at <= Date.new
+      c.Owl::deprecated(true) if label.expired?
 
       c.Skosxl::literalForm(label.value, lang: label.language)
 

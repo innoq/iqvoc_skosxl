@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/innoq/iqvoc.git
-  revision: 42b267bdab0fd310b66c7d758b0deacb0ebe6180
+  revision: 59bded81726796e4871a51357bc44e7efda7afe0
   branch: master
   specs:
     iqvoc (4.13.2)
@@ -277,7 +277,7 @@ GEM
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     logger (1.5.2)
-    loofah (2.19.0)
+    loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.8.0)
@@ -348,8 +348,8 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.4.3)
-      loofah (~> 2.3)
+    rails-html-sanitizer (1.4.4)
+      loofah (~> 2.19, >= 2.19.1)
     rails_autolink (1.1.7)
       rails (> 3.1)
     railties (6.1.7)

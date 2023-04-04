@@ -14,7 +14,7 @@ class ExtendLabel < ActiveRecord::Migration[4.2]
     FIELDS.each do |hsh|
       hsh.each do |column_name, hsh2|
         unless column_exists?(:labels, column_name)
-          add_column(:labels, column_name, hsh2[:type], (hsh2[:options] || {}))
+          add_column(:labels, column_name, hsh2[:type], **(hsh2[:options] || {}))
         end
       end
     end

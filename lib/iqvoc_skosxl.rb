@@ -26,6 +26,7 @@ module IqvocSKOSXL
     Iqvoc::Concept.include_module_names << 'Concept::SKOSXL::Extension'
     Iqvoc::Concept.pref_labeling_class_name = 'Labeling::SKOSXL::PrefLabel'
     Iqvoc::Concept.alt_labeling_class_name = 'Labeling::SKOSXL::AltLabel'
+    Iqvoc::Concept.hidden_labeling_class_name = 'Labeling::SKOSXL::HiddenLabel'
 
     Iqvoc::Collection.include_module_names << 'Collection::SKOSXL::Extension'
 

@@ -1,3 +1,5 @@
+require 'labels_helper'
+
 silence_warnings do
   Iqvoc::Label = nil
 end

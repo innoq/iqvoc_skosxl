@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'iqvoc', '~> 4.13.0', github: 'innoq/iqvoc', branch: 'rails-7'
+gem 'iqvoc', '~> 4.14.0', github: 'innoq/iqvoc', branch: 'master'
 
 platforms :ruby do
   gem 'pg'

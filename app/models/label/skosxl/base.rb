@@ -159,6 +159,22 @@ class Label::SKOSXL::Base < Label::Base
 
   # ********** Methods
 
+  def <=>(other)
+    self.to_s.downcase <=> other.to_s.downcase
+  end
+
+  def ==(other)
+    language == other.try(:language) && value == other.try(:value) && rev == other.try(:rev)
+  end
+
+  def eql?(other)
+    self == other
+  end
+
+  def hash
+    [value, language, rev].hash
+  end
+
   def self.single_query(params = {})
     query_str = build_query_string(params)
 

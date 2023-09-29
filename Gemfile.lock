@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/innoq/iqvoc.git
-  revision: 3e294f4401916fd5eab0154b3fc22ee5b8f387bb
+  revision: 045b089839b93acce8c15ace6d23adf197ebf3aa
   branch: master
   specs:
-    iqvoc (4.14.0)
+    iqvoc (4.14.1)
       apipie-rails
       authlogic
       bootsnap
@@ -203,7 +203,7 @@ GEM
       rake
     globalid (1.2.1)
       activesupport (>= 6.1)
-    haml (6.1.2)
+    haml (6.2.0)
       temple (>= 0.8.2)
       thor
       tilt
@@ -509,7 +509,7 @@ DEPENDENCIES
   better_errors
   capybara
   cuprite
-  iqvoc (~> 4.14.0)!
+  iqvoc (~> 4.14.1)!
   listen
   pg
   pry-rails

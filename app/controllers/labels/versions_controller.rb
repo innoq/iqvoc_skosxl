@@ -7,7 +7,7 @@ class Labels::VersionsController < ApplicationController
 
     ActiveRecord::Base.transaction do
       new_version.publish
-      new_version.unlock
+
       if new_version.publishable?
         new_version.save
         begin
@@ -48,7 +48,7 @@ class Labels::VersionsController < ApplicationController
       authorize! :branch, current_label
       new_version = nil
       ActiveRecord::Base.transaction do
-        new_version = current_label.branch(current_user)
+        new_version = current_label.branch
         new_version.save!
         Iqvoc.change_note_class.create! do |note|
           note.owner = new_version
@@ -63,32 +63,6 @@ class Labels::VersionsController < ApplicationController
       flash[:success] = t('txt.controllers.versioning.branched')
       redirect_to edit_label_path(published: 0, id: new_version, check_associations_in_editing_mode: true)
     end
-  end
-
-  def lock
-    new_version = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last!
-    raise "Label with origin '#{params[:origin]}' has already been locked." if new_version.locked?
-
-    authorize! :lock, new_version
-
-    new_version.lock_by_user(current_user.id)
-    new_version.save!
-
-    flash[:success] = t('txt.controllers.versioning.locked')
-    redirect_to edit_label_path(published: 0, id: new_version)
-  end
-
-  def unlock
-    new_version = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last!
-    raise "Label with origin '#{params[:origin]}' wasn't locked." unless new_version.locked?
-
-    authorize! :unlock, new_version
-
-    new_version.unlock
-    new_version.save!
-
-    flash[:success] = t('txt.controllers.versioning.unlocked')
-    redirect_to label_path(published: 0, id: new_version)
   end
 
   def consistency_check
@@ -110,9 +84,6 @@ class Labels::VersionsController < ApplicationController
 
     authorize! :send_to_review, label
     label.to_review
-
-    authorize! :unlock, label
-    label.unlock
 
     label.save!
     flash[:success] = t('txt.controllers.versioning.to_review_success')

@@ -61,7 +61,7 @@ class LabelsRelationTest < ActionDispatch::IntegrationTest
     visit label_path(@dog_en, lang: 'en', format: 'html')
     click_link_or_button('Create new version')
     assert_equal edit_label_path(@dog_en, lang: 'en', format: 'html'), current_path
-    assert page.has_content? 'Instance copy has been created and locked.'
+    assert page.has_content? 'Instance copy has been created.'
 
     # add translation dog_en => dog_de
     fill_in 'label_relation_skosxl_translations', with: 'dog_de'
@@ -101,7 +101,7 @@ class LabelsRelationTest < ActionDispatch::IntegrationTest
     visit label_path(@dog_en, lang: 'en', format: 'html')
     click_link_or_button('Create new version')
     assert_equal edit_label_path(@dog_en, lang: 'en', format: 'html'), current_path
-    assert page.has_content? 'Instance copy has been created and locked.'
+    assert page.has_content? 'Instance copy has been created.'
 
     # add translation dog_en => dog_de
     fill_in 'label_relation_skosxl_unidirectional_relations', with: 'dog_de'

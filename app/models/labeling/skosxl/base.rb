@@ -4,7 +4,7 @@ class Labeling::SKOSXL::Base < Labeling::Base
   self.rdf_predicate = nil
 
   def self.target_in_edit_mode
-    includes(:target).references(:labels).merge(Iqvoc::XLLabel.base_class.in_edit_mode)
+    includes(:target).references(:labels).merge(Iqvoc::XLLabel.base_class.unpublished)
   end
 
   def self.by_label_origin(origin)

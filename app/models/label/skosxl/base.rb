@@ -144,7 +144,7 @@ class Label::SKOSXL::Base < Label::Base
   end
 
   def self.for_dashboard
-    unpublished_or_follow_up.includes(:locking_user)
+    unpublished_or_follow_up
   end
 
   # ********** Class Methods
@@ -331,7 +331,6 @@ class Label::SKOSXL::Base < Label::Base
     clone = deep_clone(except: [:origin, :rev, :published_version_id, :published_at, :expired_at, :to_review], include: [:labelings])
 
     clone.origin = Origin.new.to_s
-    clone.locked_by = user.id
     clone.value += " [#{I18n.t('txt.models.label.copy')}]"
 
     clone.labelings.select { |l| l.type == "Labeling::SKOSXL::PrefLabel" }.each do |l|

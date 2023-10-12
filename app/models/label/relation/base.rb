@@ -28,7 +28,7 @@ class Label::Relation::Base < ApplicationRecord
   end
 
   def self.range_in_edit_mode
-    joins(:range).references(:labels).merge(Iqvoc::XLLabel.base_class.in_edit_mode)
+    joins(:range).references(:labels).merge(Iqvoc::XLLabel.base_class.unpublished)
   end
 
   def self.view_section(obj)

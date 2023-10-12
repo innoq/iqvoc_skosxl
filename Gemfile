@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'iqvoc', '~> 4.14.1', github: 'innoq/iqvoc', branch: 'master'
+gem 'iqvoc', '~> 4.14.1', github: 'innoq/iqvoc', branch: 'remove-locking'
 
 platforms :ruby do
   gem 'pg'

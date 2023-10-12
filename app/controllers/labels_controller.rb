@@ -69,7 +69,6 @@ class LabelsController < ApplicationController
     authorize! :create, Iqvoc::XLLabel.base_class
 
     @label = Iqvoc::XLLabel.base_class.new(label_params)
-    @label.lock_by_user(current_user.id)
 
     if @label.valid?
       if @label.save
@@ -165,7 +164,6 @@ class LabelsController < ApplicationController
 
     @label = Iqvoc::XLLabel.base_class.new(label_params)
     @label.build_initial_change_note(current_user)
-    @label.lock_by_user(current_user.id)
 
     if @label.save
       #TODO: idea for solving this

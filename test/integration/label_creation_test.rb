@@ -68,4 +68,12 @@ class LabelCreationTest < ActionDispatch::IntegrationTest
     click_link_or_button 'Konsistenz prüfen'
     assert page.has_content? 'Instanz ist inkonsistent.'
   end
+
+  test 'inconsistent label that is sent for review' do
+    visit new_label_path(lang: 'de', language: 'de')
+    fill_in 'Vorlageform', with: ''
+    click_link_or_button 'Speichern'
+    click_link_or_button 'Zur Freigabe vorlegen'
+    assert page.has_content? 'Instanz ist inkonsistent.'
+  end
 end

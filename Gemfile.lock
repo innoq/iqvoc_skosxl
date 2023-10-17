@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/innoq/iqvoc.git
-  revision: e8bb682f76dac2690a918adbee6a534feba171e3
+  revision: 857b251d20a4794968b81abb3481e522ca63eb3b
   branch: master
   specs:
-    iqvoc (4.14.1)
+    iqvoc (4.14.2)
       apipie-rails
       authlogic
       bootsnap
@@ -155,7 +155,7 @@ GEM
       activerecord (>= 3.1.0, < 8)
     delayed_job (4.1.11)
       activesupport (>= 3.0, < 8.0)
-    delayed_job_active_record (4.1.7)
+    delayed_job_active_record (4.1.8)
       activerecord (>= 3.0, < 8.0)
       delayed_job (>= 3.0, < 5)
     ebnf (2.4.0)
@@ -325,7 +325,7 @@ GEM
       method_source (~> 1.0)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    psych (5.1.1)
+    psych (5.1.1.1)
       stringio
     public_suffix (5.0.3)
     puma (6.4.0)
@@ -509,7 +509,7 @@ DEPENDENCIES
   better_errors
   capybara
   cuprite
-  iqvoc (~> 4.14.1)!
+  iqvoc (~> 4.14.2)!
   listen
   pg
   pry-rails

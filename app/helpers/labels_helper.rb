@@ -12,8 +12,10 @@ module LabelsHelper
         relation.build_rdf(document, c)
       end
 
-      label.notes.each do |note|
-        note.build_rdf(document, c)
+      if Iqvoc::rdf_show_change_notes
+        label.notes.each do |note|
+          note.build_rdf(document, c)
+        end
       end
 
       Iqvoc::XLLabel.additional_association_class_names.keys.each do |class_name|

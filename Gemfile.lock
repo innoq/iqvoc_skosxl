@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/innoq/iqvoc.git
-  revision: 777cd36fb3e4e98bb448ef2c4f582307c28a81fb
+  revision: d361b91079dfd0b3c929f5b42a6086600b7e5bce
   branch: master
   specs:
-    iqvoc (4.14.4)
+    iqvoc (4.14.5)
       apipie-rails
       authlogic
       bootsnap

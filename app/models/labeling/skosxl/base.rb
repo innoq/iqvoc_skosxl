@@ -55,7 +55,7 @@ class Labeling::SKOSXL::Base < Labeling::Base
         scope = scope.includes(owner: { collection_members: :collection })
         scope = scope.where("#{Collection::Member::Base.table_name}.collection_id" => collection.id)
       else
-        raise "Collection with Origin #{params[:collection_origin]} not found!"
+        Rails.logger.warn "Collection with Origin #{params[:collection_origin]} not found!"
       end
     end
 

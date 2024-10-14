@@ -1,4 +1,4 @@
-![CI](https://github.com/innoq/iqvoc_skosxl/workflows/CI/badge.svg?branch=master)
+![CI](https://github.com/innoq/iqvoc_skosxl/workflows/CI/badge.svg?branch=main)
 
 # Iqvoc::SKOSXL
 

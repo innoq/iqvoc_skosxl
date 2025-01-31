@@ -21,3 +21,4 @@ tmp
 
 .ruby-version
 node_modules
+Gemfile.lock

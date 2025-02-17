@@ -4,7 +4,7 @@ require 'iqvoc/skosxl/version'
 
 Gem::Specification.new do |s|
   s.name        = 'iqvoc_skosxl'
-  s.version     = Iqvoc::SKOSXL::VERSION
+  s.version     = Iqvoc::Skosxl::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Robert Glaser', 'Till Schulte-Coerne', 'Frederik Dohr']
   s.email       = ['till.schulte-coerne@innoq.com']

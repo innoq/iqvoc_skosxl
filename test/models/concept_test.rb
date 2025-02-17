@@ -7,8 +7,8 @@ class ConceptTest < ActiveSupport::TestCase
   end
 
   test 'exclusive pref label' do
-    monkey = RDFAPI.devour 'Monkey', 'a', 'skos:Concept'
-    monkey_label = Iqvoc::XLLabel.base_class.create(
+    monkey = RdfApi.devour 'Monkey', 'a', 'skos:Concept'
+    monkey_label = Iqvoc::Xllabel.base_class.create(
       language: 'en', value: 'Monkey', published_at: 3.days.ago)
 
     monkey.pref_labels << monkey_label
@@ -21,10 +21,10 @@ class ConceptTest < ActiveSupport::TestCase
   end
 
   test 'unique alt labels' do
-    tiger = RDFAPI.devour 'Tiger', 'a', 'skos:Concept'
-    tiger_label = Iqvoc::XLLabel.base_class.create(
+    tiger = RdfApi.devour 'Tiger', 'a', 'skos:Concept'
+    tiger_label = Iqvoc::Xllabel.base_class.create(
       language: 'en', value: 'Tiger', published_at: 3.days.ago)
-    tiger_alt_label = Iqvoc::XLLabel.base_class.create(
+    tiger_alt_label = Iqvoc::Xllabel.base_class.create(
       language: 'en', value: 'Big Cat', published_at: 3.days.ago)
 
     tiger.pref_labels << tiger_label
@@ -38,10 +38,10 @@ class ConceptTest < ActiveSupport::TestCase
   end
 
   test 'concepts alt label language change' do
-    dog = RDFAPI.devour 'Dog', 'a', 'skos:Concept'
-    dog.pref_labels << Iqvoc::XLLabel.base_class.create(
+    dog = RdfApi.devour 'Dog', 'a', 'skos:Concept'
+    dog.pref_labels << Iqvoc::Xllabel.base_class.create(
       language: 'en', value: 'Dog', published_at: 3.days.ago)
-    dog.alt_labels << Iqvoc::XLLabel.base_class.create(
+    dog.alt_labels << Iqvoc::Xllabel.base_class.create(
       language: 'en', value: 'Hound', published_at: 3.days.ago)
 
     assert dog.save
@@ -59,10 +59,10 @@ class ConceptTest < ActiveSupport::TestCase
   end
 
   test 'additional unpublished label revision do not prevent published' do
-    dog = RDFAPI.devour 'Dog', 'a', 'skos:Concept'
-    dog.pref_labels << Iqvoc::XLLabel.base_class.create(
+    dog = RdfApi.devour 'Dog', 'a', 'skos:Concept'
+    dog.pref_labels << Iqvoc::Xllabel.base_class.create(
       language: 'en', value: 'Dog', published_at: 3.days.ago)
-    dog.alt_labels << Iqvoc::XLLabel.base_class.create(
+    dog.alt_labels << Iqvoc::Xllabel.base_class.create(
       language: 'en', value: 'Hound', published_at: nil)
 
     assert dog.save
@@ -71,9 +71,9 @@ class ConceptTest < ActiveSupport::TestCase
   end
 
   test 'concepts pref label language change' do
-    dog = RDFAPI.devour 'Dog', 'a', 'skos:Concept'
+    dog = RdfApi.devour 'Dog', 'a', 'skos:Concept'
     refute dog.publishable?
-    dog.pref_labels << Iqvoc::XLLabel.base_class.create(
+    dog.pref_labels << Iqvoc::Xllabel.base_class.create(
       language: 'en', value: 'Dog', published_at: 3.days.ago)
 
     assert dog.save!

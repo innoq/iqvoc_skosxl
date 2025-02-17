@@ -22,7 +22,7 @@ class LabelsOrderTest < ActionDispatch::IntegrationTest
     lang = 'en'
     # create a few labels
     names.each_with_index do |name, index|
-      label = Label::SKOSXL::Base.create! do |l|
+      label = Label::Skosxl::Base.create! do |l|
         l.origin = "#{name}-#{index}"
         l.value = name
         l.language = lang

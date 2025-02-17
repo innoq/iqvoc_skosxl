@@ -19,7 +19,7 @@ class XlDashboardController < DashboardController
   def label_index
     authorize! :use, :dashboard
 
-    labels = Iqvoc::XLLabel.base_class.for_dashboard.load
+    labels = Iqvoc::Xllabel.base_class.for_dashboard.load
 
     if params[:sort] && params[:sort].include?('state ')
       sort = params[:sort].split(',').select { |s| s.include? 'state ' }.last.gsub('state ', '')
@@ -37,7 +37,7 @@ class XlDashboardController < DashboardController
 
     @items = Kaminari.paginate_array(labels).page(params[:page])
 
-    render 'dashboard/index', locals: { active_class: Iqvoc::XLLabel.base_class }
+    render 'dashboard/index', locals: { active_class: Iqvoc::Xllabel.base_class }
   end
 
 end

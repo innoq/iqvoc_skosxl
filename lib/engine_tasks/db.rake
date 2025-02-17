@@ -5,7 +5,7 @@ namespace :iqvoc_skosxl do
 
     desc "Load seeds (task is idempotent)"
     task :seed => :environment do
-      Iqvoc::SKOSXL::Engine.load_seed
+      Iqvoc::Skosxl::Engine.load_seed
     end
 
   end

@@ -1,4 +1,4 @@
-class Labeling::SKOSXL::PrefLabel < Labeling::SKOSXL::Base
+class Labeling::Skosxl::PrefLabel < Labeling::Skosxl::Base
   self.rdf_namespace = 'skosxl'
   self.rdf_predicate = 'prefLabel'
 

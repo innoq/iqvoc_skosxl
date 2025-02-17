@@ -1,7 +1,7 @@
 class Labels::VersionsController < ApplicationController
   def merge
-    current_label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).published.last
-    new_version = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last!
+    current_label = Iqvoc::Xllabel.base_class.by_origin(params[:origin]).published.last
+    new_version = Iqvoc::Xllabel.base_class.by_origin(params[:origin]).unpublished.last!
 
     authorize! :merge, new_version
 
@@ -39,9 +39,9 @@ class Labels::VersionsController < ApplicationController
   end
 
   def branch
-    current_label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).published.last!
+    current_label = Iqvoc::Xllabel.base_class.by_origin(params[:origin]).published.last!
 
-    if draft_label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last
+    if draft_label = Iqvoc::Xllabel.base_class.by_origin(params[:origin]).unpublished.last
       flash[:info] = t('txt.controllers.versioning.branch_error')
       redirect_to label_path(published: 0, id: draft_label)
     else
@@ -66,7 +66,7 @@ class Labels::VersionsController < ApplicationController
   end
 
   def consistency_check
-    label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last!
+    label = Iqvoc::Xllabel.base_class.by_origin(params[:origin]).unpublished.last!
 
     authorize! :check_consistency, label
 
@@ -80,7 +80,7 @@ class Labels::VersionsController < ApplicationController
   end
 
   def to_review
-    label = Iqvoc::XLLabel.base_class.by_origin(params[:origin]).unpublished.last!
+    label = Iqvoc::Xllabel.base_class.by_origin(params[:origin]).unpublished.last!
 
     authorize! :send_to_review, label
 

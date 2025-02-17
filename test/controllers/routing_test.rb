@@ -5,7 +5,7 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '../test_helper')
 class RoutingTest < ActionController::TestCase
   setup do
     @controller = LabelsController.new
-    @label = Iqvoc::XLLabel.base_class.create value: 'foo',
+    @label = Iqvoc::Xllabel.base_class.create value: 'foo',
         language: 'en', published_at: Time.now
   end
 

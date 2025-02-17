@@ -18,7 +18,7 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '../integration_test
 
 class DashboardTest < ActionDispatch::IntegrationTest
   setup do
-    @label = Iqvoc::XLLabel.base_class.create(
+    @label = Iqvoc::Xllabel.base_class.create(
       language: 'en', value: 'Forest', published_at: nil)
   end
 

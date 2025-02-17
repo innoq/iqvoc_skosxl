@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/innoq/iqvoc.git
-  revision: 269477c116ead593fe4105e003177b4991ea5919
+  revision: 14c077c70f0054cbb74a5f0c38dc74a9d4f8e38b
   branch: rails-7
   specs:
     iqvoc (4.14.5)

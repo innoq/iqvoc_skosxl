@@ -19,32 +19,32 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '../integration_test
 class LabelsRelationTest < ActionDispatch::IntegrationTest
 
   # sample bidirectional relation
-  module Label::Relation::SKOSXL
-    class Translation < Label::Relation::SKOSXL::Base
+  module Label::Relation::Skosxl
+    class Translation < Label::Relation::Skosxl::Base
       def self.bidirectional?
         true
       end
     end
 
-    class UnidirectionalRelation < Label::Relation::SKOSXL::Base
+    class UnidirectionalRelation < Label::Relation::Skosxl::Base
     end
   end
 
   # add label relation to iqvoc initializer
-  Iqvoc::XLLabel.relation_class_names = [
-    'Label::Relation::SKOSXL::Translation',
-    'Label::Relation::SKOSXL::UnidirectionalRelation'
+  Iqvoc::Xllabel.relation_class_names = [
+    'Label::Relation::Skosxl::Translation',
+    'Label::Relation::Skosxl::UnidirectionalRelation'
   ]
 
   setup do
-    @dog_en = Iqvoc::XLLabel.base_class.create!(
+    @dog_en = Iqvoc::Xllabel.base_class.create!(
       language: 'en',
       value: 'Dog',
       origin: 'dog_en',
       published_at: Time.now
     )
 
-    @dog_de = Iqvoc::XLLabel.base_class.create!(
+    @dog_de = Iqvoc::Xllabel.base_class.create!(
       language: 'de',
       value: 'Hund',
       origin: 'dog_de',
@@ -71,11 +71,11 @@ class LabelsRelationTest < ActionDispatch::IntegrationTest
     click_link_or_button('Publish')
 
     # check db relations
-    dog_en_with_translation = Iqvoc::XLLabel.base_class.find_by(origin: 'dog_en')
+    dog_en_with_translation = Iqvoc::Xllabel.base_class.find_by(origin: 'dog_en')
     assert_equal 1, dog_en_with_translation.label_relation_skosxl_translations.size
     assert_equal 'dog_de', dog_en_with_translation.label_relation_skosxl_translations.first.range.origin
 
-    dog_de_with_translation = Iqvoc::XLLabel.base_class.find_by(origin: 'dog_de')
+    dog_de_with_translation = Iqvoc::Xllabel.base_class.find_by(origin: 'dog_de')
     assert_equal 1, dog_de_with_translation.label_relation_skosxl_translations.size
     assert_equal 'dog_en', dog_de_with_translation.label_relation_skosxl_translations.first.range.origin
 
@@ -87,10 +87,10 @@ class LabelsRelationTest < ActionDispatch::IntegrationTest
     click_link_or_button('Publish')
 
     # check if relations are destroyed
-    dog_en_without_translation = Iqvoc::XLLabel.base_class.find_by(origin: 'dog_en')
+    dog_en_without_translation = Iqvoc::Xllabel.base_class.find_by(origin: 'dog_en')
     assert dog_en_without_translation.label_relation_skosxl_translations.empty?
 
-    dog_de_without_translation = Iqvoc::XLLabel.base_class.find_by(origin: 'dog_de')
+    dog_de_without_translation = Iqvoc::Xllabel.base_class.find_by(origin: 'dog_de')
     assert dog_de_without_translation.label_relation_skosxl_translations.empty?
   end
 
@@ -111,11 +111,11 @@ class LabelsRelationTest < ActionDispatch::IntegrationTest
     click_link_or_button('Publish')
 
     # check db relations
-    dog_en_with_unidirectional_relalation = Iqvoc::XLLabel.base_class.find_by(origin: 'dog_en')
+    dog_en_with_unidirectional_relalation = Iqvoc::Xllabel.base_class.find_by(origin: 'dog_en')
     assert_equal 1, dog_en_with_unidirectional_relalation.label_relation_skosxl_unidirectional_relations.size
     assert_equal 'dog_de', dog_en_with_unidirectional_relalation.label_relation_skosxl_unidirectional_relations.first.range.origin
 
-    old_dog_de = Iqvoc::XLLabel.base_class.find_by(origin: 'dog_de')
+    old_dog_de = Iqvoc::Xllabel.base_class.find_by(origin: 'dog_de')
     assert old_dog_de.label_relation_skosxl_unidirectional_relations.empty?
 
     # remove previously added unidirectional relation
@@ -126,10 +126,10 @@ class LabelsRelationTest < ActionDispatch::IntegrationTest
     click_link_or_button('Publish')
 
     # check if relations are destroyed
-    dog_en_without_relations = Iqvoc::XLLabel.base_class.find_by(origin: 'dog_en')
+    dog_en_without_relations = Iqvoc::Xllabel.base_class.find_by(origin: 'dog_en')
     assert dog_en_without_relations.label_relation_skosxl_unidirectional_relations.empty?
 
-    dog_de_without_translation = Iqvoc::XLLabel.base_class.find_by(origin: 'dog_de')
+    dog_de_without_translation = Iqvoc::Xllabel.base_class.find_by(origin: 'dog_de')
     assert dog_de_without_translation.label_relation_skosxl_unidirectional_relations.empty?
   end
 end

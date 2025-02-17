@@ -18,7 +18,7 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '../integration_test
 
 class DuplicateLabelTest < ActionDispatch::IntegrationTest
   setup do
-    @label = Iqvoc::XLLabel.base_class.create(
+    @label = Iqvoc::Xllabel.base_class.create(
       language: 'de', value: 'Wald', published_at: 3.days.ago)
   end
 

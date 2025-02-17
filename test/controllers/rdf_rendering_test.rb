@@ -2,7 +2,7 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '../test_helper')
 
 class RdfRenderingTest < ActionController::TestCase
     setup do
-      @label = Iqvoc::XLLabel.base_class.create(
+      @label = Iqvoc::Xllabel.base_class.create(
           language: 'en', value: 'Forest', origin: 'forest', published_at: 3.days.ago)
 
     end

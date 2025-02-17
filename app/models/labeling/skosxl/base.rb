@@ -1,10 +1,10 @@
-class Labeling::SKOSXL::Base < Labeling::Base
+class Labeling::Skosxl::Base < Labeling::Base
   class_attribute :rdf_namespace, :rdf_predicate
   self.rdf_namespace = nil
   self.rdf_predicate = nil
 
   def self.target_in_edit_mode
-    includes(:target).references(:labels).merge(Iqvoc::XLLabel.base_class.unpublished)
+    includes(:target).references(:labels).merge(Iqvoc::Xllabel.base_class.unpublished)
   end
 
   def self.by_label_origin(origin)
@@ -29,7 +29,7 @@ class Labeling::SKOSXL::Base < Labeling::Base
   end
 
   def self.label_class
-    Iqvoc::XLLabel.base_class
+    Iqvoc::Xllabel.base_class
   end
 
   def self.single_query(params = {})
@@ -141,7 +141,7 @@ class Labeling::SKOSXL::Base < Labeling::Base
       raise "#{self.name}#build_from_rdf: Subject (#{rdf_subject}) must be a Concept."
     end
 
-    predicate_class = RDFAPI::PREDICATE_DICTIONARY[rdf_predicate] || self
+    predicate_class = RdfApi::PREDICATE_DICTIONARY[rdf_predicate] || self
     predicate_class.create do |klass|
       klass.owner = rdf_subject
       klass.target = rdf_object

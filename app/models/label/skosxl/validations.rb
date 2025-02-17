@@ -1,5 +1,5 @@
 module Label
-  module SKOSXL
+  module Skosxl
     module Validations
       extend ActiveSupport::Concern
 

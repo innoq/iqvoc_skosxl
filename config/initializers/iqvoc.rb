@@ -3,10 +3,10 @@ silence_warnings do
 end
 
 Iqvoc.searchable_class_names = {
-  'Label::SKOSXL::Base' => 'xllabels',
-  'Labeling::SKOSXL::Base' => 'labels',
-  'Labeling::SKOSXL::PrefLabel' => 'pref_labels',
-  'Labeling::SKOSXL::AltLabel' => 'alt_labels'
+  'Label::Skosxl::Base' => 'xllabels',
+  'Labeling::Skosxl::Base' => 'labels',
+  'Labeling::Skosxl::PrefLabel' => 'pref_labels',
+  'Labeling::Skosxl::AltLabel' => 'alt_labels'
 }
 
 module SkosXlExporterExtensions
@@ -17,7 +17,7 @@ module SkosXlExporterExtensions
 
     offset = 0
     loop do
-      labels = Iqvoc::XLLabel.base_class.published
+      labels = Iqvoc::Xllabel.base_class.published
                              .order('id')
                              .limit(100)
                              .offset(offset)
@@ -47,10 +47,10 @@ ActiveSupport.on_load :rdf_export_before_save do
 end
 
 ActiveSupport.on_load :skos_importer do
-  SkosImporter.prepend_first_level_object_classes(Iqvoc::XLLabel.base_class)
+  SkosImporter.prepend_first_level_object_classes(Iqvoc::Xllabel.base_class)
   SkosImporter.second_level_object_classes +=
-    [Label::SKOSXL::Properties::LiteralForm] +
-    Iqvoc::XLLabel.note_classes +
-    Iqvoc::XLLabel.relation_classes +
-    Iqvoc::XLLabel.additional_association_classes.keys
+    [Label::Skosxl::Properties::LiteralForm] +
+    Iqvoc::Xllabel.note_classes +
+    Iqvoc::Xllabel.relation_classes +
+    Iqvoc::Xllabel.additional_association_classes.keys
 end

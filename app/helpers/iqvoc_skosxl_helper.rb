@@ -2,7 +2,7 @@ module IqvocSkosxlHelper
   def render_label(label)
     if label.new_record?
       '-'
-    elsif label.is_a?(Label::SKOSXL::Base)
+    elsif label.is_a?(Label::Skosxl::Base)
       link_to(label.to_s, label_path(id: label))
     else
       label.to_s

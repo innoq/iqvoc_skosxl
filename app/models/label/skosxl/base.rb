@@ -4,6 +4,7 @@ class Label::Skosxl::Base < Label::Base
   include Versioning
   include FirstLevelObjectValidations
   include Label::Skosxl::Validations
+  include Expirable
 
   class_attribute :rdf_namespace, :rdf_class
   self.rdf_namespace = 'skosxl'

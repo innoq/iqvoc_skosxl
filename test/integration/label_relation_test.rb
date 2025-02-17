@@ -18,24 +18,6 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '../integration_test
 
 class LabelsRelationTest < ActionDispatch::IntegrationTest
 
-  # sample bidirectional relation
-  module Label::Relation::Skosxl
-    class Translation < Label::Relation::Skosxl::Base
-      def self.bidirectional?
-        true
-      end
-    end
-
-    class UnidirectionalRelation < Label::Relation::Skosxl::Base
-    end
-  end
-
-  # add label relation to iqvoc initializer
-  Iqvoc::Xllabel.relation_class_names = [
-    'Label::Relation::Skosxl::Translation',
-    'Label::Relation::Skosxl::UnidirectionalRelation'
-  ]
-
   setup do
     @dog_en = Iqvoc::Xllabel.base_class.create!(
       language: 'en',

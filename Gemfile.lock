@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/innoq/iqvoc.git
-  revision: 14c077c70f0054cbb74a5f0c38dc74a9d4f8e38b
-  branch: rails-7
+  revision: 2945dc3e81f6ed84aad3a92c1cb0be09d677c4ab
+  branch: main
   specs:
     iqvoc (4.14.5)
       apipie-rails

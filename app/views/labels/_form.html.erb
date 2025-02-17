@@ -17,7 +17,7 @@
 
     <%= f.select :language, Iqvoc.all_languages %>
 
-    <% if Iqvoc::XLLabel.has_additional_base_data %>
+    <% if Iqvoc::Xllabel.has_additional_base_data %>
       <%= render 'partials/label/additional_base_data', :f => f %>
     <% end %>
 
@@ -25,16 +25,16 @@
     <%= f.text_field :expired_at, :class => 'datepicker' %>
   </fieldset>
 
-  <% if Iqvoc::XLLabel.relation_classes.any? %>
+  <% if Iqvoc::Xllabel.relation_classes.any? %>
   <fieldset>
-    <legend><%= Label::Relation::SKOSXL::Base.model_name.human(:count => 2) %></legend>
-      <% Iqvoc::XLLabel.relation_classes.each do |relation_class| %>
+    <legend><%= Label::Relation::Skosxl::Base.model_name.human(:count => 2) %></legend>
+      <% Iqvoc::Xllabel.relation_classes.each do |relation_class| %>
         <%= render relation_class.edit_partial_name(label), :f => f, :label => label, :klass => relation_class %>
       <% end %>
   </fieldset>
   <% end %>
 
-  <% Iqvoc::XLLabel.additional_association_classes.keys.each do |association_class| %>
+  <% Iqvoc::Xllabel.additional_association_classes.keys.each do |association_class| %>
     <fieldset>
       <legend><%= association_class.model_name.human(:count => 2) %></legend>
       <%= render association_class.edit_partial_name(label), :label => label, :klass => association_class, :f => f %>
@@ -42,7 +42,7 @@
   <% end %>
 
 
-  <% Iqvoc::XLLabel.note_classes.each do |note_class| %>
+  <% Iqvoc::Xllabel.note_classes.each do |note_class| %>
     <% unless note_class.edit_partial_name(label).nil? %>
       <%= render note_class.edit_partial_name(label), :owner_klass => label, :assoc_klass => note_class, :f => f %>
     <% end %>

@@ -24,7 +24,7 @@ class ConceptLabelLanguageTest < ActionDispatch::IntegrationTest
       'English' => 'en',
       'Deutsch' => 'de'
     }.each { |name, lang|
-      @labels[name] = Iqvoc::XLLabel.base_class.create(
+      @labels[name] = Iqvoc::Xllabel.base_class.create(
         origin: "_#{name}", language: lang, value: name, published_at: Time.now)
     }
   end

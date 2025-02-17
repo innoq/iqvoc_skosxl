@@ -1,5 +1,5 @@
 module Concept
-  module SKOSXL
+  module Skosxl
     module Extension
       extend ActiveSupport::Concern
 
@@ -22,7 +22,7 @@ module Concept
                   split(InlineDataHelper::SPLITTER).map(&:squish)
 
               # Iterate over all labels to be added and create them
-              Iqvoc::XLLabel.base_class.by_origin(new_origins).each do |l|
+              Iqvoc::Xllabel.base_class.by_origin(new_origins).each do |l|
                 concept.send(labeling_relation_name).create!(target: l)
               end
             end
@@ -46,7 +46,7 @@ module Concept
         (@labelings_by_id || {}).each { |labeling_class_name, origin_mappings|
           origin_mappings.each { |language, new_origins|
             new_origins = new_origins.split(InlineDataHelper::SPLITTER)
-            Iqvoc::XLLabel.base_class.by_origin(new_origins).published.each do |label|
+            Iqvoc::Xllabel.base_class.by_origin(new_origins).published.each do |label|
               if label.language != language.to_s
                 errors.add(:base,
                     I18n.t('txt.controllers.versioned_concept.label_error') % label)

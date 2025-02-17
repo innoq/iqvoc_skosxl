@@ -1,4 +1,4 @@
-<% data_entities = Iqvoc::XLLabel.base_class.editor_selectable
+<% data_entities = Iqvoc::Xllabel.base_class.editor_selectable
                       .by_origin(label.send("inline_#{klass.name.to_relation_name}"))
                       .map { |l| label_widget_data(l) }.to_json
 %>

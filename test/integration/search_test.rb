@@ -27,7 +27,7 @@ class SearchTest < ActionDispatch::IntegrationTest
     click_link_or_button 'Publish'
 
     visit new_concept_path(lang: 'en', format: 'html', published: 0)
-    fill_in 'labeling_skosxl_pref_labels_en', with: Iqvoc::XLLabel.base_class.first.origin
+    fill_in 'labeling_skosxl_pref_labels_en', with: Iqvoc::Xllabel.base_class.first.origin
     click_button 'Save'
     click_link_or_button 'Publish'
 
@@ -37,7 +37,7 @@ class SearchTest < ActionDispatch::IntegrationTest
     click_link_or_button 'Publish'
 
     visit new_concept_path(lang: 'en', format: 'html', published: 0)
-    fill_in 'labeling_skosxl_pref_labels_en', with: Iqvoc::XLLabel.base_class.second.origin
+    fill_in 'labeling_skosxl_pref_labels_en', with: Iqvoc::Xllabel.base_class.second.origin
     click_button 'Save'
     click_link_or_button 'Publish'
 
@@ -54,19 +54,19 @@ class SearchTest < ActionDispatch::IntegrationTest
   end
 
   test 'filtering xl-labels by change note date' do
-    apple_label = Iqvoc::XLLabel.base_class.create!(language: 'de', value: 'Apple', origin: 'apple', published_at: Time.now)
+    apple_label = Iqvoc::Xllabel.base_class.create!(language: 'de', value: 'Apple', origin: 'apple', published_at: Time.now)
     apple_label.note_skos_change_notes.create!(language: 'de').tap do |note|
       note.annotations.create!(namespace: 'dct', predicate: 'creator', value: 'Arnulf Beckenbauer')
       note.annotations.create!(namespace: 'dct', predicate: 'created', value: '2017-06-01')
     end
 
-    banana_label = Iqvoc::XLLabel.base_class.create!(language: 'de', value: 'Banana', origin: 'banana', published_at: Time.now)
+    banana_label = Iqvoc::Xllabel.base_class.create!(language: 'de', value: 'Banana', origin: 'banana', published_at: Time.now)
     banana_label.note_skos_change_notes.create!(language: 'de').tap do |note|
       note.annotations.create!(namespace: 'dct', predicate: 'creator', value: 'Arnulf Beckenbauer')
       note.annotations.create!(namespace: 'dct', predicate: 'modified', value: '2017-06-10')
     end
 
-    peach_label = Iqvoc::XLLabel.base_class.create!(language: 'de', value: 'Peach', origin: 'peach', published_at: Time.now)
+    peach_label = Iqvoc::Xllabel.base_class.create!(language: 'de', value: 'Peach', origin: 'peach', published_at: Time.now)
     peach_label.note_skos_change_notes.create!(language: 'de').tap do |note|
       note.annotations.create!(namespace: 'dct', predicate: 'creator', value: 'Arnulf Beckenbauer')
       note.annotations.create!(namespace: 'dct', predicate: 'created', value: '2017-06-11')

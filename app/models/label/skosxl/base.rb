@@ -1,9 +1,9 @@
 # encoding: UTF-8
 
-class Label::SKOSXL::Base < Label::Base
+class Label::Skosxl::Base < Label::Base
   include Versioning
   include FirstLevelObjectValidations
-  include Label::SKOSXL::Validations
+  include Label::Skosxl::Validations
   include Expirable
 
   class_attribute :rdf_namespace, :rdf_class
@@ -21,7 +21,7 @@ class Label::SKOSXL::Base < Label::Base
     (@inline_assigned_relations ||= {}).each do |relation_class_name, new_origins|
       # Remove all existing associated labelings of the given type
       existing_origins = label.send(relation_class_name.to_relation_name).map { |r| r.range.origin }.uniq
-      Iqvoc::XLLabel.base_class.by_origin(existing_origins).each do |l|
+      Iqvoc::Xllabel.base_class.by_origin(existing_origins).each do |l|
         if relation_class_name.constantize.bidirectional?
           label.send(relation_class_name.to_relation_name).destroy_with_bidirectional_relation(l)
         else
@@ -31,7 +31,7 @@ class Label::SKOSXL::Base < Label::Base
       end
 
       # Recreate relations reflecting the widget's parameters
-      Iqvoc::XLLabel.base_class.by_origin(new_origins).each do |l|
+      Iqvoc::Xllabel.base_class.by_origin(new_origins).each do |l|
         if relation_class_name.constantize.bidirectional?
           label.send(relation_class_name.to_relation_name).create_with_bidirectional_relation(l)
         else
@@ -83,7 +83,7 @@ class Label::SKOSXL::Base < Label::Base
 
   # ************** "Dynamic"/configureable relations
 
-  Iqvoc::XLLabel.note_class_names.each do |note_class_name|
+  Iqvoc::Xllabel.note_class_names.each do |note_class_name|
     has_many note_class_name.to_relation_name,
              as: :owner,
              class_name: note_class_name,
@@ -92,7 +92,7 @@ class Label::SKOSXL::Base < Label::Base
     @nested_relations << note_class_name.to_relation_name
   end
 
-  Iqvoc::XLLabel.relation_class_names.each do |relation_class_name|
+  Iqvoc::Xllabel.relation_class_names.each do |relation_class_name|
     has_many relation_class_name.to_relation_name,
              foreign_key: 'domain_id',
              class_name: relation_class_name,
@@ -119,7 +119,7 @@ class Label::SKOSXL::Base < Label::Base
     end
   end
 
-  Iqvoc::XLLabel.additional_association_classes.each do |association_class, foreign_key|
+  Iqvoc::Xllabel.additional_association_classes.each do |association_class, foreign_key|
     has_many association_class.name.to_relation_name,
              class_name: association_class.name,
              foreign_key: foreign_key,
@@ -315,7 +315,7 @@ class Label::SKOSXL::Base < Label::Base
 
   def has_concept_or_label_relations?
     # Check if one of the additional association methods return elements
-    Iqvoc::XLLabel.additional_association_classes.each do |association_class, foreign_key|
+    Iqvoc::Xllabel.additional_association_classes.each do |association_class, foreign_key|
       return true if send(association_class.name.to_relation_name).count > 0
     end
   end
@@ -334,9 +334,9 @@ class Label::SKOSXL::Base < Label::Base
     clone.origin = Origin.new.to_s
     clone.value += " [#{I18n.t('txt.models.label.copy')}]"
 
-    clone.labelings.select { |l| l.type == "Labeling::SKOSXL::PrefLabel" }.each do |l|
+    clone.labelings.select { |l| l.type == "Labeling::Skosxl::PrefLabel" }.each do |l|
       clone.labelings.delete(l)
-      clone.labelings.append Labeling::SKOSXL::AltLabel.new(owner_id: l.owner_id)
+      clone.labelings.append Labeling::Skosxl::AltLabel.new(owner_id: l.owner_id)
     end
 
     clone.build_initial_change_note(user)
@@ -358,7 +358,7 @@ class Label::SKOSXL::Base < Label::Base
   end
 
   def build_notes
-    Iqvoc::XLLabel.note_class_names.each do |note_class_name|
+    Iqvoc::Xllabel.note_class_names.each do |note_class_name|
       send(note_class_name.to_relation_name).build if send(note_class_name.to_relation_name).empty?
     end
   end

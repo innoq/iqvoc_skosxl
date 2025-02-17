@@ -4,7 +4,7 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
-Iqvoc::SKOSXL::Application.load_tasks
+Iqvoc::Skosxl::Application.load_tasks
 
 require 'bundler'
 Bundler::GemHelper.install_tasks

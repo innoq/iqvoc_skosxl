@@ -21,14 +21,14 @@ class Label::Relation::Base < ApplicationRecord
   end
 
   def self.range_editor_selectable
-    # includes(:range) & Iqvoc::XLLabel.base_class.editor_selectable
+    # includes(:range) & Iqvoc::Xllabel.base_class.editor_selectable
     # Doesn't work correctly (kills label_relations.type condition :-( )
     includes(:range).
     where('labels.published_at IS NOT NULL OR (labels.published_at IS NULL AND labels.published_version_id IS NULL) ')
   end
 
   def self.range_in_edit_mode
-    joins(:range).references(:labels).merge(Iqvoc::XLLabel.base_class.unpublished)
+    joins(:range).references(:labels).merge(Iqvoc::Xllabel.base_class.unpublished)
   end
 
   def self.view_section(obj)

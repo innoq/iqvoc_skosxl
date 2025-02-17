@@ -18,7 +18,7 @@ module LabelsHelper
         end
       end
 
-      Iqvoc::XLLabel.additional_association_class_names.keys.each do |class_name|
+      Iqvoc::Xllabel.additional_association_class_names.keys.each do |class_name|
         label.send(class_name.to_relation_name).each do |additional_object|
           additional_object.build_rdf(document, c)
         end
@@ -43,15 +43,15 @@ module LabelsHelper
       render_label_association(res, label, labeling_class)
     end
 
-    Iqvoc::XLLabel.relation_classes.each do |relation_class|
+    Iqvoc::Xllabel.relation_classes.each do |relation_class|
       render_label_association(res, label, relation_class)
     end
 
-    Iqvoc::XLLabel.note_classes.each do |note_class|
+    Iqvoc::Xllabel.note_classes.each do |note_class|
       render_label_association(res, label, note_class)
     end
 
-    Iqvoc::XLLabel.additional_association_classes.keys.each do |assoc_class|
+    Iqvoc::Xllabel.additional_association_classes.keys.each do |assoc_class|
       render_label_association(res, label, assoc_class)
     end
 

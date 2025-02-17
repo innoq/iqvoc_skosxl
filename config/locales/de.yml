@@ -11,8 +11,8 @@ de:
           concepts: Konzepte
       instance_configuration:
         settings:
-          languages_further_labelings_Labeling::SKOSXL::AltLabel: Sprachen für alternative Labels
-          languages_further_labelings_Labeling::SKOSXL::HiddenLabel: Sprache für versteckte Labels
+          languages_further_labelings_Labeling::Skosxl::AltLabel: Sprachen für alternative Labels
+          languages_further_labelings_Labeling::Skosxl::HiddenLabel: Sprache für versteckte Labels
           label_duplicate_check_mode: Label-Duplikatsprüfung Modus
     models:
       label:

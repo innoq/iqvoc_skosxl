@@ -1,5 +1,5 @@
 module Collection
-  module SKOSXL
+  module Skosxl
     module Extension
       extend ActiveSupport::Concern
 

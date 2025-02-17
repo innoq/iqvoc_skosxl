@@ -1,5 +1,3 @@
-require 'labels_helper'
-
 silence_warnings do
   Iqvoc::Label = nil
 end
@@ -13,7 +11,6 @@ Iqvoc.searchable_class_names = {
 
 module SkosXlExporterExtensions
   extend ActiveSupport::Concern
-  include LabelsHelper
 
   def add_skos_xl_labels(document)
     @logger.info 'Exporting xl labels...'
@@ -43,6 +40,7 @@ end
 ActiveSupport.on_load :rdf_export_before_save do
   class SkosExporter
     include SkosXlExporterExtensions
+    include LabelsHelper
   end
 
   add_skos_xl_labels(@document)

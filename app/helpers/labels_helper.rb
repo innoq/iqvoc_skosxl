@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 module LabelsHelper
   def render_label_rdf(document, label)
     document << label.build_rdf_subject do |c|

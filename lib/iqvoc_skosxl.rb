@@ -29,6 +29,9 @@ module IqvocSkosxl
     Iqvoc::Concept.hidden_labeling_class_name = 'Labeling::Skosxl::HiddenLabel'
 
     Iqvoc::Collection.include_module_names << 'Collection::Skosxl::Extension'
+    Iqvoc::Collection.pref_labeling_class_name = 'Labeling::Skosxl::PrefLabel'
+    Iqvoc::Collection.alt_labeling_class_name = 'Labeling::Skosxl::AltLabel'
+    Iqvoc::Collection.hidden_labeling_class_name = 'Labeling::Skosxl::HiddenLabel'
 
     # TODO
     # Iqvoc.searchable_class_names = Iqvoc::Concept.labeling_class_names.keys +

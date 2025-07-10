@@ -12,9 +12,11 @@ module IqvocSkosxl
     Iqvoc.config do |cfg|
       prefix = 'languages.further_labelings.'
       cfg.deregister_setting("#{prefix}Labeling::Skos::AltLabel") # iQvoc core default
+      cfg.deregister_setting("#{prefix}Labeling::Skos::HiddenLabel") # iQvoc core default
       cfg.register_settings({
         'title' => 'iQvoc SKOS-XL',
         "#{prefix}Labeling::Skosxl::AltLabel" => ['en', 'de'],
+        "#{prefix}Labeling::Skosxl::HiddenLabel" => ['en', 'de'],
         "label_duplicate_check_mode" => "contains"
       })
     end

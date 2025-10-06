@@ -4,10 +4,10 @@ class LabelsController < ApplicationController
   def index
     authorize! :read, Iqvoc::Xllabel.base_class
 
-    search_string = search_string(params[:query], params[:mode])
+    query_value = search_string(params.expect(:query), params[:mode])
     scope = Iqvoc::Xllabel.base_class
                           .editor_selectable
-                          .by_query_value(search_string)
+                          .by_query_value(query_value)
 
     if params[:language] # NB: this is not the same as :lang, which is supplied via route
       scope = scope.by_language(params[:language])
@@ -16,7 +16,7 @@ class LabelsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to action: 'index', format: 'txt'
+        redirect_to action: 'index', format: 'txt', **params.permit(:query, :mode)
       end
       format.text do
         render plain: @labels.map { |label| "#{label.origin}: #{label.value}" }.join("\n")

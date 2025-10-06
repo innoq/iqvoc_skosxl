@@ -31,7 +31,7 @@ class LabelsOrderTest < ActionDispatch::IntegrationTest
     end
     assert_equal names.length, Label::Base.all.count # just to avoid confusion
 
-    get labels_path(lang: lang, format: 'json')
+    get labels_path(lang: lang, format: 'json', query: 'test')
     data = JSON.parse(@response.body)
 
     assert_response :success

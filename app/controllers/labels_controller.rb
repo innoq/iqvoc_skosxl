@@ -19,8 +19,7 @@ class LabelsController < ApplicationController
         redirect_to action: 'index', format: 'txt'
       end
       format.text do
-        render content_type: 'text/plain',
-          text: @labels.map { |label| "#{label.origin}: #{label.value}" }.join("\n")
+        render plain: @labels.map { |label| "#{label.origin}: #{label.value}" }.join("\n")
       end
       format.json do
         response = []

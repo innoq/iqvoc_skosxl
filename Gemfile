@@ -19,4 +19,5 @@ end
 group :test do
   gem 'capybara'
   gem 'cuprite'
+  gem 'minitest', '< 6'
 end

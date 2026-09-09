@@ -21,9 +21,11 @@ module SkosXlExporterExtensions
       # batch rather than letting each label load them one by one. This has to
       # be the Preloader: Model.preload builds a relation and would leave the
       # records passed to it untouched.
-      ActiveRecord::Associations::Preloader.new(records: labels,
-          associations: [{ relations: :range }, { notes: :annotations }] +
-              Iqvoc::Xllabel.additional_association_class_names.keys.map(&:to_relation_name)).call
+      associations = [{ relations: :range }] +
+          Iqvoc::Xllabel.additional_association_class_names.keys.map(&:to_relation_name)
+      associations << { notes: :annotations } if Iqvoc.rdf_show_change_notes
+
+      ActiveRecord::Associations::Preloader.new(records: labels, associations: associations).call
 
       labels.each { |label| render_label_rdf(document, label) }
 

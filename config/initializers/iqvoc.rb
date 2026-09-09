@@ -15,25 +15,23 @@ module SkosXlExporterExtensions
   def add_skos_xl_labels(document)
     @logger.info 'Exporting xl labels...'
 
-    offset = 0
-    loop do
-      labels = Iqvoc::Xllabel.base_class.published
-                             .order('id')
-                             .limit(100)
-                             .offset(offset)
+    total = 0
+    Iqvoc::Xllabel.base_class.published.find_in_batches(batch_size: @batch_size) do |labels|
+      # render_label_rdf touches every association below, so preload them per
+      # batch rather than letting each label load them one by one. This has to
+      # be the Preloader: Model.preload builds a relation and would leave the
+      # records passed to it untouched.
+      ActiveRecord::Associations::Preloader.new(records: labels,
+          associations: [{ relations: :range }, { notes: :annotations }] +
+              Iqvoc::Xllabel.additional_association_class_names.keys.map(&:to_relation_name)).call
 
-      limit = labels.size < 100 ? labels.size : 100
-      break if labels.size.zero?
+      labels.each { |label| render_label_rdf(document, label) }
 
-      labels.each do |label|
-        render_label_rdf(document, label)
-      end
-
-      @logger.info "Labels #{offset + 1}-#{offset + limit} exported."
-      offset += labels.size # Size is important!
+      @logger.info "Labels #{total + 1}-#{total + labels.size} exported."
+      total += labels.size
     end
 
-    @logger.info "Finished exporting xl labels (#{offset} labels exported)."
+    @logger.info "Finished exporting xl labels (#{total} labels exported)."
   end
 end
 

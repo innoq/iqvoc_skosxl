@@ -22,7 +22,7 @@ module SkosXlExporterExtensions
       # be the Preloader: Model.preload builds a relation and would leave the
       # records passed to it untouched.
       associations = [{ relations: :range }] +
-          Iqvoc::Xllabel.additional_association_class_names.keys.map(&:to_relation_name)
+          Iqvoc::Xllabel.additional_association_preloads
       associations << { notes: :annotations } if Iqvoc.rdf_show_change_notes
 
       ActiveRecord::Associations::Preloader.new(records: labels, associations: associations).call

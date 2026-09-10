@@ -119,11 +119,12 @@ class Label::Skosxl::Base < Label::Base
     end
   end
 
-  Iqvoc::Xllabel.additional_association_classes.each do |association_class, foreign_key|
+  Iqvoc::Xllabel.additional_association_options.each do |association_class, options|
     has_many association_class.name.to_relation_name,
              class_name: association_class.name,
-             foreign_key: foreign_key,
-             dependent: :destroy # TODO: add inverse_of???
+             foreign_key: options[:foreign_key],
+             inverse_of: options[:inverse_of],
+             dependent: :destroy
     include_to_deep_cloning(association_class.deep_cloning_relations)
     association_class.referenced_by(self)
   end

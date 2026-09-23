@@ -22,3 +22,6 @@ tmp
 .ruby-version
 node_modules
 Gemfile.lock
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'iqvoc', '~> 4.16.0', github: 'innoq/iqvoc', branch: :main
+gem 'iqvoc', '~> 4.16.0', github: 'innoq/iqvoc', branch: :bootstrap5
 
 platforms :ruby do
   gem 'pg'
@@ -8,7 +8,6 @@ end
 
 group :development do
   gem 'web-console'
-  gem 'listen'
 end
 
 group :development, :test do

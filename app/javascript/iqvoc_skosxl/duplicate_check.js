@@ -12,7 +12,6 @@ jQuery(document).ready(function($) {
         resetInput($labelInput);
 
         if (labels.length > 0) {
-          setWarningState($labelInput);
           setFeedback($labelInput, labels, uriTemplate);
         }
       });
@@ -52,14 +51,6 @@ jQuery(document).ready(function($) {
     }
   }
 
-  function setWarningState($valueInput) {
-    var formGroup = $valueInput.closest('.form-group');
-    $(formGroup).addClass('has-warning has-feedback');
-
-    var warningSign = $('<span id="duplicate-warning" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true">')
-    $valueInput.after(warningSign);
-  }
-
   function setFeedback($valueInput, labels, uriTemplate) {
     var duplicates = buildLabelList($valueInput, labels, uriTemplate);
     var message = $valueInput.data('duplicate-message');
@@ -73,7 +64,7 @@ jQuery(document).ready(function($) {
   function buildLabelList($valueInput, labels, uriTemplate) {
     var ul = $('<ul class="list-inline"></ul>')
     var lis =  labels.map(function(label) {
-      return $('<li class="list-inline-item mr-1">').append(buildLabelLink(label, uriTemplate))
+      return $('<li class="list-inline-item me-1">').append(buildLabelLink(label, uriTemplate))
     });
 
     return ul.append(lis);
@@ -86,7 +77,7 @@ jQuery(document).ready(function($) {
     }
 
     var labelLink = $('<a>', {
-      class: "badge badge-secondary",
+      class: "badge bg-secondary",
       text: label.name,
       href: uri
     });
@@ -94,8 +85,7 @@ jQuery(document).ready(function($) {
   }
 
   function resetInput($valueInput) {
-    var formGroup = $valueInput.closest('.form-group');;
-    $(formGroup).removeClass('has-warning has-feedback');
+    var formGroup = $valueInput.closest('.mb-3');
 
     // remove sign and message from dom
     $(formGroup).find('#feedback').remove();

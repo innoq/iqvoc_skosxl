@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'iqvoc', '~> 4.16.0', github: 'innoq/iqvoc', branch: :bootstrap5
+gem 'iqvoc', '~> 4.17.0', github: 'innoq/iqvoc'
 
 platforms :ruby do
   gem 'pg'
@@ -18,5 +18,5 @@ end
 group :test do
   gem 'capybara'
   gem 'cuprite'
-  gem 'minitest', '< 6'
+  gem 'minitest'
 end

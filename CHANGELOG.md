@@ -1,3 +1,10 @@
+## [Unreleased]
+
+* search: paginate in SQL (`search_scope`, `readable_by`); requires the matching
+  iqvoc release. Extensions have to hook into `search_scope` instead of
+  `single_query`
+* search: results of XL label searches are available as `ttl`, `rdf` and `nt`
+
 ## [2.10.0]
 
   * Drop sqlite and mysql2 support: In future we recommend and support postgresql. Other DBMS may also work due activerecord abstraction, but will be not explicitly supported.

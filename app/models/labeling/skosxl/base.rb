@@ -32,7 +32,14 @@ class Labeling::Skosxl::Base < Labeling::Base
     Iqvoc::Xllabel.base_class
   end
 
-  def self.single_query(params = {})
+  def self.single_query(params = {}, &block)
+    search_scope(params, &block).map { |result| SearchResult.new(result) }
+  end
+
+  # Relation with all results matching the search parameters (not yet restricted
+  # by permissions, see `readable_by`). A block may extend the scope; its result
+  # is returned (extension point for other gems).
+  def self.search_scope(params = {})
     query_str = build_query_string(params)
 
     scope = self.includes(:target)
@@ -117,7 +124,7 @@ class Labeling::Skosxl::Base < Labeling::Base
     end
 
     scope = yield(scope) if block_given?
-    scope.map { |result| SearchResult.new(result) }
+    scope
   end
 
   def self.search_result_partial_name
